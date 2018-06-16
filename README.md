@@ -42,11 +42,26 @@ dep ensure
 
 ## Build y ejecución
 
-
 ```bash
 go install github.com/nmarsollier/imagego
 imagego
 ```
+
+## Redis
+
+Seguir los pasos de instalación desde la pagina oficial
+
+<https://redis.io/download>
+
+No se requiere ninguna configuración adicional, solo levantarlo luego de instalarlo.
+
+## RabbitMQ
+
+Seguir los pasos de instalación en la pagina oficial
+
+<https://www.rabbitmq.com/>
+
+No se requiere ninguna configuración adicional, solo levantarlo luego de instalarlo.
 
 ## Apidoc
 

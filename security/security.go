@@ -22,6 +22,15 @@ type User struct {
 }
 
 // Validate valida si el token es valido
+/**
+ * @apiDefine AuthHeader
+ *
+ * @apiParamExample {String} Header Autorización
+ *    Authorization=bearer {token}
+ *
+ * @apiSuccessExample 401 Unauthorized
+ *    HTTP/1.1 401 Unauthorized
+ */
 func Validate(token string) (*User, error) {
 	// Si esta en cache, retornamos el cache
 	if found, ok := cache.Get(token); ok {

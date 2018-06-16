@@ -10,7 +10,36 @@ import (
 	"github.com/nmarsollier/imagego/tools/errors"
 )
 
+/**
+ * @apiDefine SizeHeader
+ *
+ * @apiParamExample {String} Header Size
+ *    Size=[160|320|640|800|1024|1200]
+ */
+
 // NewImage Crea una imagen nueva
+/**
+ * @api {post} /image Crear Imagen
+ * @apiName CreateImage
+ * @apiGroup Imagen
+ *
+ * @apiDescription Agrega una nueva imagen al servidor.
+ *
+ * @apiParamExample {json} Body
+ *    {
+ *      "image" : "{Imagen en formato Base 64}"
+ *    }
+ *
+ * @apiSuccessExample {json} Respuesta
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "id": "{Id de imagen}"
+ *     }
+ *
+ * @apiUse AuthHeader
+ * @apiUse ParamValidationErrors
+ * @apiUse OtherErrors
+ */
 func NewImage(c *gin.Context) {
 	if err := validateAuthentication(c); err != nil {
 		errors.Handle(c, err)
@@ -43,10 +72,9 @@ func NewImage(c *gin.Context) {
 }
 
 // GetImage devuelve una imagen guardada
-func GetImage(c *gin.Context) {
+func getImage(c *gin.Context) (*image.Image, error) {
 	if err := validateAuthentication(c); err != nil {
-		errors.Handle(c, err)
-		return
+		return nil, err
 	}
 
 	imageID := c.Param("imageID")
@@ -62,6 +90,36 @@ func GetImage(c *gin.Context) {
 	}
 
 	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+// GetImage devuelve una imagen guardada en formato base64
+/**
+ * @api {get} /image/:id Obtener Imagen
+ * @apiName Obtener Imagen
+ * @apiGroup Imagen
+ *
+ * @apiDescription Obtiene una imagen del servidor en formato base64
+ *
+ * @apiUse SizeHeader
+ *
+ * @apiSuccessExample {json} Respuesta
+ *    {
+ *      "id": "{Id de imagen}",
+ *      "image" : "{Imagen en formato Base 64}"
+ *    }
+ *
+ * @apiUse AuthHeader
+ * @apiUse ParamValidationErrors
+ * @apiUse OtherErrors
+ */
+func GetImage(c *gin.Context) {
+	data, err := getImage(c)
+
+	if err != nil {
 		errors.Handle(c, err)
 		return
 	}
@@ -69,24 +127,25 @@ func GetImage(c *gin.Context) {
 	c.JSON(200, data)
 }
 
+// GetImageJpeg obtiene la imagen en formato jpeg
+/**
+ * @api {get} /image/:id/jpeg Obtener Imagen Jpeg
+ * @apiName Obtener Imagen Jpeg
+ * @apiGroup Imagen
+ *
+ * @apiDescription Obtiene una imagen del servidor en formato jpeg.
+ *
+ * @apiUse SizeHeader
+ *
+ * @apiSuccessExample Respuesta
+ *    Imagen en formato jpeg
+ *
+ * @apiUse AuthHeader
+ * @apiUse ParamValidationErrors
+ * @apiUse OtherErrors
+ */
 func GetImageJpeg(c *gin.Context) {
-	if err := validateAuthentication(c); err != nil {
-		errors.Handle(c, err)
-		return
-	}
-
-	imageID := c.Param("imageID")
-	size := image.Size(c.GetHeader("Size"))
-
-	var data *image.Image
-	var err error
-
-	if size > 0 {
-		data, err = image.FindSize(imageID, size)
-	} else {
-		data, err = image.Find(imageID)
-	}
-
+	data, err := getImage(c)
 	if err != nil {
 		errors.Handle(c, err)
 		return

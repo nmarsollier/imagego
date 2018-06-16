@@ -2,8 +2,6 @@ package env
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"os"
 )
 
@@ -43,18 +41,15 @@ func Get() *Configuration {
 func Load(fileName string) bool {
 	file, err := os.Open(fileName)
 	if err != nil {
-		log.Output(1, fmt.Sprintf("%s : %s", fileName, err.Error()))
 		return false
 	}
 
 	loaded := new()
 	err = json.NewDecoder(file).Decode(&loaded)
 	if err != nil {
-		log.Output(1, fmt.Sprintf("%s : %s", fileName, err.Error()))
 		return false
 	}
 
 	config = loaded
-	log.Output(1, fmt.Sprintf("%s cargado correctamente", fileName))
 	return true
 }
