@@ -2,6 +2,8 @@ package security
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -74,4 +76,10 @@ func getRemote(token string) (*User, error) {
 		return nil, err
 	}
 	return user, nil
+}
+
+// Invalidate invalida un token del cache
+func Invalidate(token string) {
+	cache.Delete(token[7:])
+	log.Output(1, fmt.Sprintf("Token invalidado: %s", token))
 }

@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	cors "github.com/itsjamie/gin-cors"
+	"github.com/nmarsollier/imagego/rabbit"
 	"github.com/nmarsollier/imagego/tools/env"
 )
 
@@ -17,6 +18,8 @@ func main() {
 	if len(os.Args) > 1 {
 		env.Load(os.Args[1])
 	}
+
+	rabbit.Init()
 
 	// Hoy gin usa v8, para actualizar gin validator a v9.
 	binding.Validator = new(defaultValidator)
