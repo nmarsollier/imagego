@@ -1,16 +1,28 @@
 # Image Service en GO
 
-Este Microservicio de imágenes reemplaza al del proyecto
+Image Service en GO reemplaza la version realizada en Node del proyecto  [ecommerce](https://github.com/nmarsollier/ecommerce).
 
-[Microservicios Image](https://github.com/nmarsollier/ecommerce)
+Si bien esta desarrollado con fines académicos, si se refinan los detalles puede utilizarse en producción.
 
-También puede usarse fuera del proyecto, sin embargo hay que limpiar el proyecto para que no use rabbit.
+Este microservicio recibe y almacena imágenes en formato base64 en una base de datos redis.
+
+El cliente puede solicitar las imágenes en distintos tamaños, cada tamaño se ajusta y se guarda en la base de datos para una mejor velocidad de acceso en futuras llamadas.
+
+Las imágenes pueden recuperarse en formato base64 o bien en formato jpeg.
+
+[Documentacion de API](./README-API.md)
+
+## Dependencias
+
+### Auth
+
+Las imágenes solo pueden subirse y descargarse por usuarios autenticados, ver la arquitectura de microservicios de [ecommerce](https://github.com/nmarsollier/ecommerce).
 
 ## Requisitos
 
-Go 1.10  <https://golang.org/doc/install>
+Go 1.10  [golang.org](<https://golang.org/doc/install>)
 
-Dep <https://github.com/golang/dep>
+Dep [github.com/golang/dep](<https://github.com/golang/dep>)
 
 ## Configuración inicial
 
@@ -49,7 +61,7 @@ imagego
 
 ## Redis
 
-Seguir los pasos de instalación desde la pagina oficial
+Las imágenes se almacenan en una instancia de Redis. Seguir los pasos de instalación desde la pagina oficial
 
 <https://redis.io/download>
 
@@ -57,27 +69,35 @@ No se requiere ninguna configuración adicional, solo levantarlo luego de instal
 
 ## RabbitMQ
 
-Seguir los pasos de instalación en la pagina oficial
+Solo usuarios autorizados pueden subir y descargar imágenes. El microservicio [Auth](https://github.com/nmarsollier/ecommerce) es el que identifica usuarios. Auth notifica con un broadcast los logouts en la aplicación para que se vacíen los caches locales de usuario.
 
-<https://www.rabbitmq.com/>
+Seguir los pasos de instalación en la pagina oficial de [RabbitMQ](https://www.rabbitmq.com/)
 
 No se requiere ninguna configuración adicional, solo levantarlo luego de instalarlo.
 
 ## Apidoc
 
-Apidoc es una herramienta para proyectos node, para que funcione correctamente hay que instalarla globalmente con
+Apidoc es una herramienta que genera documentación de apis para proyectos node (ver [Apidoc](http://apidocjs.com/)).
+
+El microservicios auth muestra la documentación como archivos estáticos si se abre en un browser la raíz del servidor [localhost:3001](http://localhost:3001/)
+
+Ademas se genera la documentación en formato markdown.
+
+Para que funcione correctamente hay que instalarla globalmente con
 
 ```bash
 npm install apidoc -g
+npm install -g apidoc-markdown2
 ```
 
 La documentación necesita ser generada manualmente ejecutando la siguiente linea en la carpeta imagego :
 
 ```bash
 apidoc -o www
+apidoc-markdown2 -p www -o README-API.md
 ```
 
-Esto nos genera una carpeta public con la documentación, esta carpeta debe estar presente desde donde se ejecute imagego, imagego busca ./www para localizarlo, aunque se puede configurar desde el archivo de properties.
+Esto nos genera una carpeta con la documentación, esta carpeta debe estar presente desde donde se ejecute imagego, imagego busca ./www para localizarlo, aunque se puede configurar desde el archivo de properties.
 
 ## Archivo config.json
 
