@@ -20,7 +20,7 @@ Microservicio de Imágenes
 
 <p>Agrega una nueva imagen al servidor.</p>
 
-	POST /image
+	POST /v1/image
 
 
 
@@ -49,15 +49,6 @@ HTTP/1.1 200 OK
   "id": "{Id de imagen}"
 }
 ```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
-```
 400 Bad Request
 
 ```
@@ -80,17 +71,31 @@ HTTP/1.1 500 Internal Server Error
    "error" : "Not Found"
 }
 ```
+
+
+### Error Response
+
+401 Unauthorized
+
+```
+HTTP/1.1 401 Unauthorized
+```
 ## <a name='obtener-imagen'></a> Obtener Imagen
 [Back to top](#top)
 
 <p>Obtiene una imagen del servidor en formato base64</p>
 
-	GET /image/:id
+	GET /v1/image/:id
 
 
 
 ### Examples
 
+Header Size
+
+```
+Size=[160|320|640|800|1024|1200]
+```
 Header Autorización
 
 ```
@@ -107,15 +112,6 @@ Respuesta
   "image" : "{Imagen en formato Base 64}"
 }
 ```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
-```
 400 Bad Request
 
 ```
@@ -138,17 +134,31 @@ HTTP/1.1 500 Internal Server Error
    "error" : "Not Found"
 }
 ```
+
+
+### Error Response
+
+401 Unauthorized
+
+```
+HTTP/1.1 401 Unauthorized
+```
 ## <a name='obtener-imagen-jpeg'></a> Obtener Imagen Jpeg
 [Back to top](#top)
 
 <p>Obtiene una imagen del servidor en formato jpeg.</p>
 
-	GET /image/:id/jpeg
+	GET /v1/image/:id/jpeg
 
 
 
 ### Examples
 
+Header Size
+
+```
+Size=[160|320|640|800|1024|1200]
+```
 Header Autorización
 
 ```
@@ -162,15 +172,6 @@ Respuesta
 ```
 Imagen en formato jpeg
 ```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
-```
 400 Bad Request
 
 ```
@@ -192,6 +193,15 @@ HTTP/1.1 500 Internal Server Error
 {
    "error" : "Not Found"
 }
+```
+
+
+### Error Response
+
+401 Unauthorized
+
+```
+HTTP/1.1 401 Unauthorized
 ```
 # <a name='rabbitmq_get'></a> RabbitMQ_GET
 

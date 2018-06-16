@@ -13,14 +13,14 @@ import (
 /**
  * @apiDefine SizeHeader
  *
- * @apiParamExample {String} Header Size
+ * @apiExample {String} Header Size
  *    Size=[160|320|640|800|1024|1200]
  */
 
 // NewImage Crea una imagen nueva
 /**
- * @api {post} /image Crear Imagen
- * @apiName CreateImage
+ * @api {post} /v1/image Crear Imagen
+ * @apiName Crear Imagen
  * @apiGroup Imagen
  *
  * @apiDescription Agrega una nueva imagen al servidor.
@@ -73,7 +73,7 @@ func NewImage(c *gin.Context) {
 
 // GetImage devuelve una imagen guardada en formato base64
 /**
- * @api {get} /image/:id Obtener Imagen
+ * @api {get} /v1/image/:id Obtener Imagen
  * @apiName Obtener Imagen
  * @apiGroup Imagen
  *
@@ -104,7 +104,7 @@ func GetImage(c *gin.Context) {
 
 // GetImageJpeg obtiene la imagen en formato jpeg
 /**
- * @api {get} /image/:id/jpeg Obtener Imagen Jpeg
+ * @api {get} /v1/image/:id/jpeg Obtener Imagen Jpeg
  * @apiName Obtener Imagen Jpeg
  * @apiGroup Imagen
  *

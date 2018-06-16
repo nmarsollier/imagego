@@ -10,7 +10,7 @@ El cliente puede solicitar las imágenes en distintos tamaños, cada tamaño se 
 
 Las imágenes pueden recuperarse en formato base64 o bien en formato jpeg.
 
-[Documentacion de API](./README-API.md)
+[Documentación de API](./README-API.md)
 
 ## Dependencias
 
@@ -20,9 +20,9 @@ Las imágenes solo pueden subirse y descargarse por usuarios autenticados, ver l
 
 ## Requisitos
 
-Go 1.10  [golang.org](<https://golang.org/doc/install>)
+Go 1.10  [golang.org](https://golang.org/doc/install)
 
-Dep [github.com/golang/dep](<https://github.com/golang/dep>)
+Dep [github.com/golang/dep](https://github.com/golang/dep)
 
 ## Configuración inicial
 
@@ -61,9 +61,7 @@ imagego
 
 ## Redis
 
-Las imágenes se almacenan en una instancia de Redis. Seguir los pasos de instalación desde la pagina oficial
-
-<https://redis.io/download>
+Las imágenes se almacenan en una instancia de Redis. Seguir los pasos de instalación desde la pagina oficial [redis.io](https://redis.io/download)
 
 No se requiere ninguna configuración adicional, solo levantarlo luego de instalarlo.
 
@@ -79,7 +77,7 @@ No se requiere ninguna configuración adicional, solo levantarlo luego de instal
 
 Apidoc es una herramienta que genera documentación de apis para proyectos node (ver [Apidoc](http://apidocjs.com/)).
 
-El microservicio auth muestra la documentación como archivos estáticos si se abre en un browser la raíz del servidor [localhost:3001](http://localhost:3001/)
+El microservicio muestra la documentación como archivos estáticos si se abre en un browser la raíz del servidor [localhost:3001](http://localhost:3001/)
 
 Ademas se genera la documentación en formato markdown.
 
