@@ -1,0 +1,6 @@
+{
+    "port": 3001,
+    "rabbitUrl": "amqp://localhost",
+    "redisUrl": "mongodb://localhost:27017",
+    "wwwPath": "www"
+}
