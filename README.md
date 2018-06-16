@@ -79,7 +79,7 @@ No se requiere ninguna configuración adicional, solo levantarlo luego de instal
 
 Apidoc es una herramienta que genera documentación de apis para proyectos node (ver [Apidoc](http://apidocjs.com/)).
 
-El microservicios auth muestra la documentación como archivos estáticos si se abre en un browser la raíz del servidor [localhost:3001](http://localhost:3001/)
+El microservicio auth muestra la documentación como archivos estáticos si se abre en un browser la raíz del servidor [localhost:3001](http://localhost:3001/)
 
 Ademas se genera la documentación en formato markdown.
 
