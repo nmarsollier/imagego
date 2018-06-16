@@ -25,6 +25,18 @@ func Init() {
 	}()
 }
 
+/**
+ * @api {fanout} auth/logout Logout de Usuarios
+ * @apiGroup RabbitMQ GET
+ *
+ * @apiDescription Escucha de mensajes logout desde auth.
+ *
+ * @apiSuccessExample {json} Mensaje
+ *     {
+ *        "type": "logout",
+ *        "message": "{tokenId}"
+ *     }
+ */
 func listenLogout() error {
 	conn, err := amqp.Dial(env.Get().RabbitURL)
 	if err != nil {

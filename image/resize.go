@@ -10,6 +10,7 @@ import (
 	// Package image/jpeg is not used explicitly in the code below,
 	// but is imported for its initialization side-effect, which allows
 	// image.Decode to understand JPEG formatted images.
+	_ "image/gif"
 	_ "image/jpeg"
 	_ "image/png"
 

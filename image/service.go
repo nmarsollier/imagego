@@ -3,7 +3,6 @@ package image
 import (
 	"fmt"
 
-	"github.com/nmarsollier/imagego/tools/db"
 	"github.com/nmarsollier/imagego/tools/errors"
 )
 
@@ -20,7 +19,7 @@ func FindSize(imageID string, size int) (*Image, error) {
 
 	// Busco el tamaño ajustado
 	image, err := Find(id)
-	if err != nil && err != db.ErrNotFound {
+	if err != nil && err != errors.NotFound {
 		return nil, err
 	}
 	if err == nil {

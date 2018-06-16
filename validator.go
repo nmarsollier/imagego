@@ -38,13 +38,10 @@ func (v *defaultValidator) lazyinit() {
 	v.once.Do(func() {
 		v.validate = validator.New()
 		v.validate.SetTagName("binding")
-
-		// add any custom validations etc. here
 	})
 }
 
 func kindOfData(data interface{}) reflect.Kind {
-
 	value := reflect.ValueOf(data)
 	valueType := value.Kind()
 

@@ -1,7 +1,9 @@
 package image
 
 import (
-	"github.com/nmarsollier/imagego/tools/db"
+	"github.com/go-redis/redis"
+	"github.com/nmarsollier/imagego/tools/env"
+	"github.com/nmarsollier/imagego/tools/errors"
 )
 
 // Insert agrega una imagen a la db
@@ -10,7 +12,7 @@ func Insert(image *Image) (string, error) {
 		return "", err
 	}
 
-	client := db.Client()
+	client := client()
 	err := client.Set(image.ID, image.Image, 0).Err()
 	if err != nil {
 		return "", err
@@ -21,10 +23,10 @@ func Insert(image *Image) (string, error) {
 
 // Find encuentra y devuelve una imagen desde la base de datos
 func Find(imageID string) (*Image, error) {
-	client := db.Client()
+	client := client()
 	data, err := client.Get(imageID).Result()
 	if err != nil {
-		return nil, db.ErrNotFound
+		return nil, errors.NotFound
 	}
 
 	result := Image{
@@ -32,4 +34,12 @@ func Find(imageID string) (*Image, error) {
 		Image: data,
 	}
 	return &result, nil
+}
+
+func client() *redis.Client {
+	return redis.NewClient(&redis.Options{
+		Addr:     env.Get().RedisURL,
+		Password: "",
+		DB:       0,
+	})
 }

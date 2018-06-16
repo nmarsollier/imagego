@@ -74,7 +74,7 @@ npm install apidoc -g
 La documentación necesita ser generada manualmente ejecutando la siguiente linea en la carpeta imagego :
 
 ```bash
-apidoc -s src -o www
+apidoc -o www
 ```
 
 Esto nos genera una carpeta public con la documentación, esta carpeta debe estar presente desde donde se ejecute imagego, imagego busca ./www para localizarlo, aunque se puede configurar desde el archivo de properties.

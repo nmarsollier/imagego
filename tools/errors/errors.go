@@ -7,20 +7,11 @@ import (
 
 // - Algunos errors comunes en el sistema -
 
-// ErrID el id del documento es invalido
-var ErrID = NewValidationField("id", "invalid")
-
 // Unauthorized el usuario no esta autorizado al recurso
 var Unauthorized = NewCustom(401, "Unauthorized")
 
-// AccessLevel es el error de seguridad, el usuario no esta autorizado para acceder al recurso
-var AccessLevel = NewCustom(401, "Accesos Insuficientes")
-
 // NotFound cuando un registro no se encuentra en la db
 var NotFound = NewCustom(400, "Document not found")
-
-// AlreadyExist cuando no se puede ingresar un registro a la db
-var AlreadyExist = NewCustom(400, "Already exist")
 
 // Internal esta aplicación no sabe como manejar el error
 var Internal = NewCustom(500, "Internal server error")

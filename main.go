@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	cors "github.com/itsjamie/gin-cors"
 	"github.com/nmarsollier/imagego/rabbit"
+	"github.com/nmarsollier/imagego/routes"
 	"github.com/nmarsollier/imagego/tools/env"
 )
 
@@ -40,9 +41,9 @@ func main() {
 
 	server.Use(static.Serve("/", static.LocalFile(env.Get().WWWWPath, true)))
 
-	server.POST("/v1/image", NewImage)
-	server.GET("/v1/image/:imageID", GetImage)
-	server.GET("/v1/image/:imageID/jpeg", GetImageJpeg)
+	server.POST("/v1/image", routes.NewImage)
+	server.GET("/v1/image/:imageID", routes.GetImage)
+	server.GET("/v1/image/:imageID/jpeg", routes.GetImageJpeg)
 
 	server.Run(fmt.Sprintf(":%d", env.Get().Port))
 }

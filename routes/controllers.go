@@ -1,4 +1,4 @@
-package main
+package routes
 
 import (
 	"encoding/base64"
@@ -71,31 +71,6 @@ func NewImage(c *gin.Context) {
 	})
 }
 
-// GetImage devuelve una imagen guardada
-func getImage(c *gin.Context) (*image.Image, error) {
-	if err := validateAuthentication(c); err != nil {
-		return nil, err
-	}
-
-	imageID := c.Param("imageID")
-	size := image.Size(c.GetHeader("Size"))
-
-	var data *image.Image
-	var err error
-
-	if size > 0 {
-		data, err = image.FindSize(imageID, size)
-	} else {
-		data, err = image.Find(imageID)
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // GetImage devuelve una imagen guardada en formato base64
 /**
  * @api {get} /image/:id Obtener Imagen
@@ -160,4 +135,28 @@ func GetImageJpeg(c *gin.Context) {
 	}
 
 	c.Data(200, "image/jpeg", decodedData)
+}
+
+func getImage(c *gin.Context) (*image.Image, error) {
+	if err := validateAuthentication(c); err != nil {
+		return nil, err
+	}
+
+	imageID := c.Param("imageID")
+	size := image.Size(c.GetHeader("Size"))
+
+	var data *image.Image
+	var err error
+
+	if size > 0 {
+		data, err = image.FindSize(imageID, size)
+	} else {
+		data, err = image.Find(imageID)
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
