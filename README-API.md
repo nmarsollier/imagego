@@ -24,6 +24,20 @@ Microservicio de Imágenes
 
 
 
+### Examples
+
+Body
+
+```
+{
+  "image" : "{Imagen en formato Base 64}"
+}
+```
+Header Autorización
+
+```
+Authorization=bearer {token}
+```
 
 ### Success Response
 
@@ -35,6 +49,10 @@ HTTP/1.1 200 OK
   "id": "{Id de imagen}"
 }
 ```
+
+
+### Error Response
+
 401 Unauthorized
 
 ```
@@ -62,8 +80,6 @@ HTTP/1.1 500 Internal Server Error
    "error" : "Not Found"
 }
 ```
-
-
 ## <a name='obtener-imagen'></a> Obtener Imagen
 [Back to top](#top)
 
@@ -73,6 +89,13 @@ HTTP/1.1 500 Internal Server Error
 
 
 
+### Examples
+
+Header Autorización
+
+```
+Authorization=bearer {token}
+```
 
 ### Success Response
 
@@ -84,6 +107,10 @@ Respuesta
   "image" : "{Imagen en formato Base 64}"
 }
 ```
+
+
+### Error Response
+
 401 Unauthorized
 
 ```
@@ -111,8 +138,6 @@ HTTP/1.1 500 Internal Server Error
    "error" : "Not Found"
 }
 ```
-
-
 ## <a name='obtener-imagen-jpeg'></a> Obtener Imagen Jpeg
 [Back to top](#top)
 
@@ -122,6 +147,13 @@ HTTP/1.1 500 Internal Server Error
 
 
 
+### Examples
+
+Header Autorización
+
+```
+Authorization=bearer {token}
+```
 
 ### Success Response
 
@@ -130,6 +162,10 @@ Respuesta
 ```
 Imagen en formato jpeg
 ```
+
+
+### Error Response
+
 401 Unauthorized
 
 ```
@@ -157,8 +193,6 @@ HTTP/1.1 500 Internal Server Error
    "error" : "Not Found"
 }
 ```
-
-
 # <a name='rabbitmq_get'></a> RabbitMQ_GET
 
 ## <a name='logout-de-usuarios'></a> Logout de Usuarios

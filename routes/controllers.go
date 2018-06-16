@@ -25,7 +25,7 @@ import (
  *
  * @apiDescription Agrega una nueva imagen al servidor.
  *
- * @apiParamExample {json} Body
+ * @apiExample {json} Body
  *    {
  *      "image" : "{Imagen en formato Base 64}"
  *    }

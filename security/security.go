@@ -27,10 +27,10 @@ type User struct {
 /**
  * @apiDefine AuthHeader
  *
- * @apiParamExample {String} Header Autorización
+ * @apiExample {String} Header Autorización
  *    Authorization=bearer {token}
  *
- * @apiSuccessExample 401 Unauthorized
+ * @apiErrorExample 401 Unauthorized
  *    HTTP/1.1 401 Unauthorized
  */
 func Validate(token string) (*User, error) {
