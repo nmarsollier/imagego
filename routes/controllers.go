@@ -13,7 +13,7 @@ import (
 /**
  * @apiDefine SizeHeader
  *
- * @apiExample {String} Header Size
+ * @apiExample {String} Size : Parametro url o header
  *    Size=[160|320|640|800|1024|1200]
  */
 
@@ -138,12 +138,13 @@ func GetImageJpeg(c *gin.Context) {
 }
 
 func getImage(c *gin.Context) (*image.Image, error) {
-	if err := validateAuthentication(c); err != nil {
-		return nil, err
+	headerSize, ok := c.GetQuery("Size")
+	if !ok {
+		headerSize = c.GetHeader("Size")
 	}
 
 	imageID := c.Param("imageID")
-	size := image.Size(c.GetHeader("Size"))
+	size := image.Size(headerSize)
 
 	var data *image.Image
 	var err error

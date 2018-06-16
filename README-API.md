@@ -91,7 +91,7 @@ HTTP/1.1 401 Unauthorized
 
 ### Examples
 
-Header Size
+Size : Parametro url o header
 
 ```
 Size=[160|320|640|800|1024|1200]
@@ -154,7 +154,7 @@ HTTP/1.1 401 Unauthorized
 
 ### Examples
 
-Header Size
+Size : Parametro url o header
 
 ```
 Size=[160|320|640|800|1024|1200]
