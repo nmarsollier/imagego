@@ -9,14 +9,14 @@ import (
 	"github.com/mongodb/mongo-go-driver/core/topology"
 	"github.com/mongodb/mongo-go-driver/mongo"
 	"github.com/nmarsollier/authgo/tools/db"
-	validator "gopkg.in/go-playground/validator.v8"
+	validator "gopkg.in/go-playground/validator.v9"
 )
 
 // Handle maneja cualquier error para serializarlo como JSON al cliente
 /**
  * @apiDefine OtherErrors
  *
- * @apiSuccessExample {json} 500 Server Error
+ * @apiErrorExample {json} 500 Server Error
  *     HTTP/1.1 500 Internal Server Error
  *     {
  *        "error" : "Not Found"
@@ -45,7 +45,7 @@ func Handle(c *gin.Context, err interface{}) {
 		// Son validaciones hechas con NewValidation
 		c.JSON(400, err)
 	case validator.ValidationErrors:
-		// Son las validaciones de json con gin
+		// Son las validaciones de validator.v9 usadas en validaciones de estructuras
 		handleValidationError(c, value)
 	case mongo.WriteErrors:
 		// Errores de mongo
@@ -69,7 +69,7 @@ func Handle(c *gin.Context, err interface{}) {
 /**
  * @apiDefine ParamValidationErrors
  *
- * @apiSuccessExample {json} 400 Bad Request
+ * @apiErrorExample 400 Bad Request
  *     HTTP/1.1 400 Bad Request
  *     {
  *        "messages" : [
@@ -85,7 +85,7 @@ func handleValidationError(c *gin.Context, validationErrors validator.Validation
 	err := NewValidation()
 
 	for _, e := range validationErrors {
-		err.Add(strings.ToLower(e.Field), e.Tag)
+		err.Add(strings.ToLower(e.Field()), e.Tag())
 	}
 
 	c.JSON(400, err)

@@ -80,7 +80,8 @@ func (e *ErrCustom) Status() int {
 // Validation es una interfaz para definir errores custom
 // Validation es un error de validaciones de parameteros o de campos
 type Validation interface {
-	Add(path string, message string) ErrValidation
+	Add(path string, message string) Validation
+	Size() int
 	Error() string
 }
 
@@ -104,11 +105,16 @@ func (e *ErrValidation) Error() string {
 }
 
 // Add agrega errores a un validation error
-func (e *ErrValidation) Add(path string, message string) ErrValidation {
+func (e *ErrValidation) Add(path string, message string) Validation {
 	err := ErrField{
 		Path:    path,
 		Message: message,
 	}
 	e.Messages = append(e.Messages, err)
-	return *e
+	return e
+}
+
+// Size devuelve la cantidad de errores
+func (e *ErrValidation) Size() int {
+	return len(e.Messages)
 }
