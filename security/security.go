@@ -17,10 +17,10 @@ var cache = gocache.New(60*time.Minute, 10*time.Minute)
 
 // User es el usuario logueado
 type User struct {
-	ID          string `json:"id"  validate:"required"`
-	Name        string `json:"name"  validate:"required"`
-	Permissions []string
-	Login       string `json:"login"  validate:"required"`
+	ID          string   `json:"id"  validate:"required"`
+	Name        string   `json:"name"  validate:"required"`
+	Permissions []string `json:"permissions"`
+	Login       string   `json:"login"  validate:"required"`
 }
 
 // Validate valida si el token es valido
