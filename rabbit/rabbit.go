@@ -20,10 +20,14 @@ type message struct {
 	Message string `json:"message"`
 }
 
-// Init se queda escuchando broadcasts de  logout
+// Init se queda escuchando broadcasts de logout
 func Init() {
 	go func() {
-		listenLogout()
+		for {
+			listenLogout()
+			fmt.Println("RabbitMQ conectando en 5 segundos.")
+			time.Sleep(5 * time.Second)
+		}
 	}()
 }
 
@@ -42,32 +46,20 @@ func Init() {
 func listenLogout() error {
 	conn, err := amqp.Dial(env.Get().RabbitURL)
 	if err != nil {
-		go func() {
-			fmt.Println("RabbitMQ reconectando en 5")
-			time.Sleep(5 * time.Second)
-			listenLogout()
-		}()
 		return err
 	}
+	defer conn.Close()
 
 	waitError := make(chan bool)
-
 	go func() {
 		fmt.Print("Closed connection: ", <-conn.NotifyClose(make(chan *amqp.Error)))
-		go func() {
-			waitError <- true
-			fmt.Println("RabbitMQ reconectando en 5")
-			time.Sleep(5 * time.Second)
-			fmt.Println("RabbitMQ reconectando")
-			listenLogout()
-		}()
+		waitError <- true
 	}()
 
 	chn, err := conn.Channel()
 	if err != nil {
 		return err
 	}
-
 	defer chn.Close()
 
 	err = chn.ExchangeDeclare(
