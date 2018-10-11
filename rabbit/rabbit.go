@@ -2,7 +2,9 @@ package rabbit
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
+	"time"
 
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/env"
@@ -18,10 +20,14 @@ type message struct {
 	Message string `json:"message"`
 }
 
-// Init se queda escuchando broadcasts de  logout
+// Init se queda escuchando broadcasts de logout
 func Init() {
 	go func() {
-		listenLogout()
+		for {
+			listenLogout()
+			fmt.Println("RabbitMQ conectando en 5 segundos.")
+			time.Sleep(5 * time.Second)
+		}
 	}()
 }
 
@@ -42,12 +48,18 @@ func listenLogout() error {
 	if err != nil {
 		return err
 	}
+	defer conn.Close()
+
+	waitError := make(chan bool)
+	go func() {
+		fmt.Print("Closed connection: ", <-conn.NotifyClose(make(chan *amqp.Error)))
+		waitError <- true
+	}()
 
 	chn, err := conn.Channel()
 	if err != nil {
 		return err
 	}
-
 	defer chn.Close()
 
 	err = chn.ExchangeDeclare(
@@ -98,7 +110,7 @@ func listenLogout() error {
 		return err
 	}
 
-	forever := make(chan bool)
+	fmt.Println("RabbitMQ conectado")
 
 	go func() {
 		for d := range mgs {
@@ -113,7 +125,8 @@ func listenLogout() error {
 		}
 	}()
 
-	<-forever
+	<-waitError
+	fmt.Println("RabbitMQ desconectado")
 
 	return nil
 }
