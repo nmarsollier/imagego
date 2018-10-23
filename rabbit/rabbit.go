@@ -50,12 +50,6 @@ func listenLogout() error {
 	}
 	defer conn.Close()
 
-	waitError := make(chan bool)
-	go func() {
-		fmt.Print("Closed connection: ", <-conn.NotifyClose(make(chan *amqp.Error)))
-		waitError <- true
-	}()
-
 	chn, err := conn.Channel()
 	if err != nil {
 		return err
@@ -125,8 +119,7 @@ func listenLogout() error {
 		}
 	}()
 
-	<-waitError
-	fmt.Println("RabbitMQ desconectado")
+	fmt.Print("Closed connection: ", <-conn.NotifyClose(make(chan *amqp.Error)))
 
 	return nil
 }
