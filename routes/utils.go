@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/authgo/tools/errors"
 	"github.com/nmarsollier/imagego/security"
+	"github.com/nmarsollier/imagego/tools/errors"
 )
 
 // get token from Authorization header
