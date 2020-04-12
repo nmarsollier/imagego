@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/nmarsollier/imagego/tools/env"
 	"github.com/nmarsollier/imagego/tools/errors"
 	gocache "github.com/patrickmn/go-cache"
-	validator "gopkg.in/go-playground/validator.v9"
 )
 
 var cache = gocache.New(60*time.Minute, 10*time.Minute)

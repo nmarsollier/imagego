@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	validator "gopkg.in/go-playground/validator.v9"
+	"github.com/go-playground/validator/v10"
 )
 
 // Handle maneja cualquier error para serializarlo como JSON al cliente
@@ -28,7 +28,7 @@ func Handle(c *gin.Context, err interface{}) {
 		// Son validaciones hechas con NewValidation
 		c.JSON(400, err)
 	case validator.ValidationErrors:
-		// Son las validaciones de validator.v9 usadas en validaciones de estructuras
+		// Son las validaciones de validator usadas en validaciones de estructuras
 		handleValidationError(c, value)
 	case error:
 		// Otros errores

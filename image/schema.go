@@ -3,9 +3,9 @@ package image
 import (
 	"strings"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/nmarsollier/imagego/tools/errors"
 	uuid "github.com/satori/go.uuid"
-	validator "gopkg.in/go-playground/validator.v9"
 )
 
 // Image estructura de la imagen

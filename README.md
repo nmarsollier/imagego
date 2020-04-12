@@ -20,9 +20,7 @@ Las imágenes solo pueden subirse y descargarse por usuarios autenticados, ver l
 
 ## Requisitos
 
-Go 1.10  [golang.org](https://golang.org/doc/install)
-
-Dep [github.com/golang/dep](https://github.com/golang/dep)
+Go 1.14  [golang.org](https://golang.org/doc/install)
 
 ## Configuración inicial
 
