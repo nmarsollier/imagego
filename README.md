@@ -1,3 +1,6 @@
+### Si queres sabes mas sobre mi:
+[Nestor Marsollier](https://github.com/nmarsollier/profile)
+
 # Image Service en GO
 
 Image Service en GO reemplaza la version realizada en Node del proyecto  [ecommerce](https://github.com/nmarsollier/ecommerce).
