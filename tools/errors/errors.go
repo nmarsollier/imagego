@@ -22,7 +22,7 @@ var Internal = NewCustom(500, "Internal server error")
 func NewValidationField(field string, err string) Validation {
 	return &errValidation{
 		Messages: []errField{
-			errField{
+			{
 				Path:    field,
 				Message: err,
 			},
