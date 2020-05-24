@@ -39,6 +39,7 @@ Header Autorización
 Authorization=bearer {token}
 ```
 
+
 ### Success Response
 
 Respuesta
@@ -48,6 +49,15 @@ HTTP/1.1 200 OK
 {
   "id": "{Id de imagen}"
 }
+```
+
+
+### Error Response
+
+401 Unauthorized
+
+```
+HTTP/1.1 401 Unauthorized
 ```
 400 Bad Request
 
@@ -70,15 +80,6 @@ HTTP/1.1 500 Internal Server Error
 {
    "error" : "Not Found"
 }
-```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
 ```
 ## <a name='obtener-imagen'></a> Obtener Imagen
 [Back to top](#top)
@@ -102,6 +103,7 @@ Header Autorización
 Authorization=bearer {token}
 ```
 
+
 ### Success Response
 
 Respuesta
@@ -111,6 +113,15 @@ Respuesta
   "id": "{Id de imagen}",
   "image" : "{Imagen en formato Base 64}"
 }
+```
+
+
+### Error Response
+
+401 Unauthorized
+
+```
+HTTP/1.1 401 Unauthorized
 ```
 400 Bad Request
 
@@ -133,15 +144,6 @@ HTTP/1.1 500 Internal Server Error
 {
    "error" : "Not Found"
 }
-```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
 ```
 ## <a name='obtener-imagen-jpeg'></a> Obtener Imagen Jpeg
 [Back to top](#top)
@@ -165,12 +167,22 @@ Header Autorización
 Authorization=bearer {token}
 ```
 
+
 ### Success Response
 
 Respuesta
 
 ```
 Imagen en formato jpeg
+```
+
+
+### Error Response
+
+401 Unauthorized
+
+```
+HTTP/1.1 401 Unauthorized
 ```
 400 Bad Request
 
@@ -194,15 +206,6 @@ HTTP/1.1 500 Internal Server Error
    "error" : "Not Found"
 }
 ```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
-```
 # <a name='rabbitmq_get'></a> RabbitMQ_GET
 
 ## <a name='logout-de-usuarios'></a> Logout de Usuarios
@@ -211,6 +214,7 @@ HTTP/1.1 401 Unauthorized
 <p>Escucha de mensajes logout desde auth.</p>
 
 	FANOUT auth/logout
+
 
 
 
