@@ -1,7 +1,7 @@
 package image
 
 import (
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 	"github.com/nmarsollier/imagego/tools/env"
 	"github.com/nmarsollier/imagego/tools/errors"
 )

@@ -108,3 +108,23 @@ imagego [path_to_config.json]
 ```
 
 Para mas detalles ver el archivo tools/env/env.go
+
+## Docker
+
+Tambien podemos usar docker en este repositorio, ejecutamos :
+
+```bash
+docker build -t dev-image-go .
+docker run -d --name dev-image-go --network host dev-image-go
+```
+
+El contenedor se puede parar usando :
+
+```bash
+docker stop dev-image-go
+```
+Se vuelve a levantar usando 
+
+```bash
+docker start dev-image-go 
+```
