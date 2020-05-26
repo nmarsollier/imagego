@@ -114,7 +114,7 @@ Para mas detalles ver el archivo tools/env/env.go
 Tambien podemos usar docker en este repositorio, ejecutamos :
 
 ```bash
-docker build -t dev-image-go .
+docker build -t dev-image-go -f Dockerfile.dev .
 docker run -d --name dev-image-go --network host dev-image-go
 ```
 
