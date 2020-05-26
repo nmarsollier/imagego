@@ -98,24 +98,23 @@ apidoc-markdown2 -p www -o README-API.md
 
 Esto nos genera una carpeta con la documentación, esta carpeta debe estar presente desde donde se ejecute imagego, imagego busca ./www para localizarlo, aunque se puede configurar desde el archivo de properties.
 
-## Archivo config.json
+## Configuración del servidor
 
-Este archivo permite configurar imagego, ver ejemplos en config-example.json.
-imagego busca el archivo "./config.json". Podemos definir el archivo su ruta completa ejecutando
+Este servidor usa las siguientes variables de entorno para configuración :
 
-```bash
-imagego [path_to_config.json]
-```
-
-Para mas detalles ver el archivo tools/env/env.go
+RABBIT_URL : Url de rabbit (default amqp://localhost)
+REDIS_URL : Url de redis (default localhost:6379)
+PORT : Puerto (default 3000)
+WWW_PATH : Path donde se ubica la documentación apidoc (default www)
+AUTH_SERVICE_URL : Secret para password (default http://localhost:3000)
 
 ## Docker
 
-Tambien podemos usar docker en este repositorio, ejecutamos :
+También podemos usar docker en este repositorio, ejecutamos :
 
 ```bash
 docker build -t dev-image-go -f Dockerfile.dev .
-docker run -d --name dev-image-go --network host dev-image-go
+docker run -d --name dev-image-go -p 3001:3001 dev-image-go
 ```
 
 El contenedor se puede parar usando :
@@ -123,8 +122,9 @@ El contenedor se puede parar usando :
 ```bash
 docker stop dev-image-go
 ```
-Se vuelve a levantar usando 
+
+Se vuelve a levantar usando
 
 ```bash
-docker start dev-image-go 
+docker start dev-image-go
 ```

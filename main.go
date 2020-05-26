@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/gin-contrib/gzip"
@@ -16,10 +15,6 @@ import (
 )
 
 func main() {
-	if len(os.Args) > 1 {
-		env.Load(os.Args[1])
-	}
-
 	rabbit.Init()
 
 	// Hoy gin usa v8, para actualizar gin validator a v9.

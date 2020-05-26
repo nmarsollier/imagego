@@ -1,8 +1,8 @@
 package env
 
 import (
-	"encoding/json"
 	"os"
+	"strconv"
 )
 
 // Configuration properties
@@ -29,27 +29,37 @@ func new() *Configuration {
 // Get Obtiene las variables de entorno del sistema
 func Get() *Configuration {
 	if config == nil {
-		if ok := Load("config.json"); !ok {
-			config = new()
-		}
+		config = load()
 	}
 
 	return config
 }
 
 // Load file properties
-func Load(fileName string) bool {
-	file, err := os.Open(fileName)
-	if err != nil {
-		return false
+func load() *Configuration {
+	result := new()
+
+	if value := os.Getenv("REDIS_URL"); len(value) > 0 {
+		result.RedisURL = value
 	}
 
-	loaded := new()
-	err = json.NewDecoder(file).Decode(&loaded)
-	if err != nil {
-		return false
+	if value := os.Getenv("RABBIT_URL"); len(value) > 0 {
+		result.RabbitURL = value
 	}
 
-	config = loaded
-	return true
+	if value := os.Getenv("PORT"); len(value) > 0 {
+		if intVal, err := strconv.Atoi(value); err != nil {
+			result.Port = intVal
+		}
+	}
+
+	if value := os.Getenv("WWW_PATH"); len(value) > 0 {
+		result.WWWWPath = value
+	}
+
+	if value := os.Getenv("AUTH_SERVICE_URL"); len(value) > 0 {
+		result.SecurityServerURL = value
+	}
+
+	return result
 }
