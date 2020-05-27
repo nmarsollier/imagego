@@ -110,26 +110,57 @@ AUTH_SERVICE_URL : Secret para password (default http://localhost:3000)
 
 ## Docker
 
-También podemos usar docker en este repositorio, ejecutamos :
+### Build
 
 ```bash
-docker build -t dev-image-go -f Dockerfile.dev .
+docker build -t dev-image-go .
+```
 
-# Mac || Windows
-docker run -d --name dev-image-go -p 3001:3001 dev-image-go
+### El contenedor
+
+```bash
+# Mac | Windows
+docker run -it --name dev-image-go -p 3001:3001 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego dev-image-go
 
 # Linux
-docker run --add-host host.docker.internal:172.17.0.1 -d --name dev-image-go -p 3001:3001 dev-image-go
+docker run -it --add-host host.docker.internal:172.17.0.1 --name dev-image-go -p 3001:3001 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego dev-image-go
 ```
 
-El contenedor se puede parar usando :
+### Debug en Docker
+
+Existe un archivo Docker.debug, hay que armar la imagen usando ese archivo.
 
 ```bash
-docker stop dev-image-go
+docker build -t debug-image-go -f Dockerfile.debug .
 ```
-
-Se vuelve a levantar usando
 
 ```bash
-docker start dev-image-go
+# Mac | Windows
+docker run -it --name debug-image-go -p 3000:3000 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego debug-image-go
+
+# Linux
+docker run -it --add-host host.docker.internal:172.17.0.1 --name debug-image-go -p 3000:3000 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego debug-image-go
 ```
+
+El archivo launch.json debe contener lo siguiente
+
+```bash
+{
+    "version": "0.2.0",
+    "configurations": [
+          {
+                "name": "Debug en Docker",
+                "type": "go",
+                "request": "launch",
+                "mode": "remote",
+                "remotePath": "/go/src/github.com/nmarsollier/imagego",
+                "port": 40001,
+                "host": "127.0.0.1",
+                "program": "${workspaceRoot}",
+                "showLog": true
+          }
+    ]
+}
+```
+
+En el menú run start debugging se conecta a docker.
