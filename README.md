@@ -114,7 +114,12 @@ También podemos usar docker en este repositorio, ejecutamos :
 
 ```bash
 docker build -t dev-image-go -f Dockerfile.dev .
+
+# Mac || Windows
 docker run -d --name dev-image-go -p 3001:3001 dev-image-go
+
+# Linux
+docker run --add-host host.docker.internal:172.17.0.1 -d --name dev-image-go -p 3001:3001 dev-image-go
 ```
 
 El contenedor se puede parar usando :
