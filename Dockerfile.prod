@@ -7,8 +7,6 @@ ENV AUTH_SERVICE_URL http://host.docker.internal:3000
 
 WORKDIR /go/src/github.com/nmarsollier/imagego
 RUN curl -L https://github.com/nmarsollier/imagego/tarball/master | tar xz --strip=1
-RUN go mod download
-RUN go mod vendor
 RUN go install
 
 # Puerto de Image Service
