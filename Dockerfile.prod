@@ -1,7 +1,7 @@
 # Docker produccion o stage
 FROM golang:1.14.3-buster
 
-ENV RABBIT_URL amqp://host.docker.internal
+ENV REDIS_URL host.docker.internal:6379
 ENV RABBIT_URL amqp://host.docker.internal
 ENV AUTH_SERVICE_URL http://host.docker.internal:3000
 
