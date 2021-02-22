@@ -8,12 +8,25 @@ import (
 
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/env"
-	"github.com/nmarsollier/imagego/tools/errors"
+	"github.com/nmarsollier/imagego/tools/custerror"
 	"github.com/streadway/amqp"
 )
 
+/**
+ * @api {fanout} auth/logout Logout de Usuarios
+ * @apiGroup RabbitMQ GET
+ *
+ * @apiDescription Escucha de mensajes logout desde auth.
+ *
+ * @apiSuccessExample {json} Mensaje
+ *     {
+ *        "type": "logout",
+ *        "message": "{tokenId}"
+ *     }
+ */
+
 // ErrChannelNotInitialized Rabbit channel could not be initialized
-var ErrChannelNotInitialized = errors.NewCustom(400, "Channel not initialized")
+var ErrChannelNotInitialized = custerror.NewCustom(400, "Channel not initialized")
 
 type message struct {
 	Type    string `json:"type"`
@@ -31,18 +44,6 @@ func Init() {
 	}()
 }
 
-/**
- * @api {fanout} auth/logout Logout de Usuarios
- * @apiGroup RabbitMQ GET
- *
- * @apiDescription Escucha de mensajes logout desde auth.
- *
- * @apiSuccessExample {json} Mensaje
- *     {
- *        "type": "logout",
- *        "message": "{tokenId}"
- *     }
- */
 func listenLogout() error {
 	conn, err := amqp.Dial(env.Get().RabbitURL)
 	if err != nil {

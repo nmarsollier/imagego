@@ -1,33 +1,39 @@
 package image
 
 import (
-	"fmt"
-
-	"github.com/nmarsollier/imagego/tools/errors"
+	"github.com/nmarsollier/imagego/tools/custerror"
 )
 
 // ErrSize el tamaño es incorrecto
-var ErrSize = errors.NewValidationField("size", "invalid")
+var ErrSize = custerror.NewValidationField("size", "invalid")
 
-// FindSize busca una imagen para un tamaño en particular
-func FindSize(imageID string, size int) (*Image, error) {
+var daoFind func(imageID string) (*Image, error) = find
+var daoInsert func(image *Image) (string, error) = Insert
+
+// Find busca una imagen para un tamaño en particular
+func Find(imageID string, size int) (*Image, error) {
 	if size <= 0 {
-		return nil, ErrSize
+		return daoFind(imageID)
 	}
 
-	id := fmt.Sprintf("%s_%d", imageID, size)
+	sizedID := sizeID(imageID, size)
 
-	// Busco el tamaño ajustado
-	image, err := Find(id)
-	if err != nil && err != errors.NotFound {
+	// Busco el tamaño justo de imagen
+	image, err := daoFind(sizedID)
+	if err != nil && err != custerror.NotFound {
 		return nil, err
 	}
 	if err == nil {
 		return image, nil
 	}
 
-	// No se encuentra, buscamos la original, le ajustamos el tamaño, guardamos...
-	image, err = Find(imageID)
+	return findAndResize(imageID, size)
+}
+
+func findAndResize(imageID string, size int) (*Image, error) {
+	// No se encuentra el tamaño buscado, buscamos la original,
+	// y le ajustamos el tamaño, guardamos...
+	image, err := daoFind(imageID)
 	if err != nil {
 		return nil, err
 	}
@@ -36,29 +42,11 @@ func FindSize(imageID string, size int) (*Image, error) {
 	if err != nil {
 		return nil, err
 	}
-	id, err = Insert(image)
+
+	_, err = daoInsert(image)
 	if err != nil {
 		return nil, err
 	}
 
 	return image, nil
-}
-
-// Size retorna el tamaño a partir del header
-func Size(sizeHeader string) int {
-	switch sizeHeader {
-	case "160":
-		return 160
-	case "320":
-		return 320
-	case "640":
-		return 640
-	case "800":
-		return 800
-	case "1024":
-		return 1024
-	case "1200":
-		return 1200
-	}
-	return 0
 }

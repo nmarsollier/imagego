@@ -1,24 +1,14 @@
-package errors
+package custerror
 
 import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
+	"github.com/go-playground/validator"
 )
 
-// Handle maneja cualquier error para serializarlo como JSON al cliente
-/**
- * @apiDefine OtherErrors
- *
- * @apiErrorExample 500 Server Error
- *     HTTP/1.1 500 Internal Server Error
- *     {
- *        "error" : "Not Found"
- *     }
- *
- */
-func Handle(c *gin.Context, err interface{}) {
+// HandleError maneja cualquier error para serializarlo como JSON al cliente
+func HandleError(c *gin.Context, err interface{}) {
 	// Compruebo tipos de errores conocidos
 	switch value := err.(type) {
 	case Custom:
@@ -66,6 +56,16 @@ func handleValidationError(c *gin.Context, validationErrors validator.Validation
 	c.JSON(400, err)
 }
 
+/**
+ * @apiDefine OtherErrors
+ *
+ * @apiErrorExample 500 Server Error
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *        "error" : "Not Found"
+ *     }
+ *
+ */
 func handleCustom(c *gin.Context, err Custom) {
 	c.JSON(err.Status(), err)
 }

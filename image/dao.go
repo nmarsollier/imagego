@@ -2,8 +2,8 @@ package image
 
 import (
 	"github.com/go-redis/redis/v7"
+	"github.com/nmarsollier/imagego/tools/custerror"
 	"github.com/nmarsollier/imagego/tools/env"
-	"github.com/nmarsollier/imagego/tools/errors"
 )
 
 // Insert agrega una imagen a la db
@@ -22,11 +22,11 @@ func Insert(image *Image) (string, error) {
 }
 
 // Find encuentra y devuelve una imagen desde la base de datos
-func Find(imageID string) (*Image, error) {
+func find(imageID string) (*Image, error) {
 	client := client()
 	data, err := client.Get(imageID).Result()
 	if err != nil {
-		return nil, errors.NotFound
+		return nil, custerror.NotFound
 	}
 
 	result := Image{

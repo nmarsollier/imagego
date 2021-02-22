@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/nmarsollier/imagego/tools/errors"
+	"github.com/nmarsollier/imagego/tools/custerror"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -15,15 +15,15 @@ type Image struct {
 }
 
 // New crea una nueva imagen
-func New() *Image {
+func New(img string) *Image {
 	return &Image{
 		ID:    uuid.NewV4().String(),
-		Image: "",
+		Image: img,
 	}
 }
 
 // ErrData la imagen no parece valida
-var ErrData = errors.NewValidationField("image", "invalid")
+var ErrData = custerror.NewValidationField("image", "invalid")
 
 func (e *Image) validateSchema() error {
 	validate := validator.New()
