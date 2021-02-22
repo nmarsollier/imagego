@@ -8,6 +8,7 @@ import (
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	cors "github.com/itsjamie/gin-cors"
+	"github.com/nmarsollier/imagego/middlewares"
 	"github.com/nmarsollier/imagego/tools/env"
 )
 
@@ -28,6 +29,7 @@ func getRouter() *gin.Engine {
 
 	router = gin.Default()
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
+	router.Use(middlewares.ErrorHandler)
 
 	router.Use(cors.Middleware(cors.Config{
 		Origins:         "*",

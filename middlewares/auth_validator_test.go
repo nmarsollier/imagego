@@ -8,6 +8,7 @@ import (
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/test"
 	"github.com/nmarsollier/imagego/tools/custerror"
+	"gopkg.in/go-playground/assert.v1"
 )
 
 func TestNoHeader(t *testing.T) {
@@ -17,7 +18,8 @@ func TestNoHeader(t *testing.T) {
 
 	AuthValidator(context)
 
-	response.Assert(401, "{\"error\":\"Unauthorized\"}")
+	response.Assert(0, "")
+	assert.Equal(t, context.Errors.Last().Error(), custerror.Unauthorized.Error())
 }
 
 func TestInvalidHeader(t *testing.T) {
@@ -32,7 +34,8 @@ func TestInvalidHeader(t *testing.T) {
 
 	AuthValidator(context)
 
-	response.Assert(401, "{\"error\":\"Unauthorized\"}")
+	response.Assert(0, "")
+	assert.Equal(t, context.Errors.Last().Error(), custerror.Unauthorized.Error())
 }
 
 func TestUnautorized(t *testing.T) {
@@ -51,5 +54,6 @@ func TestUnautorized(t *testing.T) {
 
 	AuthValidator(context)
 
-	response.Assert(401, "{\"error\":\"Unauthorized\"}")
+	response.Assert(0, "")
+	assert.Equal(t, context.Errors.Last().Error(), custerror.Unauthorized.Error())
 }

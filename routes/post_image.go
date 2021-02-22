@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/middlewares"
-	"github.com/nmarsollier/imagego/tools/custerror"
 )
 
 /**
@@ -40,13 +39,13 @@ func init() {
 func handlePostImage(c *gin.Context) {
 	bodyImage, err := getBodyImage(c)
 	if err != nil {
-		custerror.HandleError(c, err)
+		c.Error(err)
 		return
 	}
 
 	id, err := image.Insert(image.New(bodyImage))
 	if err != nil {
-		custerror.HandleError(c, err)
+		c.Error(err)
 		return
 	}
 

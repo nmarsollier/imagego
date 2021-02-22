@@ -31,7 +31,7 @@ func handleGetImageID(c *gin.Context) {
 	data, err := getImage(c)
 
 	if err != nil {
-		c.AbortWithError(401, err)
+		c.Error(err)
 		return
 	}
 

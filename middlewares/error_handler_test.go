@@ -1,4 +1,4 @@
-package custerror
+package middlewares
 
 import (
 	"errors"
@@ -6,13 +6,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/nmarsollier/imagego/test"
+	"github.com/nmarsollier/imagego/tools/custerror"
 )
 
 func TestCustomError(t *testing.T) {
 	response := test.ResponseWriter(t)
 	context, _ := gin.CreateTestContext(response)
 
-	HandleError(context, NewCustom(400, "Custom Test"))
+	HandleError(context, custerror.NewCustom(400, "Custom Test"))
 
 	response.Assert(400, "{\"error\":\"Custom Test\"}")
 }
@@ -21,7 +22,7 @@ func TestConstantError(t *testing.T) {
 	response := test.ResponseWriter(t)
 	context, _ := gin.CreateTestContext(response)
 
-	HandleError(context, Unauthorized)
+	HandleError(context, custerror.Unauthorized)
 
 	response.Assert(401, "{\"error\":\"Unauthorized\"}")
 }
@@ -30,7 +31,7 @@ func TestValidationError(t *testing.T) {
 	response := test.ResponseWriter(t)
 	context, _ := gin.CreateTestContext(response)
 
-	validation := NewValidation()
+	validation := custerror.NewValidation()
 	validation.Add("abc", "abd wrong")
 	context.Error(validation)
 

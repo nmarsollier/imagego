@@ -22,7 +22,7 @@ import (
 // puts model.Variable in context as body if everything is correct
 func AuthValidator(c *gin.Context) {
 	if err := validateToken(c); err != nil {
-		custerror.HandleError(c, err)
+		c.Error(err)
 		return
 	}
 }

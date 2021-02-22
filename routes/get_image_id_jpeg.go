@@ -7,7 +7,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/nmarsollier/imagego/image"
-	"github.com/nmarsollier/imagego/tools/custerror"
 )
 
 /**
@@ -33,13 +32,13 @@ func init() {
 func handleGetImageJpeg(c *gin.Context) {
 	image, err := getImage(c)
 	if err != nil {
-		custerror.HandleError(c, err)
+		c.Error(err)
 		return
 	}
 
 	decodedData, err := toJpeg(image)
 	if err != nil {
-		custerror.HandleError(c, err)
+		c.Error(err)
 		return
 	}
 
