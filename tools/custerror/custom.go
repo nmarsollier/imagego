@@ -27,6 +27,7 @@ func NewCustom(status int, message string) Custom {
 //  - Algunas definiciones necesarias -
 
 // Custom es una interfaz para definir errores custom
+// La necesitamos para poder castear correctamente en el handler
 type Custom interface {
 	Status() int
 	Error() string

@@ -13,7 +13,7 @@ func TestCustomError(t *testing.T) {
 	response := test.ResponseWriter(t)
 	context, _ := gin.CreateTestContext(response)
 
-	HandleError(context, custerror.NewCustom(400, "Custom Test"))
+	handleError(context, custerror.NewCustom(400, "Custom Test"))
 
 	response.Assert(400, "{\"error\":\"Custom Test\"}")
 }
@@ -22,7 +22,7 @@ func TestConstantError(t *testing.T) {
 	response := test.ResponseWriter(t)
 	context, _ := gin.CreateTestContext(response)
 
-	HandleError(context, custerror.Unauthorized)
+	handleError(context, custerror.Unauthorized)
 
 	response.Assert(401, "{\"error\":\"Unauthorized\"}")
 }
@@ -35,7 +35,7 @@ func TestValidationError(t *testing.T) {
 	validation.Add("abc", "abd wrong")
 	context.Error(validation)
 
-	HandleError(context, validation)
+	handleError(context, validation)
 
 	response.Assert(400, "{\"messages\":[{\"path\":\"abc\",\"message\":\"abd wrong\"}]}")
 }
@@ -44,7 +44,7 @@ func TestDefaultError(t *testing.T) {
 	response := test.ResponseWriter(t)
 	context, _ := gin.CreateTestContext(response)
 
-	HandleError(context, errors.New("Custom Error"))
+	handleError(context, errors.New("Custom Error"))
 
 	response.Assert(500, "{\"error\":\"Custom Error\"}")
 }

@@ -28,7 +28,7 @@ func Validate(token string) (*User, error) {
 		}
 	}
 
-	user, err := getRemote(token)
+	user, err := getRemoteToken(token)
 	if err != nil {
 		return nil, custerror.Unauthorized
 	}

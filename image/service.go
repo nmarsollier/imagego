@@ -16,7 +16,7 @@ func Find(imageID string, size int) (*Image, error) {
 		return daoFind(imageID)
 	}
 
-	sizedID := sizeID(imageID, size)
+	sizedID := buildSizeID(imageID, size)
 
 	// Busco el tamaño justo de imagen
 	image, err := daoFind(sizedID)

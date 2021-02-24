@@ -18,9 +18,9 @@ import (
  *    HTTP/1.1 401 Unauthorized
  */
 
-// AuthValidator validate gets and check variable body to create new variable
+// ValidateAuthentication validate gets and check variable body to create new variable
 // puts model.Variable in context as body if everything is correct
-func AuthValidator(c *gin.Context) {
+func ValidateAuthentication(c *gin.Context) {
 	if err := validateToken(c); err != nil {
 		c.Error(err)
 		return
@@ -30,7 +30,7 @@ func AuthValidator(c *gin.Context) {
 var securityValidate func(token string) (*security.User, error) = security.Validate
 
 func validateToken(c *gin.Context) error {
-	tokenString, err := getTokenHeader(c)
+	tokenString, err := getHeaderToken(c)
 	if err != nil {
 		return custerror.Unauthorized
 	}
@@ -43,7 +43,7 @@ func validateToken(c *gin.Context) error {
 }
 
 // get token from Authorization header
-func getTokenHeader(c *gin.Context) (string, error) {
+func getHeaderToken(c *gin.Context) (string, error) {
 	tokenString := c.GetHeader("Authorization")
 	if strings.Index(tokenString, "bearer ") != 0 {
 		return "", custerror.Unauthorized

@@ -40,12 +40,12 @@ func resize(image *Image, size int) (*Image, error) {
 	writer.Close()
 
 	result := Image{
-		ID:    sizeID(image.ID, size),
+		ID:    buildSizeID(image.ID, size),
 		Image: "data:image/jpeg;base64," + string(buffer.Bytes()),
 	}
 	return &result, nil
 }
 
-func sizeID(imageID string, size int) string {
+func buildSizeID(imageID string, size int) string {
 	return fmt.Sprintf("%s_%d", imageID, size)
 }

@@ -21,11 +21,11 @@ func handleErrorIfNeeded(c *gin.Context) {
 		return
 	}
 
-	HandleError(c, err)
+	handleError(c, err)
 }
 
-// HandleError maneja cualquier error para serializarlo como JSON al cliente
-func HandleError(c *gin.Context, err interface{}) {
+// handleError maneja cualquier error para serializarlo como JSON al cliente
+func handleError(c *gin.Context, err interface{}) {
 	// Compruebo tipos de errores conocidos
 	switch value := err.(type) {
 	case custerror.Custom:

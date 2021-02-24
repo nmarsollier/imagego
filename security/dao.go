@@ -9,7 +9,7 @@ import (
 	"github.com/nmarsollier/imagego/tools/env"
 )
 
-func getRemote(token string) (*User, error) {
+func getRemoteToken(token string) (*User, error) {
 	// Buscamos el usuario remoto
 	req, err := http.NewRequest("GET", env.Get().SecurityServerURL+"/v1/users/current", nil)
 	if err != nil {

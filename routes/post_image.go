@@ -29,14 +29,14 @@ import (
  * @apiUse OtherErrors
  */
 func init() {
-	getRouter().POST(
+	router().POST(
 		"/v1/image",
-		middlewares.AuthValidator,
-		handlePostImage,
+		middlewares.ValidateAuthentication,
+		saveImage,
 	)
 }
 
-func handlePostImage(c *gin.Context) {
+func saveImage(c *gin.Context) {
 	bodyImage, err := getBodyImage(c)
 	if err != nil {
 		c.Error(err)

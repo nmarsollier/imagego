@@ -26,10 +26,10 @@ import (
  * @apiUse OtherErrors
  */
 func init() {
-	getRouter().GET("/v1/image/:imageID/jpeg", handleGetImageJpeg)
+	router().GET("/v1/image/:imageID/jpeg", sendJpegImage)
 }
 
-func handleGetImageJpeg(c *gin.Context) {
+func sendJpegImage(c *gin.Context) {
 	image, err := getImage(c)
 	if err != nil {
 		c.Error(err)

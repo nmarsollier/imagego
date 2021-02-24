@@ -24,10 +24,10 @@ import (
  * @apiUse OtherErrors
  */
 func init() {
-	getRouter().GET("/v1/image/:imageID", handleGetImageID)
+	router().GET("/v1/image/:imageID", sendImage)
 }
 
-func handleGetImageID(c *gin.Context) {
+func sendImage(c *gin.Context) {
 	data, err := getImage(c)
 
 	if err != nil {

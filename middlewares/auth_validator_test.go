@@ -16,7 +16,7 @@ func TestNoHeader(t *testing.T) {
 	context, _ := gin.CreateTestContext(response)
 	context.Request, _ = http.NewRequest("GET", "/", nil)
 
-	AuthValidator(context)
+	ValidateAuthentication(context)
 
 	response.Assert(0, "")
 	assert.Equal(t, context.Errors.Last().Error(), custerror.Unauthorized.Error())
@@ -32,7 +32,7 @@ func TestInvalidHeader(t *testing.T) {
 		return nil, custerror.Unauthorized
 	}
 
-	AuthValidator(context)
+	ValidateAuthentication(context)
 
 	response.Assert(0, "")
 	assert.Equal(t, context.Errors.Last().Error(), custerror.Unauthorized.Error())
@@ -52,7 +52,7 @@ func TestUnautorized(t *testing.T) {
 		return nil, custerror.Unauthorized
 	}
 
-	AuthValidator(context)
+	ValidateAuthentication(context)
 
 	response.Assert(0, "")
 	assert.Equal(t, context.Errors.Last().Error(), custerror.Unauthorized.Error())
