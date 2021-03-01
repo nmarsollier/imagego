@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/test"
 	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/nmarsollier/imagego/tools/test"
 )
 
 func TestCustomError(t *testing.T) {

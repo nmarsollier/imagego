@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/image"
+	"github.com/nmarsollier/imagego/model/image"
 )
 
 /**

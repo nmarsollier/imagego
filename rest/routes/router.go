@@ -8,7 +8,7 @@ import (
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	cors "github.com/itsjamie/gin-cors"
-	"github.com/nmarsollier/imagego/middlewares"
+	"github.com/nmarsollier/imagego/rest/middlewares"
 	"github.com/nmarsollier/imagego/tools/env"
 )
 

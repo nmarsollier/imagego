@@ -2,8 +2,8 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/image"
-	"github.com/nmarsollier/imagego/middlewares"
+	"github.com/nmarsollier/imagego/model/image"
+	"github.com/nmarsollier/imagego/rest/middlewares"
 )
 
 /**

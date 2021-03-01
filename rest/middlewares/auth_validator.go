@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/security"
+	"github.com/nmarsollier/imagego/model/security"
 	"github.com/nmarsollier/imagego/tools/custerror"
 )
 

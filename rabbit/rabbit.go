@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/nmarsollier/imagego/security"
-	"github.com/nmarsollier/imagego/tools/env"
+	"github.com/nmarsollier/imagego/model/security"
 	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/nmarsollier/imagego/tools/env"
 	"github.com/streadway/amqp"
 )
 
@@ -109,7 +109,7 @@ func listenLogout() error {
 
 	go func() {
 		for d := range mgs {
-			log.Output(1, "Mensage recibido")
+			log.Output(1, "Mensaje recibido")
 			newMessage := &message{}
 			err = json.Unmarshal(d.Body, newMessage)
 			if err == nil {

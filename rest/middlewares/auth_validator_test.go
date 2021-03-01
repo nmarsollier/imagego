@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/security"
-	"github.com/nmarsollier/imagego/test"
+	"github.com/nmarsollier/imagego/model/security"
 	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/nmarsollier/imagego/tools/test"
 	"gopkg.in/go-playground/assert.v1"
 )
 

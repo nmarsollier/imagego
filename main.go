@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/nmarsollier/imagego/rabbit"
-	"github.com/nmarsollier/imagego/routes"
+	"github.com/nmarsollier/imagego/rest/routes"
 )
 
 func main() {
