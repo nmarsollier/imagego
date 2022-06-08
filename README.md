@@ -37,7 +37,7 @@ export GOFLAGS=-mod=vendor
 Para descargar el proyecto correctamente hay que ejecutar :
 
 ```bash
-go get github.com/nmarsollier/imagego
+git clone https://github.com/nmarsollier/imagego $GOPATH/src/github.com/nmarsollier/imagego
 ```
 
 Una vez descargado, tendremos el código fuente del proyecto en la carpeta
