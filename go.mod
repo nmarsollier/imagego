@@ -14,5 +14,6 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/satori/go.uuid v1.2.0
 	github.com/streadway/amqp v1.0.0
+	golang.org/x/sys v0.0.0-20220615213510-4f61da869c0c // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1
 )
