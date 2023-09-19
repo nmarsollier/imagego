@@ -23,6 +23,7 @@ import (
 func ValidateAuthentication(c *gin.Context) {
 	if err := validateToken(c); err != nil {
 		c.Error(err)
+		c.Abort()
 		return
 	}
 }
