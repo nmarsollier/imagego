@@ -16,7 +16,12 @@ func ErrorHandler(c *gin.Context) {
 }
 
 func handleErrorIfNeeded(c *gin.Context) {
-	err := c.Errors.Last().Err
+	lastErr := c.Errors.Last()
+	if lastErr == nil {
+		return
+	}
+
+	err := lastErr.Err
 	if err == nil {
 		return
 	}
