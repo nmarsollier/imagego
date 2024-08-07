@@ -3,17 +3,26 @@ module github.com/nmarsollier/imagego
 go 1.14
 
 require (
+	github.com/bytedance/sonic v1.12.1 // indirect
 	github.com/disintegration/imaging v1.6.2
-	github.com/gin-contrib/gzip v0.0.3
-	github.com/gin-contrib/static v0.0.0-20200916080430-d45d9a37d28e
-	github.com/gin-gonic/gin v1.6.3
+	github.com/gabriel-vasile/mimetype v1.4.5 // indirect
+	github.com/gin-contrib/gzip v1.0.1
+	github.com/gin-contrib/static v1.1.2
+	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/validator v9.31.0+incompatible
-	github.com/go-playground/validator/v10 v10.4.1
-	github.com/go-redis/redis/v7 v7.4.0
-	github.com/itsjamie/gin-cors v0.0.0-20160420130702-97b4a9da7933
+	github.com/go-playground/validator/v10 v10.22.0
+	github.com/go-redis/redis/v7 v7.4.1
+	github.com/goccy/go-json v0.10.3 // indirect
+	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/itsjamie/gin-cors v0.0.0-20220228161158-ef28d3d2a0a8
+	github.com/klauspost/cpuid/v2 v2.2.8 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/satori/go.uuid v1.2.0
-	github.com/streadway/amqp v1.0.0
-	golang.org/x/sys v0.0.0-20220615213510-4f61da869c0c // indirect
+	github.com/streadway/amqp v1.1.0
+	golang.org/x/arch v0.9.0 // indirect
+	golang.org/x/image v0.19.0 // indirect
+	golang.org/x/net v0.28.0 // indirect
+	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

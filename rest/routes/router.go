@@ -37,7 +37,7 @@ func router() *gin.Engine {
 		RequestHeaders:  "Origin, Authorization, Content-Type, Size",
 		ExposedHeaders:  "",
 		MaxAge:          50 * time.Second,
-		Credentials:     true,
+		Credentials:     false,
 		ValidateHeaders: false,
 	}))
 
