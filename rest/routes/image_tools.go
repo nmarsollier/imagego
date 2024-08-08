@@ -5,13 +5,6 @@ import (
 	"github.com/nmarsollier/imagego/model/image"
 )
 
-/**
- * @apiDefine SizeHeader
- *
- * @apiExample {String} Size : Parametro url o header
- *    Size=[160|320|640|800|1024|1200]
- */
-
 // GetImage devuelve una imagen guardada en formato base64
 func getImage(c *gin.Context) (*image.Image, error) {
 	imageID := c.Param("imageID")

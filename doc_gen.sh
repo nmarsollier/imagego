@@ -1,0 +1,2 @@
+swag fmt
+swag init

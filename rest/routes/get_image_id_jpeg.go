@@ -9,22 +9,24 @@ import (
 	"github.com/nmarsollier/imagego/model/image"
 )
 
-/**
- * @api {get} /v1/image/:id/jpeg Obtener Imagen Jpeg
- * @apiName Obtener Imagen Jpeg
- * @apiGroup Imagen
- *
- * @apiDescription Obtiene una imagen del servidor en formato jpeg.
- *
- * @apiUse SizeHeader
- *
- * @apiSuccessExample Respuesta
- *    Imagen en formato jpeg
- *
- * @apiUse AuthHeader
- * @apiUse ParamValidationErrors
- * @apiUse OtherErrors
- */
+// Obtiene una imagen del servidor en formato jpeg.
+//
+//	@Summary		Obtener jpeg
+//	@Description	Obtiene una imagen del servidor en formato jpeg.
+//	@Tags			Imagen
+//	@Accept			json
+//	@Produce		image/jpeg
+//
+//	@Param			Size	path	string	true	"[160|320|640|800|1024|1200]"
+//	@Param			imageID	path	string	true	"ID de la imagen"
+
+// @Success	200	{file}		jpeg					"Imagen"
+//
+// @Failure	400	{object}	custerror.ErrValidation	"Bad Request"
+// @Failure	404	{object}	custerror.ErrCustom		"Not Found"
+// @Failure	500	{object}	custerror.ErrCustom		"Internal Server Error"
+//
+// @Router		/v1/image/:imageID/jpeg [get]
 func init() {
 	router().GET("/v1/image/:imageID/jpeg", sendJpegImage)
 }

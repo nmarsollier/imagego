@@ -12,19 +12,16 @@ import (
 	"github.com/streadway/amqp"
 )
 
-/**
- * @api {fanout} auth/logout Logout de Usuarios
- * @apiGroup RabbitMQ GET
- *
- * @apiDescription Escucha de mensajes logout desde auth.
- *
- * @apiSuccessExample {json} Mensaje
- *     {
- *        "type": "logout",
- *        "message": "{tokenId}"
- *     }
- */
-
+// Escucha de mensajes logout desde auth.
+//
+//	@Summary		Mensage Rabbit
+//	@Description	Escucha de mensajes logout desde auth.
+//	@Tags			Rabbit
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body	message	true	"Token deshabilitado"
+//	@Router			auth/logout [put]
+//
 // ErrChannelNotInitialized Rabbit channel could not be initialized
 var ErrChannelNotInitialized = custerror.NewCustom(400, "Channel not initialized")
 

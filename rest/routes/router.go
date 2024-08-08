@@ -5,11 +5,13 @@ import (
 	"time"
 
 	"github.com/gin-contrib/gzip"
-	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	cors "github.com/itsjamie/gin-cors"
+	_ "github.com/nmarsollier/imagego/docs"
 	"github.com/nmarsollier/imagego/rest/middlewares"
 	"github.com/nmarsollier/imagego/tools/env"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // StartEngine Runs gin server
@@ -41,7 +43,7 @@ func router() *gin.Engine {
 		ValidateHeaders: false,
 	}))
 
-	engine.Use(static.Serve("/", static.LocalFile(env.Get().WWWWPath, true)))
+	engine.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return engine
 }

@@ -15,6 +15,9 @@ Las imágenes pueden recuperarse en formato base64 o bien en formato jpeg.
 
 [Documentación de API](./README-API.md)
 
+La documentación de las api también se pueden consultar desde el home del microservicio
+que una vez levantado el servidor se puede navegar en [localhost:3001](http://localhost:3001/docs/index.html)
+
 ## Dependencias
 
 ### Auth
@@ -70,27 +73,36 @@ No se requiere ninguna configuración adicional, solo levantarlo luego de instal
 
 ## Apidoc
 
-Apidoc es una herramienta que genera documentación de apis para proyectos node (ver [Apidoc](http://apidocjs.com/)).
 
-El microservicio muestra la documentación como archivos estáticos si se abre en un browser la raíz del servidor [localhost:3001](http://localhost:3001/)
+Usamos [swaggo](https://github.com/swaggo/swag)
 
-Ademas se genera la documentación en formato markdown.
-
-Para que funcione correctamente hay que instalarla globalmente con
+Requisitos 
 
 ```bash
-npm install apidoc -g
-npm install -g apidoc-markdown2
+go install github.com/swaggo/swag/cmd/swag  
+go install github.com/swaggo/gin-swagger  
 ```
 
-La documentación necesita ser generada manualmente ejecutando la siguiente linea en la carpeta imagego :
+La documentacion la generamos con el comando
 
 ```bash
-apidoc -o www
-apidoc-markdown2 -p www -o README-API.md
+swag init
 ```
 
-Esto nos genera una carpeta con la documentación, esta carpeta debe estar presente desde donde se ejecute imagego, imagego busca ./www para localizarlo, aunque se puede configurar desde el archivo de properties.
+Para generar el archivo README-API.md
+
+Requisito 
+
+```bash
+sudo npm install -g swagger-markdown
+```
+
+y ejecutamos 
+
+```bash
+npx swagger-markdown -i ./docs/swagger.yaml -o README-API.md
+```
+
 
 ## Configuración del servidor
 

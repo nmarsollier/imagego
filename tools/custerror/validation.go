@@ -7,8 +7,8 @@ import (
 
 // NewValidationField crea un error de validación para un solo campo
 func NewValidationField(field string, err string) Validation {
-	return &errValidation{
-		Messages: []errField{
+	return &ErrValidation{
+		Messages: []ErrField{
 			{
 				Path:    field,
 				Message: err,
@@ -19,8 +19,8 @@ func NewValidationField(field string, err string) Validation {
 
 // NewValidation crea un error de validación para un solo campo
 func NewValidation() Validation {
-	return &errValidation{
-		Messages: []errField{},
+	return &ErrValidation{
+		Messages: []ErrField{},
 	}
 }
 
@@ -32,18 +32,18 @@ type Validation interface {
 	Error() string
 }
 
-// errField define un campo inválido. path y mensaje de error
-type errField struct {
+// ErrField define un campo inválido. path y mensaje de error
+type ErrField struct {
 	Path    string `json:"path"`
 	Message string `json:"message"`
 }
 
 // ErrValidation es un error de validaciones de parameteros o de campos
-type errValidation struct {
-	Messages []errField `json:"messages"`
+type ErrValidation struct {
+	Messages []ErrField `json:"messages"`
 }
 
-func (e *errValidation) Error() string {
+func (e *ErrValidation) Error() string {
 	body, err := json.Marshal(e)
 	if err != nil {
 		return fmt.Sprintf("ErrValidation que no se puede pasar a json.")
@@ -52,8 +52,8 @@ func (e *errValidation) Error() string {
 }
 
 // Add agrega errores a un validation error
-func (e *errValidation) Add(path string, message string) Validation {
-	err := errField{
+func (e *ErrValidation) Add(path string, message string) Validation {
+	err := ErrField{
 		Path:    path,
 		Message: message,
 	}
@@ -62,6 +62,6 @@ func (e *errValidation) Add(path string, message string) Validation {
 }
 
 // Size devuelve la cantidad de errores
-func (e *errValidation) Size() int {
+func (e *ErrValidation) Size() int {
 	return len(e.Messages)
 }

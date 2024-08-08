@@ -1,233 +1,103 @@
-<a name="top"></a>
-# ImageGo Service v0.1.0
+# ImageGo
+Microservicio de Imagenes.
 
-Microservicio de Imágenes
+## Version: 1.0
 
-- [Imagen](#imagen)
-	- [Crear Imagen](#crear-imagen)
-	- [Obtener Imagen](#obtener-imagen)
-	- [Obtener Imagen Jpeg](#obtener-imagen-jpeg)
-	
-- [RabbitMQ_GET](#rabbitmq_get)
-	- [Logout de Usuarios](#logout-de-usuarios)
-	
+**Contact information:**  
+Nestor Marsollier  
+nmarsollier@gmail.com  
 
+---
+### /v1/image
 
-# <a name='imagen'></a> Imagen
+#### POST
+##### Summary
 
-## <a name='crear-imagen'></a> Crear Imagen
-[Back to top](#top)
+Guardar imagen
 
-<p>Agrega una nueva imagen al servidor.</p>
+##### Description
 
-	POST /v1/image
+Agrega una nueva imagen al servidor.
 
+##### Parameters
 
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| image | body | Imagen en base64 | Yes | [routes.NewRequest](#routesnewrequest) |
+| Authorization | header | bearer {token} | Yes | string |
 
-### Examples
+##### Responses
 
-Body
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | Imagen | [routes.NewImageResponse](#routesnewimageresponse) |
+| 400 | Bad Request | [custerror.ErrValidation](#custerrorerrvalidation) |
+| 401 | Unauthorized | [custerror.ErrCustom](#custerrorerrcustom) |
+| 404 | Not Found | [custerror.ErrCustom](#custerrorerrcustom) |
+| 500 | Internal Server Error | [custerror.ErrCustom](#custerrorerrcustom) |
 
-```
-{
-  "image" : "{Imagen en formato Base 64}"
-}
-```
-Header Autorización
+---
+### /v1/image/:imageID
 
-```
-Authorization=bearer {token}
-```
+#### GET
+##### Responses
 
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | Informacion de la Imagen | [image.Image](#imageimage) |
+| 400 | Bad Request | [custerror.ErrValidation](#custerrorerrvalidation) |
+| 404 | Not Found | [custerror.ErrCustom](#custerrorerrcustom) |
+| 500 | Internal Server Error | [custerror.ErrCustom](#custerrorerrcustom) |
 
-### Success Response
+### /v1/image/:imageID/jpeg
 
-Respuesta
+#### GET
+##### Responses
 
-```
-HTTP/1.1 200 OK
-{
-  "id": "{Id de imagen}"
-}
-```
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | Imagen | file |
+| 400 | Bad Request | [custerror.ErrValidation](#custerrorerrvalidation) |
+| 404 | Not Found | [custerror.ErrCustom](#custerrorerrcustom) |
+| 500 | Internal Server Error | [custerror.ErrCustom](#custerrorerrcustom) |
 
+---
+### Models
 
-### Error Response
+#### custerror.ErrCustom
 
-401 Unauthorized
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| error | string |  | No |
 
-```
-HTTP/1.1 401 Unauthorized
-```
-400 Bad Request
+#### custerror.ErrField
 
-```
-HTTP/1.1 400 Bad Request
-{
-   "messages" : [
-     {
-       "path" : "{Nombre de la propiedad}",
-       "message" : "{Motivo del error}"
-     },
-     ...
-  ]
-}
-```
-500 Server Error
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| message | string |  | No |
+| path | string |  | No |
 
-```
-HTTP/1.1 500 Internal Server Error
-{
-   "error" : "Not Found"
-}
-```
-## <a name='obtener-imagen'></a> Obtener Imagen
-[Back to top](#top)
+#### custerror.ErrValidation
 
-<p>Obtiene una imagen del servidor en formato base64</p>
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| messages | [ [custerror.ErrField](#custerrorerrfield) ] |  | No |
 
-	GET /v1/image/:id
+#### image.Image
 
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| id | string |  | Yes |
+| image | string |  | Yes |
 
+#### routes.NewImageResponse
 
-### Examples
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| id | string |  | Yes |
 
-Size : Parametro url o header
+#### routes.NewRequest
 
-```
-Size=[160|320|640|800|1024|1200]
-```
-Header Autorización
-
-```
-Authorization=bearer {token}
-```
-
-
-### Success Response
-
-Respuesta
-
-```
-{
-  "id": "{Id de imagen}",
-  "image" : "{Imagen en formato Base 64}"
-}
-```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
-```
-400 Bad Request
-
-```
-HTTP/1.1 400 Bad Request
-{
-   "messages" : [
-     {
-       "path" : "{Nombre de la propiedad}",
-       "message" : "{Motivo del error}"
-     },
-     ...
-  ]
-}
-```
-500 Server Error
-
-```
-HTTP/1.1 500 Internal Server Error
-{
-   "error" : "Not Found"
-}
-```
-## <a name='obtener-imagen-jpeg'></a> Obtener Imagen Jpeg
-[Back to top](#top)
-
-<p>Obtiene una imagen del servidor en formato jpeg.</p>
-
-	GET /v1/image/:id/jpeg
-
-
-
-### Examples
-
-Size : Parametro url o header
-
-```
-Size=[160|320|640|800|1024|1200]
-```
-Header Autorización
-
-```
-Authorization=bearer {token}
-```
-
-
-### Success Response
-
-Respuesta
-
-```
-Imagen en formato jpeg
-```
-
-
-### Error Response
-
-401 Unauthorized
-
-```
-HTTP/1.1 401 Unauthorized
-```
-400 Bad Request
-
-```
-HTTP/1.1 400 Bad Request
-{
-   "messages" : [
-     {
-       "path" : "{Nombre de la propiedad}",
-       "message" : "{Motivo del error}"
-     },
-     ...
-  ]
-}
-```
-500 Server Error
-
-```
-HTTP/1.1 500 Internal Server Error
-{
-   "error" : "Not Found"
-}
-```
-# <a name='rabbitmq_get'></a> RabbitMQ_GET
-
-## <a name='logout-de-usuarios'></a> Logout de Usuarios
-[Back to top](#top)
-
-<p>Escucha de mensajes logout desde auth.</p>
-
-	FANOUT auth/logout
-
-
-
-
-
-### Success Response
-
-Mensaje
-
-```
-{
-   "type": "logout",
-   "message": "{tokenId}"
-}
-```
-
-
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| image | string |  | Yes |

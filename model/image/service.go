@@ -7,19 +7,16 @@ import (
 // ErrSize el tamaño es incorrecto
 var ErrSize = custerror.NewValidationField("size", "invalid")
 
-var daoFind func(imageID string) (*Image, error) = find
-var daoInsert func(image *Image) (string, error) = Insert
-
 // Find busca una imagen para un tamaño en particular
 func Find(imageID string, size int) (*Image, error) {
 	if size <= 0 {
-		return daoFind(imageID)
+		return find(imageID)
 	}
 
 	sizedID := buildSizeID(imageID, size)
 
 	// Busco el tamaño justo de imagen
-	image, err := daoFind(sizedID)
+	image, err := find(sizedID)
 	if err != nil && err != custerror.NotFound {
 		return nil, err
 	}
@@ -33,7 +30,7 @@ func Find(imageID string, size int) (*Image, error) {
 func findAndResize(imageID string, size int) (*Image, error) {
 	// No se encuentra el tamaño buscado, buscamos la original,
 	// y le ajustamos el tamaño, guardamos...
-	image, err := daoFind(imageID)
+	image, err := find(imageID)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +40,7 @@ func findAndResize(imageID string, size int) (*Image, error) {
 		return nil, err
 	}
 
-	_, err = daoInsert(image)
+	_, err = Insert(image)
 	if err != nil {
 		return nil, err
 	}

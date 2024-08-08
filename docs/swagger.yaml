@@ -1,0 +1,136 @@
+basePath: /v1
+definitions:
+  custerror.ErrCustom:
+    properties:
+      error:
+        type: string
+    type: object
+  custerror.ErrField:
+    properties:
+      message:
+        type: string
+      path:
+        type: string
+    type: object
+  custerror.ErrValidation:
+    properties:
+      messages:
+        items:
+          $ref: '#/definitions/custerror.ErrField'
+        type: array
+    type: object
+  image.Image:
+    properties:
+      id:
+        type: string
+      image:
+        type: string
+    required:
+    - id
+    - image
+    type: object
+  routes.NewImageResponse:
+    properties:
+      id:
+        type: string
+    required:
+    - id
+    type: object
+  routes.NewRequest:
+    properties:
+      image:
+        type: string
+    required:
+    - image
+    type: object
+host: localhost:3001
+info:
+  contact:
+    email: nmarsollier@gmail.com
+    name: Nestor Marsollier
+  description: Microservicio de Imagenes.
+  title: ImageGo
+  version: "1.0"
+paths:
+  /v1/image:
+    post:
+      consumes:
+      - application/json
+      description: Agrega una nueva imagen al servidor.
+      parameters:
+      - description: Imagen en base64
+        in: body
+        name: image
+        required: true
+        schema:
+          $ref: '#/definitions/routes.NewRequest'
+      - description: bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Imagen
+          schema:
+            $ref: '#/definitions/routes.NewImageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/custerror.ErrValidation'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/custerror.ErrCustom'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/custerror.ErrCustom'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/custerror.ErrCustom'
+      summary: Guardar imagen
+      tags:
+      - Imagen
+  /v1/image/:imageID:
+    get:
+      responses:
+        "200":
+          description: Informacion de la Imagen
+          schema:
+            $ref: '#/definitions/image.Image'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/custerror.ErrValidation'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/custerror.ErrCustom'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/custerror.ErrCustom'
+  /v1/image/:imageID/jpeg:
+    get:
+      responses:
+        "200":
+          description: Imagen
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/custerror.ErrValidation'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/custerror.ErrCustom'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/custerror.ErrCustom'
+swagger: "2.0"

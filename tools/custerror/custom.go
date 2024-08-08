@@ -18,7 +18,7 @@ var Internal = NewCustom(500, "Internal server error")
 
 // NewCustom creates a new errCustom
 func NewCustom(status int, message string) Custom {
-	return &errCustom{
+	return &ErrCustom{
 		status:  status,
 		Message: message,
 	}
@@ -33,22 +33,22 @@ type Custom interface {
 	Error() string
 }
 
-// errCustom es un error personalizado para http
-type errCustom struct {
+// ErrCustom es un error personalizado para http
+type ErrCustom struct {
 	status  int
 	Message string `json:"error"`
 }
 
-func (e *errCustom) Error() string {
+func (e *ErrCustom) Error() string {
 	return fmt.Sprintf(e.Message)
 }
 
 // Status http status code
-func (e *errCustom) Status() int {
+func (e *ErrCustom) Status() int {
 	return e.status
 }
 
 // Status http status code
-func (e *errCustom) String() string {
+func (e *ErrCustom) String() string {
 	return strconv.Itoa(e.Status()) + e.Error()
 }

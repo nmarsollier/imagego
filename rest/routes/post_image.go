@@ -6,28 +6,23 @@ import (
 	"github.com/nmarsollier/imagego/rest/middlewares"
 )
 
-/**
- * @api {post} /v1/image Crear Imagen
- * @apiName Crear Imagen
- * @apiGroup Imagen
- *
- * @apiDescription Agrega una nueva imagen al servidor.
- *
- * @apiExample {json} Body
- *    {
- *      "image" : "{Imagen en formato Base 64}"
- *    }
- *
- * @apiSuccessExample {json} Respuesta
- *     HTTP/1.1 200 OK
- *     {
- *       "id": "{Id de imagen}"
- *     }
- *
- * @apiUse AuthHeader
- * @apiUse ParamValidationErrors
- * @apiUse OtherErrors
- */
+// Agrega una nueva imagen al servidor.
+//
+//	@Summary		Guardar imagen
+//	@Description	Agrega una nueva imagen al servidor.
+//	@Tags			Imagen
+//	@Accept			json
+//	@Produce		json
+//
+//	@Param			image			body		NewRequest				true	"Imagen en base64"
+//	@Param			Authorization	header		string					true	"bearer {token}"
+//	@Success		200				{object}	NewImageResponse		"Imagen"
+//	@Failure		401				{object}	custerror.ErrCustom		"Unauthorized"
+//	@Failure		400				{object}	custerror.ErrValidation	"Bad Request"
+//	@Failure		404				{object}	custerror.ErrCustom		"Not Found"
+//	@Failure		500				{object}	custerror.ErrCustom		"Internal Server Error"
+//
+//	@Router			/v1/image [post]
 func init() {
 	router().POST(
 		"/v1/image",
@@ -43,21 +38,16 @@ func saveImage(c *gin.Context) {
 		return
 	}
 
-	id, err := image.Insert(image.New(bodyImage))
+	id, err := image.Insert(&image.Image{Image: bodyImage})
 	if err != nil {
 		c.Error(err)
 		return
 	}
 
-	c.JSON(200, gin.H{
-		"id": id,
-	})
+	c.JSON(200, NewImageResponse{ID: id})
 }
 
 func getBodyImage(c *gin.Context) (string, error) {
-	type NewRequest struct {
-		Image string `json:"image" binding:"required"`
-	}
 	body := NewRequest{}
 
 	if err := c.ShouldBindJSON(&body); err != nil {
@@ -65,4 +55,12 @@ func getBodyImage(c *gin.Context) (string, error) {
 	}
 
 	return body.Image, nil
+}
+
+type NewRequest struct {
+	Image string `json:"image" binding:"required"`
+}
+
+type NewImageResponse struct {
+	ID string `json:"id"  validate:"required"`
 }

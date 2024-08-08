@@ -53,21 +53,6 @@ func handleError(c *gin.Context, err interface{}) {
 	}
 }
 
-/**
- * @apiDefine ParamValidationErrors
- *
- * @apiErrorExample 400 Bad Request
- *     HTTP/1.1 400 Bad Request
- *     {
- *        "messages" : [
- *          {
- *            "path" : "{Nombre de la propiedad}",
- *            "message" : "{Motivo del error}"
- *          },
- *          ...
- *       ]
- *     }
- */
 func handleValidationError(c *gin.Context, validationErrors validator.ValidationErrors) {
 	err := custerror.NewValidation()
 
@@ -78,16 +63,6 @@ func handleValidationError(c *gin.Context, validationErrors validator.Validation
 	c.JSON(400, err)
 }
 
-/**
- * @apiDefine OtherErrors
- *
- * @apiErrorExample 500 Server Error
- *     HTTP/1.1 500 Internal Server Error
- *     {
- *        "error" : "Not Found"
- *     }
- *
- */
 func handleCustom(c *gin.Context, err custerror.Custom) {
 	c.JSON(err.Status(), err)
 }
