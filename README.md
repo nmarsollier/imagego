@@ -79,8 +79,7 @@ Usamos [swaggo](https://github.com/swaggo/swag)
 Requisitos 
 
 ```bash
-go install github.com/swaggo/swag/cmd/swag  
-go install github.com/swaggo/gin-swagger  
+go install github.com/swaggo/swag/cmd/swag@latest
 ```
 
 La documentacion la generamos con el comando
@@ -111,7 +110,6 @@ Este servidor usa las siguientes variables de entorno para configuración :
 RABBIT_URL : Url de rabbit (default amqp://localhost)
 REDIS_URL : Url de redis (default localhost:6379)
 PORT : Puerto (default 3000)
-WWW_PATH : Path donde se ubica la documentación apidoc (default www)
 AUTH_SERVICE_URL : Secret para password (default http://localhost:3000)
 
 ## Docker

@@ -41,7 +41,7 @@ func resize(image *Image, size int) (*Image, error) {
 
 	result := Image{
 		ID:    buildSizeID(image.ID, size),
-		Image: "data:image/jpeg;base64," + string(buffer.Bytes()),
+		Image: "data:image/jpeg;base64," + buffer.String(),
 	}
 	return &result, nil
 }

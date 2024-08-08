@@ -11,7 +11,6 @@ type Configuration struct {
 	RabbitURL         string `json:"rabbitUrl"`
 	RedisURL          string `json:"redisUrl"`
 	SecurityServerURL string `json:"securityServerUrl"`
-	WWWWPath          string `json:"wwwPath"`
 }
 
 var config *Configuration
@@ -22,7 +21,6 @@ func new() *Configuration {
 		RabbitURL:         "amqp://localhost",
 		RedisURL:          "localhost:6379",
 		SecurityServerURL: "http://localhost:3000",
-		WWWWPath:          "www",
 	}
 }
 
@@ -51,10 +49,6 @@ func load() *Configuration {
 		if intVal, err := strconv.Atoi(value); err != nil {
 			result.Port = intVal
 		}
-	}
-
-	if value := os.Getenv("WWW_PATH"); len(value) > 0 {
-		result.WWWWPath = value
 	}
 
 	if value := os.Getenv("AUTH_SERVICE_URL"); len(value) > 0 {

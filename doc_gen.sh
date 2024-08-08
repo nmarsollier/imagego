@@ -1,2 +1,0 @@
-swag fmt
-swag init

@@ -68,12 +68,12 @@ func listenLogout() error {
 	}
 
 	queue, err := chn.QueueDeclare(
-		"auth", // name
-		false,  // durable
-		false,  // delete when unused
-		true,   // exclusive
-		false,  // no-wait
-		nil,    // arguments
+		"",    // name
+		false, // durable
+		false, // delete when unused
+		false, // exclusive
+		false, // no-wait
+		nil,   // arguments
 	)
 	if err != nil {
 		return err

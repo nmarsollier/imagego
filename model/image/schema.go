@@ -30,7 +30,7 @@ func (e *Image) validateSchema() error {
 	if err := validate.Struct(e); err != nil {
 		return err
 	}
-	if strings.Index(e.Image, "data:image/") < 0 {
+	if !strings.Contains(e.Image, "data:image/") {
 		return ErrData
 	}
 	return nil

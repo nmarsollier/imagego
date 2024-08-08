@@ -38,7 +38,7 @@ func saveImage(c *gin.Context) {
 		return
 	}
 
-	id, err := image.Insert(&image.Image{Image: bodyImage})
+	id, err := image.Insert(image.New(bodyImage))
 	if err != nil {
 		c.Error(err)
 		return
