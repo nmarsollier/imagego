@@ -114,6 +114,8 @@ AUTH_SERVICE_URL : Secret para password (default http://localhost:3000)
 
 ## Docker
 
+Estos comandos son para dockerizar el repositorio una vez descargado localmente.
+
 ### Build
 
 ```bash
@@ -131,44 +133,3 @@ Linux
 ```bash
 docker run -it --add-host host.docker.internal:172.17.0.1 --name dev-image-go -p 3001:3001 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego dev-image-go
 ```
-
-### Debug en Docker
-
-Existe un archivo Docker.debug, hay que armar la imagen usando ese archivo.
-
-```bash
-docker build -t debug-image-go -f Dockerfile.debug .
-```
-
-Mac | Windows
-```bash
-docker run -it --name debug-image-go -p 3000:3000 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego debug-image-go
-```
-
-Linux
-```bash
-docker run -it --add-host host.docker.internal:172.17.0.1 --name debug-image-go -p 3000:3000 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego debug-image-go
-```
-
-El archivo launch.json debe contener lo siguiente
-
-```bash
-{
-    "version": "0.2.0",
-    "configurations": [
-          {
-                "name": "Debug en Docker",
-                "type": "go",
-                "request": "launch",
-                "mode": "remote",
-                "remotePath": "/go/src/github.com/nmarsollier/imagego",
-                "port": 40001,
-                "host": "127.0.0.1",
-                "program": "${workspaceRoot}",
-                "showLog": true
-          }
-    ]
-}
-```
-
-En el menú run start debugging se conecta a docker.
