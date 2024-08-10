@@ -122,11 +122,13 @@ docker build -t dev-image-go .
 
 ### El contenedor
 
+Mac | Windows
 ```bash
-# Mac | Windows
 docker run -it --name dev-image-go -p 3001:3001 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego dev-image-go
+```
 
-# Linux
+Linux
+```bash
 docker run -it --add-host host.docker.internal:172.17.0.1 --name dev-image-go -p 3001:3001 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego dev-image-go
 ```
 
@@ -138,11 +140,13 @@ Existe un archivo Docker.debug, hay que armar la imagen usando ese archivo.
 docker build -t debug-image-go -f Dockerfile.debug .
 ```
 
+Mac | Windows
 ```bash
-# Mac | Windows
 docker run -it --name debug-image-go -p 3000:3000 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego debug-image-go
+```
 
-# Linux
+Linux
+```bash
 docker run -it --add-host host.docker.internal:172.17.0.1 --name debug-image-go -p 3000:3000 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego debug-image-go
 ```
 
