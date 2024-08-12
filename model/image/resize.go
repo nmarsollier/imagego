@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
-	"log"
 	"strings"
 
 	// Package image/jpeg is not used explicitly in the code below,
@@ -15,6 +14,7 @@ import (
 	_ "image/png"
 
 	"github.com/disintegration/imaging"
+	"github.com/golang/glog"
 )
 
 func resize(image *Image, size int) (*Image, error) {
@@ -24,7 +24,7 @@ func resize(image *Image, size int) (*Image, error) {
 
 	img, err := imaging.Decode(reader)
 	if err != nil {
-		log.Fatal(err)
+		glog.Error(err)
 	}
 	bounds := img.Bounds()
 	if bounds.Size().X <= size {

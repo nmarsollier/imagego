@@ -3,11 +3,11 @@ package rabbit
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"time"
 
+	"github.com/golang/glog"
 	"github.com/nmarsollier/imagego/model/security"
-	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/nmarsollier/imagego/tools/apperr"
 	"github.com/nmarsollier/imagego/tools/env"
 	"github.com/streadway/amqp"
 )
@@ -23,7 +23,7 @@ import (
 //	@Router			auth/logout [put]
 //
 // ErrChannelNotInitialized Rabbit channel could not be initialized
-var ErrChannelNotInitialized = custerror.NewCustom(400, "Channel not initialized")
+var ErrChannelNotInitialized = apperr.NewCustom(400, "Channel not initialized")
 
 type message struct {
 	Type    string `json:"type"`
@@ -44,12 +44,14 @@ func Init() {
 func listenLogout() error {
 	conn, err := amqp.Dial(env.Get().RabbitURL)
 	if err != nil {
+		glog.Error(err)
 		return err
 	}
 	defer conn.Close()
 
 	chn, err := conn.Channel()
 	if err != nil {
+		glog.Error(err)
 		return err
 	}
 	defer chn.Close()
@@ -64,6 +66,7 @@ func listenLogout() error {
 		nil,      // arguments
 	)
 	if err != nil {
+		glog.Error(err)
 		return err
 	}
 
@@ -76,6 +79,7 @@ func listenLogout() error {
 		nil,   // arguments
 	)
 	if err != nil {
+		glog.Error(err)
 		return err
 	}
 
@@ -86,6 +90,7 @@ func listenLogout() error {
 		false,
 		nil)
 	if err != nil {
+		glog.Error(err)
 		return err
 	}
 
@@ -99,6 +104,7 @@ func listenLogout() error {
 		nil,        // args
 	)
 	if err != nil {
+		glog.Error(err)
 		return err
 	}
 
@@ -106,18 +112,22 @@ func listenLogout() error {
 
 	go func() {
 		for d := range mgs {
-			log.Output(1, "Mensaje recibido")
 			newMessage := &message{}
-			err = json.Unmarshal(d.Body, newMessage)
+			body := d.Body
+			glog.Info("Rabbit Consume : ", string(body))
+
+			err = json.Unmarshal(body, newMessage)
 			if err == nil {
 				if newMessage.Type == "logout" {
 					security.Invalidate(newMessage.Message)
 				}
+			} else {
+				glog.Error(err)
 			}
 		}
 	}()
 
-	fmt.Print("Closed connection: ", <-conn.NotifyClose(make(chan *amqp.Error)))
+	glog.Info("Closed connection: ", <-conn.NotifyClose(make(chan *amqp.Error)))
 
 	return nil
 }

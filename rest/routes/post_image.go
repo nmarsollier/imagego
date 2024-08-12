@@ -7,22 +7,21 @@ import (
 )
 
 // Agrega una nueva imagen al servidor.
+// @Summary		Guardar imagen
+// @Description	Agrega una nueva imagen al servidor.
+// @Tags			Imagen
+// @Accept			json
+// @Produce		json
+// @Param			image			body		NewRequest				true	"Imagen en base64"
+// @Param			Authorization	header		string					true	"bearer {token}"
+// @Success		200				{object}	NewImageResponse		"Imagen"
+// @Failure		401				{object}	apperr.ErrCustom		"Unauthorized"
+// @Failure		400				{object}	apperr.ErrValidation	"Bad Request"
+// @Failure		404				{object}	apperr.ErrCustom		"Not Found"
+// @Failure		500				{object}	apperr.ErrCustom		"Internal Server Error"
+// @Router			/v1/image [post]
 //
-//	@Summary		Guardar imagen
-//	@Description	Agrega una nueva imagen al servidor.
-//	@Tags			Imagen
-//	@Accept			json
-//	@Produce		json
-//
-//	@Param			image			body		NewRequest				true	"Imagen en base64"
-//	@Param			Authorization	header		string					true	"bearer {token}"
-//	@Success		200				{object}	NewImageResponse		"Imagen"
-//	@Failure		401				{object}	custerror.ErrCustom		"Unauthorized"
-//	@Failure		400				{object}	custerror.ErrValidation	"Bad Request"
-//	@Failure		404				{object}	custerror.ErrCustom		"Not Found"
-//	@Failure		500				{object}	custerror.ErrCustom		"Internal Server Error"
-//
-//	@Router			/v1/image [post]
+// Init inicializa la ruta
 func init() {
 	router().POST(
 		"/v1/image",

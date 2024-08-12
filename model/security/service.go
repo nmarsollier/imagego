@@ -2,10 +2,10 @@ package security
 
 import (
 	"fmt"
-	"log"
 	"time"
 
-	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/golang/glog"
+	"github.com/nmarsollier/imagego/tools/apperr"
 	gocache "github.com/patrickmn/go-cache"
 )
 
@@ -30,7 +30,7 @@ func Validate(token string) (*User, error) {
 
 	user, err := getRemoteToken(token)
 	if err != nil {
-		return nil, custerror.Unauthorized
+		return nil, apperr.Unauthorized
 	}
 
 	// Todo bien, se agrega al cache y se retorna
@@ -42,5 +42,5 @@ func Validate(token string) (*User, error) {
 // Invalidate invalida un token del cache
 func Invalidate(token string) {
 	cache.Delete(token[7:])
-	log.Output(1, fmt.Sprintf("Token invalidado: %s", token))
+	glog.Info(fmt.Sprintf("Token invalidado: %s", token))
 }

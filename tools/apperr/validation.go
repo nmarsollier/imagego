@@ -1,4 +1,4 @@
-package custerror
+package apperr
 
 import (
 	"encoding/json"

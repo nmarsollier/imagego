@@ -2,19 +2,22 @@ package image
 
 import (
 	"github.com/go-redis/redis/v7"
-	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/golang/glog"
+	"github.com/nmarsollier/imagego/tools/apperr"
 	"github.com/nmarsollier/imagego/tools/env"
 )
 
 // Insert agrega una imagen a la db
 func Insert(image *Image) (string, error) {
 	if err := image.validateSchema(); err != nil {
+		glog.Error(err)
 		return "", err
 	}
 
 	client := client()
 	err := client.Set(image.ID, image.Image, 0).Err()
 	if err != nil {
+		glog.Error(err)
 		return "", err
 	}
 
@@ -26,7 +29,8 @@ func find(imageID string) (*Image, error) {
 	client := client()
 	data, err := client.Get(imageID).Result()
 	if err != nil {
-		return nil, custerror.NotFound
+		glog.Error(err)
+		return nil, apperr.NotFound
 	}
 
 	result := Image{

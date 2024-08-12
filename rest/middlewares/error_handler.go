@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator"
-	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/nmarsollier/imagego/tools/apperr"
 )
 
 // ErrorHandler a middleware to handle errors
@@ -33,10 +33,10 @@ func handleErrorIfNeeded(c *gin.Context) {
 func handleError(c *gin.Context, err interface{}) {
 	// Compruebo tipos de errores conocidos
 	switch value := err.(type) {
-	case custerror.Custom:
+	case apperr.Custom:
 		// Son validaciones hechas con NewCustom
 		handleCustom(c, value)
-	case custerror.Validation:
+	case apperr.Validation:
 		// Son validaciones hechas con NewValidation
 		c.JSON(400, err)
 	case validator.ValidationErrors:
@@ -49,12 +49,12 @@ func handleError(c *gin.Context, err interface{}) {
 		})
 	default:
 		// No se sabe que es, devolvemos internal
-		handleCustom(c, custerror.Internal)
+		handleCustom(c, apperr.Internal)
 	}
 }
 
 func handleValidationError(c *gin.Context, validationErrors validator.ValidationErrors) {
-	err := custerror.NewValidation()
+	err := apperr.NewValidation()
 
 	for _, e := range validationErrors {
 		err.Add(strings.ToLower(e.Field()), e.Tag())
@@ -63,6 +63,6 @@ func handleValidationError(c *gin.Context, validationErrors validator.Validation
 	c.JSON(400, err)
 }
 
-func handleCustom(c *gin.Context, err custerror.Custom) {
+func handleCustom(c *gin.Context, err apperr.Custom) {
 	c.JSON(err.Status(), err)
 }

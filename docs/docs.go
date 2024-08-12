@@ -59,25 +59,25 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrValidation"
+                            "$ref": "#/definitions/apperr.ErrValidation"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrCustom"
+                            "$ref": "#/definitions/apperr.ErrCustom"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrCustom"
+                            "$ref": "#/definitions/apperr.ErrCustom"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrCustom"
+                            "$ref": "#/definitions/apperr.ErrCustom"
                         }
                     }
                 }
@@ -85,6 +85,33 @@ const docTemplate = `{
         },
         "/v1/image/:imageID": {
             "get": {
+                "description": "Obtiene una imagen del servidor en formato base64",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Imagen"
+                ],
+                "summary": "Obtener imagen",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "[160|320|640|800|1024|1200]",
+                        "name": "Size",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID de la imagen",
+                        "name": "imageID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Informacion de la Imagen",
@@ -95,19 +122,19 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrValidation"
+                            "$ref": "#/definitions/apperr.ErrValidation"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrCustom"
+                            "$ref": "#/definitions/apperr.ErrCustom"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrCustom"
+                            "$ref": "#/definitions/apperr.ErrCustom"
                         }
                     }
                 }
@@ -115,6 +142,33 @@ const docTemplate = `{
         },
         "/v1/image/:imageID/jpeg": {
             "get": {
+                "description": "Obtiene una imagen del servidor en formato jpeg.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "image/jpeg"
+                ],
+                "tags": [
+                    "Imagen"
+                ],
+                "summary": "Obtener jpeg",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "[160|320|640|800|1024|1200]",
+                        "name": "Size",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID de la imagen",
+                        "name": "imageID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Imagen",
@@ -125,19 +179,19 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrValidation"
+                            "$ref": "#/definitions/apperr.ErrValidation"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrCustom"
+                            "$ref": "#/definitions/apperr.ErrCustom"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/custerror.ErrCustom"
+                            "$ref": "#/definitions/apperr.ErrCustom"
                         }
                     }
                 }
@@ -145,7 +199,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "custerror.ErrCustom": {
+        "apperr.ErrCustom": {
             "type": "object",
             "properties": {
                 "error": {
@@ -153,7 +207,7 @@ const docTemplate = `{
                 }
             }
         },
-        "custerror.ErrField": {
+        "apperr.ErrField": {
             "type": "object",
             "properties": {
                 "message": {
@@ -164,13 +218,13 @@ const docTemplate = `{
                 }
             }
         },
-        "custerror.ErrValidation": {
+        "apperr.ErrValidation": {
             "type": "object",
             "properties": {
                 "messages": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/custerror.ErrField"
+                        "$ref": "#/definitions/apperr.ErrField"
                     }
                 }
             }

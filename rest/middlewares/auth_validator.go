@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/nmarsollier/imagego/model/security"
-	"github.com/nmarsollier/imagego/tools/custerror"
+	"github.com/nmarsollier/imagego/tools/apperr"
 )
 
 // ValidateAuthentication validate gets and check variable body to create new variable
@@ -23,11 +23,11 @@ var securityValidate func(token string) (*security.User, error) = security.Valid
 func validateToken(c *gin.Context) error {
 	tokenString, err := getHeaderToken(c)
 	if err != nil {
-		return custerror.Unauthorized
+		return apperr.Unauthorized
 	}
 
 	if _, err = securityValidate(tokenString); err != nil {
-		return custerror.Unauthorized
+		return apperr.Unauthorized
 	}
 
 	return nil
@@ -37,7 +37,7 @@ func validateToken(c *gin.Context) error {
 func getHeaderToken(c *gin.Context) (string, error) {
 	tokenString := c.GetHeader("Authorization")
 	if strings.Index(tokenString, "bearer ") != 0 {
-		return "", custerror.Unauthorized
+		return "", apperr.Unauthorized
 	}
 	return tokenString[7:], nil
 }

@@ -1,22 +1,22 @@
 basePath: /v1
 definitions:
-  custerror.ErrCustom:
+  apperr.ErrCustom:
     properties:
       error:
         type: string
     type: object
-  custerror.ErrField:
+  apperr.ErrField:
     properties:
       message:
         type: string
       path:
         type: string
     type: object
-  custerror.ErrValidation:
+  apperr.ErrValidation:
     properties:
       messages:
         items:
-          $ref: '#/definitions/custerror.ErrField'
+          $ref: '#/definitions/apperr.ErrField'
         type: array
     type: object
   image.Image:
@@ -79,24 +79,40 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/custerror.ErrValidation'
+            $ref: '#/definitions/apperr.ErrValidation'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/custerror.ErrCustom'
+            $ref: '#/definitions/apperr.ErrCustom'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/custerror.ErrCustom'
+            $ref: '#/definitions/apperr.ErrCustom'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/custerror.ErrCustom'
+            $ref: '#/definitions/apperr.ErrCustom'
       summary: Guardar imagen
       tags:
       - Imagen
   /v1/image/:imageID:
     get:
+      consumes:
+      - application/json
+      description: Obtiene una imagen del servidor en formato base64
+      parameters:
+      - description: '[160|320|640|800|1024|1200]'
+        in: path
+        name: Size
+        required: true
+        type: string
+      - description: ID de la imagen
+        in: path
+        name: imageID
+        required: true
+        type: string
+      produces:
+      - application/json
       responses:
         "200":
           description: Informacion de la Imagen
@@ -105,17 +121,36 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/custerror.ErrValidation'
+            $ref: '#/definitions/apperr.ErrValidation'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/custerror.ErrCustom'
+            $ref: '#/definitions/apperr.ErrCustom'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/custerror.ErrCustom'
+            $ref: '#/definitions/apperr.ErrCustom'
+      summary: Obtener imagen
+      tags:
+      - Imagen
   /v1/image/:imageID/jpeg:
     get:
+      consumes:
+      - application/json
+      description: Obtiene una imagen del servidor en formato jpeg.
+      parameters:
+      - description: '[160|320|640|800|1024|1200]'
+        in: path
+        name: Size
+        required: true
+        type: string
+      - description: ID de la imagen
+        in: path
+        name: imageID
+        required: true
+        type: string
+      produces:
+      - image/jpeg
       responses:
         "200":
           description: Imagen
@@ -124,13 +159,16 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/custerror.ErrValidation'
+            $ref: '#/definitions/apperr.ErrValidation'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/custerror.ErrCustom'
+            $ref: '#/definitions/apperr.ErrCustom'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/custerror.ErrCustom'
+            $ref: '#/definitions/apperr.ErrCustom'
+      summary: Obtener jpeg
+      tags:
+      - Imagen
 swagger: "2.0"
