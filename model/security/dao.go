@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/go-playground/validator"
+	"github.com/go-playground/validator/v10"
 	"github.com/golang/glog"
 	"github.com/nmarsollier/imagego/tools/apperr"
 	"github.com/nmarsollier/imagego/tools/env"
