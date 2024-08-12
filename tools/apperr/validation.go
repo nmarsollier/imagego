@@ -2,7 +2,6 @@ package apperr
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // NewValidationField crea un error de validación para un solo campo
@@ -46,9 +45,9 @@ type ErrValidation struct {
 func (e *ErrValidation) Error() string {
 	body, err := json.Marshal(e)
 	if err != nil {
-		return fmt.Sprintf("ErrValidation que no se puede pasar a json.")
+		return "ErrValidation que no se puede pasar a json."
 	}
-	return fmt.Sprintf(string(body))
+	return string(body)
 }
 
 // Add agrega errores a un validation error

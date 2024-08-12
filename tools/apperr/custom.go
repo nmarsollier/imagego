@@ -1,7 +1,6 @@
 package apperr
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -40,7 +39,7 @@ type ErrCustom struct {
 }
 
 func (e *ErrCustom) Error() string {
-	return fmt.Sprintf(e.Message)
+	return e.Message
 }
 
 // Status http status code

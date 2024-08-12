@@ -2,7 +2,6 @@ package rabbit
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/golang/glog"
@@ -35,7 +34,7 @@ func Init() {
 	go func() {
 		for {
 			listenLogout()
-			fmt.Println("RabbitMQ conectando en 5 segundos.")
+			glog.Info("RabbitMQ conectando en 5 segundos.")
 			time.Sleep(5 * time.Second)
 		}
 	}()
@@ -108,7 +107,7 @@ func listenLogout() error {
 		return err
 	}
 
-	fmt.Println("RabbitMQ conectado")
+	glog.Info("RabbitMQ conectado")
 
 	go func() {
 		for d := range mgs {
