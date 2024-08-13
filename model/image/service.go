@@ -5,7 +5,7 @@ import (
 )
 
 // ErrSize el tamaño es incorrecto
-var ErrSize = apperr.NewValidationField("size", "invalid")
+var ErrSize = apperr.NewValidation().Add("size", "invalid")
 
 // Find busca una imagen para un tamaño en particular
 func Find(imageID string, size int) (*Image, error) {

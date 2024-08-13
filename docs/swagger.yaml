@@ -1,23 +1,23 @@
 basePath: /v1
 definitions:
-  apperr.ErrCustom:
+  apperr.ValidationErr:
     properties:
-      error:
-        type: string
+      messages:
+        items:
+          $ref: '#/definitions/apperr.errField'
+        type: array
     type: object
-  apperr.ErrField:
+  apperr.errField:
     properties:
       message:
         type: string
       path:
         type: string
     type: object
-  apperr.ErrValidation:
+  engine.ErrorData:
     properties:
-      messages:
-        items:
-          $ref: '#/definitions/apperr.ErrField'
-        type: array
+      error:
+        type: string
     type: object
   image.Image:
     properties:
@@ -79,19 +79,19 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/apperr.ErrValidation'
+            $ref: '#/definitions/apperr.ValidationErr'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/apperr.ErrCustom'
+            $ref: '#/definitions/engine.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/apperr.ErrCustom'
+            $ref: '#/definitions/engine.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/apperr.ErrCustom'
+            $ref: '#/definitions/engine.ErrorData'
       summary: Guardar imagen
       tags:
       - Imagen
@@ -121,15 +121,19 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/apperr.ErrValidation'
+            $ref: '#/definitions/apperr.ValidationErr'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/engine.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/apperr.ErrCustom'
+            $ref: '#/definitions/engine.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/apperr.ErrCustom'
+            $ref: '#/definitions/engine.ErrorData'
       summary: Obtener imagen
       tags:
       - Imagen
@@ -159,15 +163,19 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/apperr.ErrValidation'
+            $ref: '#/definitions/apperr.ValidationErr'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/engine.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/apperr.ErrCustom'
+            $ref: '#/definitions/engine.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/apperr.ErrCustom'
+            $ref: '#/definitions/engine.ErrorData'
       summary: Obtener jpeg
       tags:
       - Imagen

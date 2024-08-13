@@ -31,10 +31,10 @@ Agrega una nueva imagen al servidor.
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
 | 200 | Imagen | [routes.NewImageResponse](#routesnewimageresponse) |
-| 400 | Bad Request | [apperr.ErrValidation](#apperrerrvalidation) |
-| 401 | Unauthorized | [apperr.ErrCustom](#apperrerrcustom) |
-| 404 | Not Found | [apperr.ErrCustom](#apperrerrcustom) |
-| 500 | Internal Server Error | [apperr.ErrCustom](#apperrerrcustom) |
+| 400 | Bad Request | [apperr.ValidationErr](#apperrvalidationerr) |
+| 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
+| 404 | Not Found | [engine.ErrorData](#engineerrordata) |
+| 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
 
 ### /v1/image/:imageID
 
@@ -59,9 +59,10 @@ Obtiene una imagen del servidor en formato base64
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
 | 200 | Informacion de la Imagen | [image.Image](#imageimage) |
-| 400 | Bad Request | [apperr.ErrValidation](#apperrerrvalidation) |
-| 404 | Not Found | [apperr.ErrCustom](#apperrerrcustom) |
-| 500 | Internal Server Error | [apperr.ErrCustom](#apperrerrcustom) |
+| 400 | Bad Request | [apperr.ValidationErr](#apperrvalidationerr) |
+| 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
+| 404 | Not Found | [engine.ErrorData](#engineerrordata) |
+| 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
 
 ### /v1/image/:imageID/jpeg
 
@@ -86,31 +87,32 @@ Obtiene una imagen del servidor en formato jpeg.
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
 | 200 | Imagen | file |
-| 400 | Bad Request | [apperr.ErrValidation](#apperrerrvalidation) |
-| 404 | Not Found | [apperr.ErrCustom](#apperrerrcustom) |
-| 500 | Internal Server Error | [apperr.ErrCustom](#apperrerrcustom) |
+| 400 | Bad Request | [apperr.ValidationErr](#apperrvalidationerr) |
+| 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
+| 404 | Not Found | [engine.ErrorData](#engineerrordata) |
+| 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
 
 ---
 ### Models
 
-#### apperr.ErrCustom
+#### apperr.ValidationErr
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| error | string |  | No |
+| messages | [ [apperr.errField](#apperrerrfield) ] |  | No |
 
-#### apperr.ErrField
+#### apperr.errField
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | message | string |  | No |
 | path | string |  | No |
 
-#### apperr.ErrValidation
+#### engine.ErrorData
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| messages | [ [apperr.ErrField](#apperrerrfield) ] |  | No |
+| error | string |  | No |
 
 #### image.Image
 

@@ -24,7 +24,7 @@ func New(img string) *Image {
 }
 
 // ErrData la imagen no parece valida
-var ErrData = apperr.NewValidationField("image", "invalid")
+var ErrData = apperr.NewValidation().Add("image", "invalid")
 
 func (e *Image) validateSchema() error {
 	validate := validator.New()

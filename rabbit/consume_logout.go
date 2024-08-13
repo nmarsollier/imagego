@@ -2,11 +2,11 @@ package rabbit
 
 import (
 	"encoding/json"
+	"errors"
 	"time"
 
 	"github.com/golang/glog"
 	"github.com/nmarsollier/imagego/model/security"
-	"github.com/nmarsollier/imagego/tools/apperr"
 	"github.com/nmarsollier/imagego/tools/env"
 	"github.com/streadway/amqp"
 )
@@ -22,7 +22,7 @@ import (
 //	@Router			auth/logout [put]
 //
 // ErrChannelNotInitialized Rabbit channel could not be initialized
-var ErrChannelNotInitialized = apperr.NewCustom(400, "Channel not initialized")
+var ErrChannelNotInitialized = errors.New("channel not initialized")
 
 type message struct {
 	Type    string `json:"type"`
