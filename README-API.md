@@ -8,6 +8,29 @@ Nestor Marsollier
 nmarsollier@gmail.com  
 
 ---
+### /rabbit/logout
+
+#### GET
+##### Summary
+
+Mensage Rabbit
+
+##### Description
+
+Escucha de mensajes logout desde auth.
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| body | body | Estructura general del mensage | Yes | [rabbit.message](#rabbitmessage) |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+
+---
 ### /v1/image
 
 #### POST
@@ -120,6 +143,13 @@ Obtiene una imagen del servidor en formato jpeg.
 | ---- | ---- | ----------- | -------- |
 | id | string |  | Yes |
 | image | string |  | Yes |
+
+#### rabbit.message
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| message | string |  | No |
+| type | string |  | No |
 
 #### routes.NewImageResponse
 

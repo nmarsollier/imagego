@@ -29,6 +29,13 @@ definitions:
     - id
     - image
     type: object
+  rabbit.message:
+    properties:
+      message:
+        type: string
+      type:
+        type: string
+    type: object
   routes.NewImageResponse:
     properties:
       id:
@@ -52,6 +59,24 @@ info:
   title: ImageGo
   version: "1.0"
 paths:
+  /rabbit/logout:
+    get:
+      consumes:
+      - application/json
+      description: Escucha de mensajes logout desde auth.
+      parameters:
+      - description: Estructura general del mensage
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rabbit.message'
+      produces:
+      - application/json
+      responses: {}
+      summary: Mensage Rabbit
+      tags:
+      - Rabbit
   /v1/image:
     post:
       consumes:

@@ -18,6 +18,33 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/rabbit/logout": {
+            "get": {
+                "description": "Escucha de mensajes logout desde auth.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rabbit"
+                ],
+                "summary": "Mensage Rabbit",
+                "parameters": [
+                    {
+                        "description": "Estructura general del mensage",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rabbit.message"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/v1/image": {
             "post": {
                 "description": "Agrega una nueva imagen al servidor.",
@@ -252,6 +279,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "image": {
+                    "type": "string"
+                }
+            }
+        },
+        "rabbit.message": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "type": {
                     "type": "string"
                 }
             }

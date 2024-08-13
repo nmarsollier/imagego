@@ -11,17 +11,6 @@ import (
 	"github.com/streadway/amqp"
 )
 
-// Escucha de mensajes logout desde auth.
-//
-//	@Summary		Mensage Rabbit
-//	@Description	Escucha de mensajes logout desde auth.
-//	@Tags			Rabbit
-//	@Accept			json
-//	@Produce		json
-//	@Param			body	body	message	true	"Token deshabilitado"
-//	@Router			auth/logout [put]
-//
-// ErrChannelNotInitialized Rabbit channel could not be initialized
 var ErrChannelNotInitialized = errors.New("channel not initialized")
 
 type message struct {
@@ -29,7 +18,15 @@ type message struct {
 	Message string `json:"message"`
 }
 
-// Init se queda escuchando broadcasts de logout
+// @Summary		Mensage Rabbit
+// @Description	Escucha de mensajes logout desde auth.
+// @Tags			Rabbit
+// @Accept			json
+// @Produce		json
+// @Param			body	body	message	true	"Estructura general del mensage"
+// @Router			/rabbit/logout [get]
+//
+// Escucha de mensajes logout desde auth.
 func Init() {
 	go func() {
 		for {
