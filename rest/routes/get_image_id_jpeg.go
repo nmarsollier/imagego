@@ -10,23 +10,21 @@ import (
 	"github.com/nmarsollier/imagego/rest/engine"
 )
 
+// @Summary		Obtener jpeg
+// @Description	Obtiene una imagen del servidor en formato jpeg.
+// @Tags			Imagen
+// @Accept			json
+// @Produce		image/jpeg
+// @Param			Size	path		string					true	"[160|320|640|800|1024|1200]"
+// @Param			imageID	path		string					true	"ID de la imagen"
+// @Success		200		{file}		jpeg					"Imagen"
+// @Failure		400		{object}	apperr.ValidationErr	"Bad Request"
+// @Failure		401		{object}	engine.ErrorData		"Unauthorized"
+// @Failure		404		{object}	engine.ErrorData		"Not Found"
+// @Failure		500		{object}	engine.ErrorData		"Internal Server Error"
+// @Router			/v1/image/:imageID/jpeg [get]
+//
 // Obtiene una imagen del servidor en formato jpeg.
-//
-//	@Summary		Obtener jpeg
-//	@Description	Obtiene una imagen del servidor en formato jpeg.
-//	@Tags			Imagen
-//	@Accept			json
-//	@Produce		image/jpeg
-//	@Param			Size	path		string					true	"[160|320|640|800|1024|1200]"
-//	@Param			imageID	path		string					true	"ID de la imagen"
-//	@Success		200		{file}		jpeg					"Imagen"
-//	@Failure		400		{object}	apperr.ValidationErr	"Bad Request"
-//	@Failure		401		{object}	engine.ErrorData		"Unauthorized"
-//	@Failure		404		{object}	engine.ErrorData		"Not Found"
-//	@Failure		500		{object}	engine.ErrorData		"Internal Server Error"
-//	@Router			/v1/image/:imageID/jpeg [get]
-//
-// init Inicializa la ruta
 func init() {
 	engine.Router().GET("/v1/image/:imageID/jpeg", sendJpegImage)
 }
