@@ -1,11 +1,11 @@
 package image
 
 import (
-	"github.com/nmarsollier/imagego/tools/apperr"
+	"github.com/nmarsollier/imagego/tools/errs"
 )
 
 // ErrSize el tamaño es incorrecto
-var ErrSize = apperr.NewValidation().Add("size", "invalid")
+var ErrSize = errs.NewValidation().Add("size", "invalid")
 
 // Find busca una imagen para un tamaño en particular
 func Find(imageID string, size int) (*Image, error) {
@@ -17,7 +17,7 @@ func Find(imageID string, size int) (*Image, error) {
 
 	// Busco el tamaño justo de imagen
 	image, err := find(sizedID)
-	if err != nil && err != apperr.NotFound {
+	if err != nil && err != errs.NotFound {
 		return nil, err
 	}
 	if err == nil {

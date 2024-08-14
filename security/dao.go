@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/golang/glog"
-	"github.com/nmarsollier/imagego/tools/apperr"
 	"github.com/nmarsollier/imagego/tools/env"
+	"github.com/nmarsollier/imagego/tools/errs"
 )
 
 func getRemoteToken(token string) (*User, error) {
@@ -15,13 +15,13 @@ func getRemoteToken(token string) (*User, error) {
 	req, err := http.NewRequest("GET", env.Get().SecurityServerURL+"/v1/users/current", nil)
 	if err != nil {
 		glog.Error(err)
-		return nil, apperr.Unauthorized
+		return nil, errs.Unauthorized
 	}
 	req.Header.Add("Authorization", "bearer "+token)
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		glog.Error(err)
-		return nil, apperr.Unauthorized
+		return nil, errs.Unauthorized
 	}
 	defer resp.Body.Close()
 

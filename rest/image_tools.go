@@ -1,8 +1,8 @@
-package routes
+package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/model/image"
+	"github.com/nmarsollier/imagego/image"
 )
 
 // GetImage devuelve una imagen guardada en formato base64

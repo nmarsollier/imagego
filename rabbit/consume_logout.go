@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/golang/glog"
-	"github.com/nmarsollier/imagego/model/security"
+	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/env"
 	"github.com/streadway/amqp"
 )

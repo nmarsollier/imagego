@@ -4,7 +4,7 @@ import (
 	"flag"
 
 	"github.com/nmarsollier/imagego/rabbit"
-	"github.com/nmarsollier/imagego/rest/routes"
+	"github.com/nmarsollier/imagego/rest"
 )
 
 //	@title			ImageGo
@@ -23,5 +23,5 @@ func main() {
 	flag.Set("v", "2")
 
 	rabbit.Init()
-	routes.StartEngine()
+	rest.StartEngine()
 }

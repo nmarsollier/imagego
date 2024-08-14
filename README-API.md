@@ -46,15 +46,15 @@ Agrega una nueva imagen al servidor.
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| image | body | Imagen en base64 | Yes | [routes.NewRequest](#routesnewrequest) |
+| image | body | Imagen en base64 | Yes | [rest.NewRequest](#restnewrequest) |
 | Authorization | header | bearer {token} | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | Imagen | [routes.NewImageResponse](#routesnewimageresponse) |
-| 400 | Bad Request | [apperr.ValidationErr](#apperrvalidationerr) |
+| 200 | Imagen | [rest.NewImageResponse](#restnewimageresponse) |
+| 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
 | 404 | Not Found | [engine.ErrorData](#engineerrordata) |
 | 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
@@ -82,7 +82,7 @@ Obtiene una imagen del servidor en formato base64
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
 | 200 | Informacion de la Imagen | [image.Image](#imageimage) |
-| 400 | Bad Request | [apperr.ValidationErr](#apperrvalidationerr) |
+| 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
 | 404 | Not Found | [engine.ErrorData](#engineerrordata) |
 | 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
@@ -110,7 +110,7 @@ Obtiene una imagen del servidor en formato jpeg.
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
 | 200 | Imagen | file |
-| 400 | Bad Request | [apperr.ValidationErr](#apperrvalidationerr) |
+| 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
 | 404 | Not Found | [engine.ErrorData](#engineerrordata) |
 | 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
@@ -118,24 +118,24 @@ Obtiene una imagen del servidor en formato jpeg.
 ---
 ### Models
 
-#### apperr.ValidationErr
-
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| messages | [ [apperr.errField](#apperrerrfield) ] |  | No |
-
-#### apperr.errField
-
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| message | string |  | No |
-| path | string |  | No |
-
 #### engine.ErrorData
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | error | string |  | No |
+
+#### errs.ValidationErr
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| messages | [ [errs.errField](#errserrfield) ] |  | No |
+
+#### errs.errField
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| message | string |  | No |
+| path | string |  | No |
 
 #### image.Image
 
@@ -151,13 +151,13 @@ Obtiene una imagen del servidor en formato jpeg.
 | message | string | *Example:* `"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"` | No |
 | type | string | *Example:* `"logout"` | No |
 
-#### routes.NewImageResponse
+#### rest.NewImageResponse
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | id | string |  | Yes |
 
-#### routes.NewRequest
+#### rest.NewRequest
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |

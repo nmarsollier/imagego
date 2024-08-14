@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/golang/glog"
-	"github.com/nmarsollier/imagego/tools/apperr"
+	"github.com/nmarsollier/imagego/tools/errs"
 	gocache "github.com/patrickmn/go-cache"
 )
 
@@ -29,7 +29,7 @@ func Validate(token string) (*User, error) {
 
 	user, err := getRemoteToken(token)
 	if err != nil {
-		return nil, apperr.Unauthorized
+		return nil, errs.Unauthorized
 	}
 
 	// Todo bien, se agrega al cache y se retorna

@@ -3,8 +3,8 @@ package image
 import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/glog"
-	"github.com/nmarsollier/imagego/tools/apperr"
 	"github.com/nmarsollier/imagego/tools/env"
+	"github.com/nmarsollier/imagego/tools/errs"
 )
 
 // Insert agrega una imagen a la db
@@ -30,7 +30,7 @@ func find(imageID string) (*Image, error) {
 	data, err := client.Get(imageID).Result()
 	if err != nil {
 		glog.Error(err)
-		return nil, apperr.NotFound
+		return nil, errs.NotFound
 	}
 
 	result := Image{

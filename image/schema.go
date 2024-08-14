@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/golang/glog"
-	"github.com/nmarsollier/imagego/tools/apperr"
+	"github.com/nmarsollier/imagego/tools/errs"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -24,7 +24,7 @@ func New(img string) *Image {
 }
 
 // ErrData la imagen no parece valida
-var ErrData = apperr.NewValidation().Add("image", "invalid")
+var ErrData = errs.NewValidation().Add("image", "invalid")
 
 func (e *Image) validateSchema() error {
 	validate := validator.New()

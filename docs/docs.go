@@ -65,7 +65,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/routes.NewRequest"
+                            "$ref": "#/definitions/rest.NewRequest"
                         }
                     },
                     {
@@ -80,13 +80,13 @@ const docTemplate = `{
                     "200": {
                         "description": "Imagen",
                         "schema": {
-                            "$ref": "#/definitions/routes.NewImageResponse"
+                            "$ref": "#/definitions/rest.NewImageResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/apperr.ValidationErr"
+                            "$ref": "#/definitions/errs.ValidationErr"
                         }
                     },
                     "401": {
@@ -149,7 +149,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/apperr.ValidationErr"
+                            "$ref": "#/definitions/errs.ValidationErr"
                         }
                     },
                     "401": {
@@ -212,7 +212,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/apperr.ValidationErr"
+                            "$ref": "#/definitions/errs.ValidationErr"
                         }
                     },
                     "401": {
@@ -238,32 +238,32 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "apperr.ValidationErr": {
+        "engine.ErrorData": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "errs.ValidationErr": {
             "type": "object",
             "properties": {
                 "messages": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/apperr.errField"
+                        "$ref": "#/definitions/errs.errField"
                     }
                 }
             }
         },
-        "apperr.errField": {
+        "errs.errField": {
             "type": "object",
             "properties": {
                 "message": {
                     "type": "string"
                 },
                 "path": {
-                    "type": "string"
-                }
-            }
-        },
-        "engine.ErrorData": {
-            "type": "object",
-            "properties": {
-                "error": {
                     "type": "string"
                 }
             }
@@ -296,7 +296,7 @@ const docTemplate = `{
                 }
             }
         },
-        "routes.NewImageResponse": {
+        "rest.NewImageResponse": {
             "type": "object",
             "required": [
                 "id"
@@ -307,7 +307,7 @@ const docTemplate = `{
                 }
             }
         },
-        "routes.NewRequest": {
+        "rest.NewRequest": {
             "type": "object",
             "required": [
                 "image"

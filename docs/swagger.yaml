@@ -1,22 +1,22 @@
 basePath: /v1
 definitions:
-  apperr.ValidationErr:
+  engine.ErrorData:
+    properties:
+      error:
+        type: string
+    type: object
+  errs.ValidationErr:
     properties:
       messages:
         items:
-          $ref: '#/definitions/apperr.errField'
+          $ref: '#/definitions/errs.errField'
         type: array
     type: object
-  apperr.errField:
+  errs.errField:
     properties:
       message:
         type: string
       path:
-        type: string
-    type: object
-  engine.ErrorData:
-    properties:
-      error:
         type: string
     type: object
   image.Image:
@@ -38,14 +38,14 @@ definitions:
         example: logout
         type: string
     type: object
-  routes.NewImageResponse:
+  rest.NewImageResponse:
     properties:
       id:
         type: string
     required:
     - id
     type: object
-  routes.NewRequest:
+  rest.NewRequest:
     properties:
       image:
         type: string
@@ -90,7 +90,7 @@ paths:
         name: image
         required: true
         schema:
-          $ref: '#/definitions/routes.NewRequest'
+          $ref: '#/definitions/rest.NewRequest'
       - description: bearer {token}
         in: header
         name: Authorization
@@ -102,11 +102,11 @@ paths:
         "200":
           description: Imagen
           schema:
-            $ref: '#/definitions/routes.NewImageResponse'
+            $ref: '#/definitions/rest.NewImageResponse'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/apperr.ValidationErr'
+            $ref: '#/definitions/errs.ValidationErr'
         "401":
           description: Unauthorized
           schema:
@@ -148,7 +148,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/apperr.ValidationErr'
+            $ref: '#/definitions/errs.ValidationErr'
         "401":
           description: Unauthorized
           schema:
@@ -190,7 +190,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/apperr.ValidationErr'
+            $ref: '#/definitions/errs.ValidationErr'
         "401":
           description: Unauthorized
           schema:
