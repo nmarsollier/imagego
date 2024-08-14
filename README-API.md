@@ -148,8 +148,8 @@ Obtiene una imagen del servidor en formato jpeg.
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| message | string |  | No |
-| type | string |  | No |
+| message | string | *Example:* `"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"` | No |
+| type | string | *Example:* `"logout"` | No |
 
 #### routes.NewImageResponse
 
