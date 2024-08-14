@@ -6,7 +6,7 @@ ENV RABBIT_URL=amqp://host.docker.internal
 ENV AUTH_SERVICE_URL=http://host.docker.internal:3000
 
 WORKDIR /go/src/github.com/nmarsollier/imagego
-RUN curl -L https://github.com/nmarsollier/imagego/tarball/master | tar xz --strip=1
+RUN curl -L https://github.com/nmarsollier/imagego/archive/refs/heads/master.tar.gz | tar xz --strip=1
 RUN go install /go/src/github.com/nmarsollier/imagego
 
 # Puerto de Image Service
