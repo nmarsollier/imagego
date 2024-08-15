@@ -2,19 +2,7 @@ package tests
 
 import (
 	"github.com/nmarsollier/imagego/image"
-	"github.com/nmarsollier/imagego/security"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
-
-// Mock Data
-func TestUser() *security.User {
-	return &security.User{
-		ID:          primitive.NewObjectID().String(),
-		Login:       "Login",
-		Name:        "Name",
-		Permissions: []string{"user"},
-	}
-}
 
 func TestImage() *image.Image {
 	return image.New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")

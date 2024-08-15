@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/rest/server"
+	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/redis_client"
 	"github.com/nmarsollier/imagego/tools/tests"
@@ -14,7 +15,7 @@ import (
 )
 
 func TestGetImageIdJpegHappyPath(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks Redis
@@ -41,7 +42,7 @@ func TestGetImageIdJpegHappyPath(t *testing.T) {
 }
 
 func TestGetImageIdJpegInvalidImage(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestInvalidImage()
 
 	// Mocks Redis
@@ -65,7 +66,7 @@ func TestGetImageIdJpegInvalidImage(t *testing.T) {
 }
 
 func TestGetImageIdJpegError(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestInvalidImage()
 
 	// Mocks Redis

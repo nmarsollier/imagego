@@ -87,29 +87,29 @@
 				
 				<option value="file15">github.com/nmarsollier/imagego/rest/server/test_utils.go (100.0%)</option>
 				
-				<option value="file16">github.com/nmarsollier/imagego/security/dao.go (70.0%)</option>
+				<option value="file16">github.com/nmarsollier/imagego/security/dao.go (80.0%)</option>
 				
-				<option value="file17">github.com/nmarsollier/imagego/security/service.go (60.0%)</option>
+				<option value="file17">github.com/nmarsollier/imagego/security/service.go (80.0%)</option>
 				
-				<option value="file18">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
+				<option value="file18">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
 				
-				<option value="file19">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
+				<option value="file19">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
 				
-				<option value="file20">github.com/nmarsollier/imagego/tools/errs/validation.go (44.4%)</option>
+				<option value="file20">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
 				
-				<option value="file21">github.com/nmarsollier/imagego/tools/http_client/client.go (75.0%)</option>
+				<option value="file21">github.com/nmarsollier/imagego/tools/errs/validation.go (44.4%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/tools/http_client/client_mocks.go (100.0%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/tools/http_client/client.go (75.0%)</option>
 				
-				<option value="file23">github.com/nmarsollier/imagego/tools/redis_client/client.go (50.0%)</option>
+				<option value="file23">github.com/nmarsollier/imagego/tools/http_client/client_mocks.go (100.0%)</option>
 				
-				<option value="file24">github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go (100.0%)</option>
+				<option value="file24">github.com/nmarsollier/imagego/tools/redis_client/client.go (50.0%)</option>
 				
-				<option value="file25">github.com/nmarsollier/imagego/tools/str_tools/json_tools.go (100.0%)</option>
+				<option value="file25">github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go (100.0%)</option>
 				
-				<option value="file26">github.com/nmarsollier/imagego/tools/tests/data.go (100.0%)</option>
+				<option value="file26">github.com/nmarsollier/imagego/tools/str_tools/json_tools.go (100.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/tools/tests/http.go (100.0%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/tools/tests/data.go (100.0%)</option>
 				
 				<option value="file28">github.com/nmarsollier/imagego/tools/tests/rest.go (76.9%)</option>
 				
@@ -1274,7 +1274,7 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
 
         user := &amp;User{}
         err = json.NewDecoder(resp.Body).Decode(user)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 glog.Error(err)
                 return nil, err
         }</span>
@@ -1300,14 +1300,6 @@ import (
 
 var cache = gocache.New(60*time.Minute, 10*time.Minute)
 
-// User es el usuario logueado
-type User struct {
-        ID          string   `json:"id"  validate:"required"`
-        Name        string   `json:"name"  validate:"required"`
-        Permissions []string `json:"permissions"`
-        Login       string   `json:"login"  validate:"required"`
-}
-
 // Validate valida si el token es valido
 func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8" title="1">{
         // Si esta en cache, retornamos el cache
@@ -1329,13 +1321,54 @@ func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8
 }
 
 // Invalidate invalida un token del cache
-func Invalidate(token string) <span class="cov0" title="0">{
-        cache.Delete(token[7:])
+func Invalidate(token string) <span class="cov8" title="1">{
+        cache.Delete(token)
         glog.Info("Token invalidado: ", token)
 }</span>
 </pre>
 		
-		<pre class="file" id="file18" style="display: none">package env
+		<pre class="file" id="file18" style="display: none">package security
+
+import (
+        "bytes"
+        "io"
+        "net/http"
+
+        "github.com/golang/mock/gomock"
+        "github.com/nmarsollier/imagego/tools/http_client"
+        "github.com/nmarsollier/imagego/tools/str_tools"
+        "go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+// Mock Data
+func TestUser() *User <span class="cov8" title="1">{
+        return &amp;User{
+                ID:          primitive.NewObjectID().Hex(),
+                Login:       "Login",
+                Name:        "Name",
+                Permissions: []string{"user"},
+        }
+}</span>
+
+// Http Mocks
+func ExpectHttpToken(mock *http_client.MockHTTPClient, user *User) <span class="cov8" title="1">{
+        response := &amp;http.Response{
+                StatusCode: http.StatusOK,
+                Body:       io.NopCloser(bytes.NewBufferString(str_tools.ToJson(user))),
+        }
+        mock.EXPECT().Do(gomock.Any()).Return(response, nil).Times(1)
+}</span>
+
+func ExpectHttpUnauthorized(mock *http_client.MockHTTPClient) <span class="cov8" title="1">{
+        response := &amp;http.Response{
+                StatusCode: http.StatusUnauthorized,
+                Body:       io.NopCloser(bytes.NewBufferString("")),
+        }
+        mock.EXPECT().Do(gomock.Any()).Return(response, nil).Times(1)
+}</span>
+</pre>
+		
+		<pre class="file" id="file19" style="display: none">package env
 
 import (
         "os"
@@ -1396,7 +1429,7 @@ func load() *Configuration <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file19" style="display: none">package errs
+		<pre class="file" id="file20" style="display: none">package errs
 
 // Unauthorized el usuario no esta autorizado al recurso
 var Unauthorized = NewRestError(401, "Unauthorized")
@@ -1443,7 +1476,7 @@ func (e *restError) Status() int <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file20" style="display: none">package errs
+		<pre class="file" id="file21" style="display: none">package errs
 
 import (
         "encoding/json"
@@ -1494,7 +1527,7 @@ type errField struct {
 }
 </pre>
 		
-		<pre class="file" id="file21" style="display: none">package http_client
+		<pre class="file" id="file22" style="display: none">package http_client
 
 import "net/http"
 
@@ -1513,7 +1546,7 @@ func Get(ctx ...interface{}) HTTPClient <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file22" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file23" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/http_client/client.go
 
 // Package http_client is a generated GoMock package.
@@ -1565,7 +1598,7 @@ func (mr *MockHTTPClientMockRecorder) Do(req interface{}) *gomock.Call <span cla
 }</span>
 </pre>
 		
-		<pre class="file" id="file23" style="display: none">package redis_client
+		<pre class="file" id="file24" style="display: none">package redis_client
 
 import (
         "time"
@@ -1608,7 +1641,7 @@ func (c redisClient) Set(key string, value interface{}, expiration time.Duration
 }</span>
 </pre>
 		
-		<pre class="file" id="file24" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file25" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/redis_client/client.go
 
 // Package redis_client is a generated GoMock package.
@@ -1674,7 +1707,7 @@ func (mr *MockRedisClientMockRecorder) Set(key, value, expiration interface{}) *
 }</span>
 </pre>
 		
-		<pre class="file" id="file25" style="display: none">package str_tools
+		<pre class="file" id="file26" style="display: none">package str_tools
 
 import "encoding/json"
 
@@ -1684,23 +1717,11 @@ func ToJson(obj interface{}) string <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file26" style="display: none">package tests
+		<pre class="file" id="file27" style="display: none">package tests
 
 import (
         "github.com/nmarsollier/imagego/image"
-        "github.com/nmarsollier/imagego/security"
-        "go.mongodb.org/mongo-driver/bson/primitive"
 )
-
-// Mock Data
-func TestUser() *security.User <span class="cov8" title="1">{
-        return &amp;security.User{
-                ID:          primitive.NewObjectID().String(),
-                Login:       "Login",
-                Name:        "Name",
-                Permissions: []string{"user"},
-        }
-}</span>
 
 func TestImage() *image.Image <span class="cov8" title="1">{
         return image.New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
@@ -1712,36 +1733,6 @@ func TestInvalidImage() *image.Image <span class="cov8" title="1">{
 
 func TestResizeImage() *image.Image <span class="cov8" title="1">{
         return image.New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AYht+mSou0dLCDiEOE6mQXFXGsVShChVArtOpgcukfNGlJUlwcBdeCgz+LVQcXZ10dXAVB8AfE2cFJ0UVK/C4ptIjx4O4e3vvel7vvAKFVZZrZlwA03TIyqaSYy6+KgVcEEUGY1lGZmfU5SUrDc3zdw8f3uzjP8q77c4TVgskAn0icYHXDIt4gntm06pz3iaOsLKvE58QTBl2Q+JHristvnEsOCzwzamQz88RRYrHUw0oPs7KhEU8Tx1RNp3wh57LKeYuzVm2wzj35C0MFfWWZ6zRHkMIiliBBhIIGKqjCQpx2nRQTGTpPeviHHb9ELoVcFTByLKAGDbLjB/+D3701i1OTblIoCfS/2PbHGBDYBdpN2/4+tu32CeB/Bq70rr/WAmY/SW92tdgRENkGLq67mrIHXO4AQ0912ZAdyU9TKBaB9zP6pjwweAsMrLl965zj9AHIUq/SN8DBITBeoux1j3cHe/v2b02nfz9eInKemubWvQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+gIDw0IOcHU+YsAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAZklEQVR42u3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4DD+/AAGTr/KYAAAAAElFTkSuQmCC")
-}</span>
-</pre>
-		
-		<pre class="file" id="file27" style="display: none">package tests
-
-import (
-        "bytes"
-        "io"
-        "net/http"
-
-        "github.com/golang/mock/gomock"
-        "github.com/nmarsollier/imagego/security"
-        "github.com/nmarsollier/imagego/tools/http_client"
-        "github.com/nmarsollier/imagego/tools/str_tools"
-)
-
-func ExpectHttpToken(mock *http_client.MockHTTPClient, user *security.User) <span class="cov8" title="1">{
-        response := &amp;http.Response{
-                StatusCode: http.StatusOK,
-                Body:       io.NopCloser(bytes.NewBufferString(str_tools.ToJson(user))),
-        }
-        mock.EXPECT().Do(gomock.Any()).Return(response, nil).Times(1)
-}</span>
-
-func ExpectHttpUnauthorized(mock *http_client.MockHTTPClient) <span class="cov8" title="1">{
-        response := &amp;http.Response{
-                StatusCode: http.StatusUnauthorized,
-                Body:       io.NopCloser(bytes.NewBufferString("")),
-        }
-        mock.EXPECT().Do(gomock.Any()).Return(response, nil).Times(1)
 }</span>
 </pre>
 		

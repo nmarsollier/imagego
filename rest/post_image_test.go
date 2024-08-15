@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/rest/server"
+	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/http_client"
 	"github.com/nmarsollier/imagego/tools/redis_client"
@@ -15,13 +16,13 @@ import (
 )
 
 func TestPostImageHappyPath(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks
 	ctrl := gomock.NewController(t)
 	httpMock := http_client.NewMockHTTPClient(ctrl)
-	tests.ExpectHttpToken(httpMock, user)
+	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
 	redisMock := redis_client.NewMockRedisClient(ctrl)
@@ -46,13 +47,13 @@ func TestPostImageHappyPath(t *testing.T) {
 }
 
 func TestPostImageError(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks
 	ctrl := gomock.NewController(t)
 	httpMock := http_client.NewMockHTTPClient(ctrl)
-	tests.ExpectHttpToken(httpMock, user)
+	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
 	redisMock := redis_client.NewMockRedisClient(ctrl)
@@ -69,13 +70,13 @@ func TestPostImageError(t *testing.T) {
 }
 
 func TestPostImageNotAuthorized(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks
 	ctrl := gomock.NewController(t)
 	httpMock := http_client.NewMockHTTPClient(ctrl)
-	tests.ExpectHttpUnauthorized(httpMock)
+	security.ExpectHttpUnauthorized(httpMock)
 
 	// REQUEST
 	r := server.TestRouter(httpMock)

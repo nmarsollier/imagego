@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/rest/server"
+	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/redis_client"
 	"github.com/nmarsollier/imagego/tools/tests"
@@ -14,7 +15,7 @@ import (
 )
 
 func TestGetImageIdHappyPath(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks Redis
@@ -41,7 +42,7 @@ func TestGetImageIdHappyPath(t *testing.T) {
 }
 
 func TestGetImageIdResizedHead(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks Redis
@@ -69,7 +70,7 @@ func TestGetImageIdResizedHead(t *testing.T) {
 }
 
 func TestGetImageIdResizedParam(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks Redis
@@ -96,7 +97,7 @@ func TestGetImageIdResizedParam(t *testing.T) {
 }
 
 func TestGetImageIdResizeInvalid(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks Redis
@@ -124,7 +125,7 @@ func TestGetImageIdResizeInvalid(t *testing.T) {
 }
 
 func TestGetImageIdInvalidDocument(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks Redis
@@ -148,7 +149,7 @@ func TestGetImageIdInvalidDocument(t *testing.T) {
 }
 
 func TestGetImageIdResizeNotNeed(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestImage()
 
 	// Mocks Redis
@@ -190,7 +191,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 }
 
 func TestGetImageIdResized(t *testing.T) {
-	user := tests.TestUser()
+	user := security.TestUser()
 	testImage := tests.TestResizeImage()
 
 	// Mocks Redis
