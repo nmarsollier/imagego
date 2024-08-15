@@ -1,0 +1,23 @@
+mode: set
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:25.13,26.12 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:26.12,27.7 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:27.7,31.4 3 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:35.27,37.16 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:37.16,40.3 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:41.2,44.16 3 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:44.16,47.3 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:48.2,59.16 3 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:59.16,62.3 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:64.2,72.16 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:72.16,75.3 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:77.2,83.16 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:83.16,86.3 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:88.2,97.16 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:97.16,100.3 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:102.2,104.12 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:104.12,105.22 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:105.22,111.18 5 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:111.18,112.36 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:112.36,114.6 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:115.10,117.5 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:121.2,123.12 2 0

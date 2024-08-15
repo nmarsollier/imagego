@@ -3,7 +3,7 @@ package rest
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/nmarsollier/imagego/image"
-	"github.com/nmarsollier/imagego/rest/engine"
+	"github.com/nmarsollier/imagego/rest/server"
 )
 
 // Agrega una nueva imagen al servidor.
@@ -17,16 +17,16 @@ import (
 //	@Param			Authorization	header		string				true	"bearer {token}"
 //	@Success		200				{object}	NewImageResponse	"Imagen"
 //	@Failure		400				{object}	errs.ValidationErr	"Bad Request"
-//	@Failure		401				{object}	engine.ErrorData	"Unauthorized"
-//	@Failure		404				{object}	engine.ErrorData	"Not Found"
-//	@Failure		500				{object}	engine.ErrorData	"Internal Server Error"
+//	@Failure		401				{object}	server.ErrorData	"Unauthorized"
+//	@Failure		404				{object}	server.ErrorData	"Not Found"
+//	@Failure		500				{object}	server.ErrorData	"Internal Server Error"
 //	@Router			/v1/image [post]
 //
 // Init inicializa la ruta
-func init() {
-	engine.Router().POST(
+func initPostImage() {
+	server.Router().POST(
 		"/v1/image",
-		engine.ValidateAuthentication,
+		server.ValidateAuthentication,
 		saveImage,
 	)
 }
@@ -38,7 +38,8 @@ func saveImage(c *gin.Context) {
 		return
 	}
 
-	id, err := image.Insert(image.New(bodyImage))
+	ctx := server.TestCtx(c)
+	id, err := image.Insert(image.New(bodyImage), ctx...)
 	if err != nil {
 		c.Error(err)
 		return

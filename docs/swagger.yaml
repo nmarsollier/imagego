@@ -1,10 +1,5 @@
 basePath: /v1
 definitions:
-  engine.ErrorData:
-    properties:
-      error:
-        type: string
-    type: object
   errs.ValidationErr:
     properties:
       messages:
@@ -51,6 +46,11 @@ definitions:
         type: string
     required:
     - image
+    type: object
+  server.ErrorData:
+    properties:
+      error:
+        type: string
     type: object
 host: localhost:3001
 info:
@@ -110,15 +110,15 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
       summary: Guardar imagen
       tags:
       - Imagen
@@ -152,15 +152,15 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
       summary: Obtener imagen
       tags:
       - Imagen
@@ -194,15 +194,15 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/engine.ErrorData'
+            $ref: '#/definitions/server.ErrorData'
       summary: Obtener jpeg
       tags:
       - Imagen

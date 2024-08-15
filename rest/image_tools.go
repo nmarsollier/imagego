@@ -3,6 +3,7 @@ package rest
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/nmarsollier/imagego/image"
+	"github.com/nmarsollier/imagego/rest/server"
 )
 
 // GetImage devuelve una imagen guardada en formato base64
@@ -10,7 +11,8 @@ func getImage(c *gin.Context) (*image.Image, error) {
 	imageID := c.Param("imageID")
 	size := getSizeParam(c)
 
-	data, err := image.Find(imageID, size)
+	ctx := server.TestCtx(c)
+	data, err := image.Find(imageID, size, ctx...)
 	if err != nil {
 		return nil, err
 	}

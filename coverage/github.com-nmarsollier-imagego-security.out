@@ -1,0 +1,17 @@
+mode: set
+github.com/nmarsollier/imagego/security/dao.go:14.70,17.16 2 0
+github.com/nmarsollier/imagego/security/dao.go:17.16,20.3 2 0
+github.com/nmarsollier/imagego/security/dao.go:21.2,23.42 3 0
+github.com/nmarsollier/imagego/security/dao.go:23.42,26.3 2 0
+github.com/nmarsollier/imagego/security/dao.go:27.2,31.16 4 0
+github.com/nmarsollier/imagego/security/dao.go:31.16,34.3 2 0
+github.com/nmarsollier/imagego/security/dao.go:36.2,37.46 2 0
+github.com/nmarsollier/imagego/security/dao.go:37.46,40.3 2 0
+github.com/nmarsollier/imagego/security/dao.go:41.2,41.18 1 0
+github.com/nmarsollier/imagego/security/service.go:22.64,24.39 1 0
+github.com/nmarsollier/imagego/security/service.go:24.39,25.36 1 0
+github.com/nmarsollier/imagego/security/service.go:25.36,27.4 1 0
+github.com/nmarsollier/imagego/security/service.go:30.2,31.16 2 0
+github.com/nmarsollier/imagego/security/service.go:31.16,33.3 1 0
+github.com/nmarsollier/imagego/security/service.go:36.2,38.18 2 0
+github.com/nmarsollier/imagego/security/service.go:42.31,45.2 2 0

@@ -1,0 +1,20 @@
+mode: set
+github.com/nmarsollier/imagego/tools/tests/data.go:10.32,17.2 1 0
+github.com/nmarsollier/imagego/tools/tests/data.go:19.31,21.2 1 0
+github.com/nmarsollier/imagego/tools/tests/data.go:23.38,25.2 1 0
+github.com/nmarsollier/imagego/tools/tests/data.go:27.37,29.2 1 0
+github.com/nmarsollier/imagego/tools/tests/http.go:14.77,20.2 2 0
+github.com/nmarsollier/imagego/tools/tests/http.go:22.63,28.2 2 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:15.97,17.26 2 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:17.26,19.3 1 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:20.2,21.15 2 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:24.100,26.26 2 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:26.26,28.3 1 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:29.2,30.15 2 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:33.116,37.26 3 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:37.26,39.3 1 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:40.2,41.15 2 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:45.69,52.2 4 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:54.73,60.2 4 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:62.76,64.2 1 0
+github.com/nmarsollier/imagego/tools/tests/rest.go:66.72,68.2 1 0

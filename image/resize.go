@@ -28,7 +28,10 @@ func resize(image *Image, size int) (*Image, error) {
 	}
 	bounds := img.Bounds()
 	if bounds.Size().X <= size {
-		return image, nil
+		return &Image{
+			ID:    buildSizeID(image.ID, size),
+			Image: image.Image,
+		}, nil
 	}
 
 	// Resize srcImage to width = 800px preserving the aspect ratio.

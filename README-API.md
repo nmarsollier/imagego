@@ -55,9 +55,9 @@ Agrega una nueva imagen al servidor.
 | ---- | ----------- | ------ |
 | 200 | Imagen | [rest.NewImageResponse](#restnewimageresponse) |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
-| 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
-| 404 | Not Found | [engine.ErrorData](#engineerrordata) |
-| 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
+| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
+| 404 | Not Found | [server.ErrorData](#servererrordata) |
+| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
 
 ### /v1/image/:imageID
 
@@ -83,9 +83,9 @@ Obtiene una imagen del servidor en formato base64
 | ---- | ----------- | ------ |
 | 200 | Informacion de la Imagen | [image.Image](#imageimage) |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
-| 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
-| 404 | Not Found | [engine.ErrorData](#engineerrordata) |
-| 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
+| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
+| 404 | Not Found | [server.ErrorData](#servererrordata) |
+| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
 
 ### /v1/image/:imageID/jpeg
 
@@ -111,18 +111,12 @@ Obtiene una imagen del servidor en formato jpeg.
 | ---- | ----------- | ------ |
 | 200 | Imagen | file |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
-| 401 | Unauthorized | [engine.ErrorData](#engineerrordata) |
-| 404 | Not Found | [engine.ErrorData](#engineerrordata) |
-| 500 | Internal Server Error | [engine.ErrorData](#engineerrordata) |
+| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
+| 404 | Not Found | [server.ErrorData](#servererrordata) |
+| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
 
 ---
 ### Models
-
-#### engine.ErrorData
-
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| error | string |  | No |
 
 #### errs.ValidationErr
 
@@ -162,3 +156,9 @@ Obtiene una imagen del servidor en formato jpeg.
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | image | string |  | Yes |
+
+#### server.ErrorData
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| error | string |  | No |

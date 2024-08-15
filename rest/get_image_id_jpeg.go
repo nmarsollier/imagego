@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/nmarsollier/imagego/image"
-	"github.com/nmarsollier/imagego/rest/engine"
+	"github.com/nmarsollier/imagego/rest/server"
 )
 
 //	@Summary		Obtener jpeg
@@ -19,14 +19,14 @@ import (
 //	@Param			imageID	path		string				true	"ID de la imagen"
 //	@Success		200		{file}		jpeg				"Imagen"
 //	@Failure		400		{object}	errs.ValidationErr	"Bad Request"
-//	@Failure		401		{object}	engine.ErrorData	"Unauthorized"
-//	@Failure		404		{object}	engine.ErrorData	"Not Found"
-//	@Failure		500		{object}	engine.ErrorData	"Internal Server Error"
+//	@Failure		401		{object}	server.ErrorData	"Unauthorized"
+//	@Failure		404		{object}	server.ErrorData	"Not Found"
+//	@Failure		500		{object}	server.ErrorData	"Internal Server Error"
 //	@Router			/v1/image/:imageID/jpeg [get]
 //
 // Obtiene una imagen del servidor en formato jpeg.
-func init() {
-	engine.Router().GET("/v1/image/:imageID/jpeg", sendJpegImage)
+func initGetImageIdJpeg() {
+	server.Router().GET("/v1/image/:imageID/jpeg", sendJpegImage)
 }
 
 func sendJpegImage(c *gin.Context) {

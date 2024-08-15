@@ -86,19 +86,19 @@
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     }
                 }
@@ -149,19 +149,19 @@
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     }
                 }
@@ -212,19 +212,19 @@
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/engine.ErrorData"
+                            "$ref": "#/definitions/server.ErrorData"
                         }
                     }
                 }
@@ -232,14 +232,6 @@
         }
     },
     "definitions": {
-        "engine.ErrorData": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
         "errs.ValidationErr": {
             "type": "object",
             "properties": {
@@ -308,6 +300,14 @@
             ],
             "properties": {
                 "image": {
+                    "type": "string"
+                }
+            }
+        },
+        "server.ErrorData": {
+            "type": "object",
+            "properties": {
+                "error": {
                     "type": "string"
                 }
             }

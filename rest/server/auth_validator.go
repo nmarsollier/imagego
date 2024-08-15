@@ -1,4 +1,4 @@
-package engine
+package server
 
 import (
 	"strings"
@@ -18,15 +18,14 @@ func ValidateAuthentication(c *gin.Context) {
 	}
 }
 
-var securityValidate func(token string) (*security.User, error) = security.Validate
-
 func validateToken(c *gin.Context) error {
 	tokenString, err := getHeaderToken(c)
 	if err != nil {
 		return errs.Unauthorized
 	}
 
-	if _, err = securityValidate(tokenString); err != nil {
+	ctx := TestCtx(c)
+	if _, err = security.Validate(tokenString, ctx...); err != nil {
 		return errs.Unauthorized
 	}
 

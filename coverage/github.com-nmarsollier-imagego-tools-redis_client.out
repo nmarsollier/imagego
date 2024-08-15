@@ -1,0 +1,13 @@
+mode: set
+github.com/nmarsollier/imagego/tools/redis_client/client.go:10.42,11.24 1 0
+github.com/nmarsollier/imagego/tools/redis_client/client.go:11.24,12.40 1 0
+github.com/nmarsollier/imagego/tools/redis_client/client.go:12.40,14.4 1 0
+github.com/nmarsollier/imagego/tools/redis_client/client.go:17.2,23.3 1 0
+github.com/nmarsollier/imagego/tools/redis_client/client.go:35.55,37.2 1 0
+github.com/nmarsollier/imagego/tools/redis_client/client.go:39.100,41.2 1 0
+github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go:27.67,31.2 3 0
+github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go:34.65,36.2 1 0
+github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go:39.60,44.2 4 0
+github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go:47.74,50.2 2 0
+github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go:53.105,58.2 4 0
+github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go:61.93,64.2 2 0
