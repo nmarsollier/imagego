@@ -9,7 +9,7 @@ import (
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
-	"github.com/nmarsollier/imagego/tools/redis_client"
+	"github.com/nmarsollier/imagego/tools/redisx"
 	"github.com/nmarsollier/imagego/tools/tests"
 	"github.com/stretchr/testify/assert"
 )
@@ -20,7 +20,7 @@ func TestGetImageIdHappyPath(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID, arg1)
@@ -47,7 +47,7 @@ func TestGetImageIdResizedHead(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID+"_800", arg1)
@@ -75,7 +75,7 @@ func TestGetImageIdResizedParam(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID+"_640", arg1)
@@ -102,7 +102,7 @@ func TestGetImageIdResizeInvalid(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID, arg1)
@@ -130,7 +130,7 @@ func TestGetImageIdInvalidDocument(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID, arg1)
@@ -154,7 +154,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID+"_320", arg1)
@@ -196,7 +196,7 @@ func TestGetImageIdResized(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID+"_160", arg1)

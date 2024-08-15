@@ -3,7 +3,7 @@ package image
 import (
 	"github.com/golang/glog"
 	"github.com/nmarsollier/imagego/tools/errs"
-	"github.com/nmarsollier/imagego/tools/redis_client"
+	"github.com/nmarsollier/imagego/tools/redisx"
 )
 
 // Insert agrega una imagen a la db
@@ -13,7 +13,7 @@ func Insert(image *Image, ctx ...interface{}) (string, error) {
 		return "", err
 	}
 
-	client := redis_client.Get(ctx...)
+	client := redisx.Get(ctx...)
 	err := client.Set(image.ID, image.Image, 0).Err()
 	if err != nil {
 		glog.Error(err)
@@ -25,7 +25,7 @@ func Insert(image *Image, ctx ...interface{}) (string, error) {
 
 // Find encuentra y devuelve una imagen desde la base de datos
 func find(imageID string, ctx ...interface{}) (*Image, error) {
-	client := redis_client.Get(ctx...)
+	client := redisx.Get(ctx...)
 	data, err := client.Get(imageID).Result()
 	if err != nil {
 		glog.Error(err)

@@ -1,9 +1,0 @@
-mode: set
-github.com/nmarsollier/imagego/tools/http_client/client.go:9.41,10.24 1 0
-github.com/nmarsollier/imagego/tools/http_client/client.go:10.24,11.39 1 0
-github.com/nmarsollier/imagego/tools/http_client/client.go:11.39,13.4 1 0
-github.com/nmarsollier/imagego/tools/http_client/client.go:16.2,16.27 1 0
-github.com/nmarsollier/imagego/tools/http_client/client_mocks.go:26.65,30.2 3 0
-github.com/nmarsollier/imagego/tools/http_client/client_mocks.go:33.63,35.2 1 0
-github.com/nmarsollier/imagego/tools/http_client/client_mocks.go:38.72,44.2 5 0
-github.com/nmarsollier/imagego/tools/http_client/client_mocks.go:47.72,50.2 2 0

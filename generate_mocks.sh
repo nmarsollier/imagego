@@ -1,2 +1,2 @@
-mockgen -source=./tools/http_client/client.go -destination=./tools/http_client/client_mocks.go -package=http_client
-mockgen -source=./tools/redis_client/client.go -destination=./tools/redis_client/client_mocks.go -package=redis_client
+mockgen -source=./tools/httpx/client.go -destination=./tools/httpx/client_mocks.go -package=httpx
+mockgen -source=./tools/redisx/client.go -destination=./tools/redisx/client_mocks.go -package=redisx

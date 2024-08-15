@@ -9,8 +9,8 @@ import (
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
-	"github.com/nmarsollier/imagego/tools/http_client"
-	"github.com/nmarsollier/imagego/tools/redis_client"
+	"github.com/nmarsollier/imagego/tools/httpx"
+	"github.com/nmarsollier/imagego/tools/redisx"
 	"github.com/nmarsollier/imagego/tools/tests"
 	"github.com/stretchr/testify/assert"
 )
@@ -21,11 +21,11 @@ func TestPostImageHappyPath(t *testing.T) {
 
 	// Mocks
 	ctrl := gomock.NewController(t)
-	httpMock := http_client.NewMockHTTPClient(ctrl)
+	httpMock := httpx.NewMockHTTPClient(ctrl)
 	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(
 		func(arg1 string, arg2 string, arg3 interface{}) *redis.StatusCmd {
 			assert.NotEmpty(t, arg2)
@@ -52,11 +52,11 @@ func TestPostImageError(t *testing.T) {
 
 	// Mocks
 	ctrl := gomock.NewController(t)
-	httpMock := http_client.NewMockHTTPClient(ctrl)
+	httpMock := httpx.NewMockHTTPClient(ctrl)
 	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).Return(redis.NewStatusResult("", errs.NotFound)).Times(1)
 
 	// REQUEST
@@ -75,7 +75,7 @@ func TestPostImageNotAuthorized(t *testing.T) {
 
 	// Mocks
 	ctrl := gomock.NewController(t)
-	httpMock := http_client.NewMockHTTPClient(ctrl)
+	httpMock := httpx.NewMockHTTPClient(ctrl)
 	security.ExpectHttpUnauthorized(httpMock)
 
 	// REQUEST

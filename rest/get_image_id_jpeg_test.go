@@ -9,7 +9,7 @@ import (
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
-	"github.com/nmarsollier/imagego/tools/redis_client"
+	"github.com/nmarsollier/imagego/tools/redisx"
 	"github.com/nmarsollier/imagego/tools/tests"
 	"github.com/stretchr/testify/assert"
 )
@@ -20,7 +20,7 @@ func TestGetImageIdJpegHappyPath(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID, arg1)
@@ -47,7 +47,7 @@ func TestGetImageIdJpegInvalidImage(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
 			assert.Equal(t, testImage.ID, arg1)
@@ -71,7 +71,7 @@ func TestGetImageIdJpegError(t *testing.T) {
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
-	redisMock := redis_client.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).Return(redis.NewStringResult("", errs.NotFound)).Times(1)
 
 	// REQUEST

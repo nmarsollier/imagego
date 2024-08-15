@@ -99,15 +99,15 @@
 				
 				<option value="file21">github.com/nmarsollier/imagego/tools/errs/validation.go (44.4%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/tools/http_client/client.go (75.0%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/tools/httpx/client.go (75.0%)</option>
 				
-				<option value="file23">github.com/nmarsollier/imagego/tools/http_client/client_mocks.go (100.0%)</option>
+				<option value="file23">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
 				
-				<option value="file24">github.com/nmarsollier/imagego/tools/redis_client/client.go (50.0%)</option>
+				<option value="file24">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
 				
-				<option value="file25">github.com/nmarsollier/imagego/tools/redis_client/client_mocks.go (100.0%)</option>
+				<option value="file25">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
 				
-				<option value="file26">github.com/nmarsollier/imagego/tools/str_tools/json_tools.go (100.0%)</option>
+				<option value="file26">github.com/nmarsollier/imagego/tools/strs/json.go (100.0%)</option>
 				
 				<option value="file27">github.com/nmarsollier/imagego/tools/tests/data.go (100.0%)</option>
 				
@@ -472,7 +472,7 @@ func init() <span class="cov8" title="1">{
 import (
         "github.com/golang/glog"
         "github.com/nmarsollier/imagego/tools/errs"
-        "github.com/nmarsollier/imagego/tools/redis_client"
+        "github.com/nmarsollier/imagego/tools/redisx"
 )
 
 // Insert agrega una imagen a la db
@@ -482,7 +482,7 @@ func Insert(image *Image, ctx ...interface{}) (string, error) <span class="cov8"
                 return "", err
         }</span>
 
-        <span class="cov8" title="1">client := redis_client.Get(ctx...)
+        <span class="cov8" title="1">client := redisx.Get(ctx...)
         err := client.Set(image.ID, image.Image, 0).Err()
         if err != nil </span><span class="cov8" title="1">{
                 glog.Error(err)
@@ -494,7 +494,7 @@ func Insert(image *Image, ctx ...interface{}) (string, error) <span class="cov8"
 
 // Find encuentra y devuelve una imagen desde la base de datos
 func find(imageID string, ctx ...interface{}) (*Image, error) <span class="cov8" title="1">{
-        client := redis_client.Get(ctx...)
+        client := redisx.Get(ctx...)
         data, err := client.Get(imageID).Result()
         if err != nil </span><span class="cov8" title="1">{
                 glog.Error(err)
@@ -1254,7 +1254,7 @@ import (
         "github.com/golang/glog"
         "github.com/nmarsollier/imagego/tools/env"
         "github.com/nmarsollier/imagego/tools/errs"
-        "github.com/nmarsollier/imagego/tools/http_client"
+        "github.com/nmarsollier/imagego/tools/httpx"
 )
 
 func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class="cov8" title="1">{
@@ -1265,7 +1265,7 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
                 return nil, errs.Unauthorized
         }</span>
         <span class="cov8" title="1">req.Header.Add("Authorization", "bearer "+token)
-        resp, err := http_client.Get(ctx...).Do(req)
+        resp, err := httpx.Get(ctx...).Do(req)
         if err != nil || resp.StatusCode != 200 </span><span class="cov8" title="1">{
                 glog.Error(err)
                 return nil, errs.Unauthorized
@@ -1335,8 +1335,8 @@ import (
         "net/http"
 
         "github.com/golang/mock/gomock"
-        "github.com/nmarsollier/imagego/tools/http_client"
-        "github.com/nmarsollier/imagego/tools/str_tools"
+        "github.com/nmarsollier/imagego/tools/httpx"
+        "github.com/nmarsollier/imagego/tools/strs"
         "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -1351,15 +1351,15 @@ func TestUser() *User <span class="cov8" title="1">{
 }</span>
 
 // Http Mocks
-func ExpectHttpToken(mock *http_client.MockHTTPClient, user *User) <span class="cov8" title="1">{
+func ExpectHttpToken(mock *httpx.MockHTTPClient, user *User) <span class="cov8" title="1">{
         response := &amp;http.Response{
                 StatusCode: http.StatusOK,
-                Body:       io.NopCloser(bytes.NewBufferString(str_tools.ToJson(user))),
+                Body:       io.NopCloser(bytes.NewBufferString(strs.ToJson(user))),
         }
         mock.EXPECT().Do(gomock.Any()).Return(response, nil).Times(1)
 }</span>
 
-func ExpectHttpUnauthorized(mock *http_client.MockHTTPClient) <span class="cov8" title="1">{
+func ExpectHttpUnauthorized(mock *httpx.MockHTTPClient) <span class="cov8" title="1">{
         response := &amp;http.Response{
                 StatusCode: http.StatusUnauthorized,
                 Body:       io.NopCloser(bytes.NewBufferString("")),
@@ -1527,7 +1527,7 @@ type errField struct {
 }
 </pre>
 		
-		<pre class="file" id="file22" style="display: none">package http_client
+		<pre class="file" id="file22" style="display: none">package httpx
 
 import "net/http"
 
@@ -1547,10 +1547,10 @@ func Get(ctx ...interface{}) HTTPClient <span class="cov8" title="1">{
 </pre>
 		
 		<pre class="file" id="file23" style="display: none">// Code generated by MockGen. DO NOT EDIT.
-// Source: ./tools/http_client/client.go
+// Source: ./tools/httpx/client.go
 
-// Package http_client is a generated GoMock package.
-package http_client
+// Package httpx is a generated GoMock package.
+package httpx
 
 import (
         http "net/http"
@@ -1598,7 +1598,7 @@ func (mr *MockHTTPClientMockRecorder) Do(req interface{}) *gomock.Call <span cla
 }</span>
 </pre>
 		
-		<pre class="file" id="file24" style="display: none">package redis_client
+		<pre class="file" id="file24" style="display: none">package redisx
 
 import (
         "time"
@@ -1642,10 +1642,10 @@ func (c redisClient) Set(key string, value interface{}, expiration time.Duration
 </pre>
 		
 		<pre class="file" id="file25" style="display: none">// Code generated by MockGen. DO NOT EDIT.
-// Source: ./tools/redis_client/client.go
+// Source: ./tools/redisx/client.go
 
-// Package redis_client is a generated GoMock package.
-package redis_client
+// Package redisx is a generated GoMock package.
+package redisx
 
 import (
         reflect "reflect"
@@ -1707,7 +1707,7 @@ func (mr *MockRedisClientMockRecorder) Set(key, value, expiration interface{}) *
 }</span>
 </pre>
 		
-		<pre class="file" id="file26" style="display: none">package str_tools
+		<pre class="file" id="file26" style="display: none">package strs
 
 import "encoding/json"
 

@@ -8,7 +8,7 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/tools/errs"
-	"github.com/nmarsollier/imagego/tools/http_client"
+	"github.com/nmarsollier/imagego/tools/httpx"
 	"gopkg.in/go-playground/assert.v1"
 )
 
@@ -18,7 +18,7 @@ func TestInvalidateHappyPath(t *testing.T) {
 
 	// Mocks
 	ctrl := gomock.NewController(t)
-	httpMock := http_client.NewMockHTTPClient(ctrl)
+	httpMock := httpx.NewMockHTTPClient(ctrl)
 	ExpectHttpToken(httpMock, testUser)
 	ExpectHttpToken(httpMock, testUser)
 
@@ -38,7 +38,7 @@ func TestInvalidateNotAuthorized(t *testing.T) {
 
 	// Mocks
 	ctrl := gomock.NewController(t)
-	httpMock := http_client.NewMockHTTPClient(ctrl)
+	httpMock := httpx.NewMockHTTPClient(ctrl)
 	ExpectHttpToken(httpMock, testUser)
 	ExpectHttpUnauthorized(httpMock)
 
@@ -58,7 +58,7 @@ func TestInvalidateNotAuthorized2(t *testing.T) {
 
 	// Mocks
 	ctrl := gomock.NewController(t)
-	httpMock := http_client.NewMockHTTPClient(ctrl)
+	httpMock := httpx.NewMockHTTPClient(ctrl)
 	ExpectHttpUnauthorized(httpMock)
 	ExpectHttpToken(httpMock, testUser)
 
@@ -78,7 +78,7 @@ func TestInvalidateInvalidData(t *testing.T) {
 
 	// Mocks
 	ctrl := gomock.NewController(t)
-	httpMock := http_client.NewMockHTTPClient(ctrl)
+	httpMock := httpx.NewMockHTTPClient(ctrl)
 	response := &http.Response{
 		StatusCode: http.StatusOK,
 		Body:       io.NopCloser(bytes.NewBufferString("123")),

@@ -8,7 +8,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/nmarsollier/imagego/tools/env"
 	"github.com/nmarsollier/imagego/tools/errs"
-	"github.com/nmarsollier/imagego/tools/http_client"
+	"github.com/nmarsollier/imagego/tools/httpx"
 )
 
 func getRemoteToken(token string, ctx ...interface{}) (*User, error) {
@@ -19,7 +19,7 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) {
 		return nil, errs.Unauthorized
 	}
 	req.Header.Add("Authorization", "bearer "+token)
-	resp, err := http_client.Get(ctx...).Do(req)
+	resp, err := httpx.Get(ctx...).Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		glog.Error(err)
 		return nil, errs.Unauthorized

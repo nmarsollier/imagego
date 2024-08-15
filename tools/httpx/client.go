@@ -1,4 +1,4 @@
-package http_client
+package httpx
 
 import "net/http"
 
