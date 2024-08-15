@@ -65,53 +65,51 @@
 				
 				<option value="file4">github.com/nmarsollier/imagego/image/service.go (78.9%)</option>
 				
-				<option value="file5">github.com/nmarsollier/imagego/main.go (0.0%)</option>
+				<option value="file5">github.com/nmarsollier/imagego/image/test_tools.go (100.0%)</option>
 				
-				<option value="file6">github.com/nmarsollier/imagego/rabbit/consume_logout.go (0.0%)</option>
+				<option value="file6">github.com/nmarsollier/imagego/main.go (0.0%)</option>
 				
-				<option value="file7">github.com/nmarsollier/imagego/rest/get_image_id.go (100.0%)</option>
+				<option value="file7">github.com/nmarsollier/imagego/rabbit/consume_logout.go (0.0%)</option>
 				
-				<option value="file8">github.com/nmarsollier/imagego/rest/get_image_id_jpeg.go (100.0%)</option>
+				<option value="file8">github.com/nmarsollier/imagego/rest/get_image_id.go (100.0%)</option>
 				
-				<option value="file9">github.com/nmarsollier/imagego/rest/image_tools.go (89.5%)</option>
+				<option value="file9">github.com/nmarsollier/imagego/rest/get_image_id_jpeg.go (100.0%)</option>
 				
-				<option value="file10">github.com/nmarsollier/imagego/rest/post_image.go (80.0%)</option>
+				<option value="file10">github.com/nmarsollier/imagego/rest/image_tools.go (89.5%)</option>
 				
-				<option value="file11">github.com/nmarsollier/imagego/rest/router.go (75.0%)</option>
+				<option value="file11">github.com/nmarsollier/imagego/rest/post_image.go (80.0%)</option>
 				
-				<option value="file12">github.com/nmarsollier/imagego/rest/server/auth_validator.go (86.7%)</option>
+				<option value="file12">github.com/nmarsollier/imagego/rest/router.go (75.0%)</option>
 				
-				<option value="file13">github.com/nmarsollier/imagego/rest/server/engine.go (100.0%)</option>
+				<option value="file13">github.com/nmarsollier/imagego/rest/server/auth_validator.go (86.7%)</option>
 				
-				<option value="file14">github.com/nmarsollier/imagego/rest/server/error_handler.go (60.0%)</option>
+				<option value="file14">github.com/nmarsollier/imagego/rest/server/engine.go (100.0%)</option>
 				
-				<option value="file15">github.com/nmarsollier/imagego/rest/server/test_utils.go (100.0%)</option>
+				<option value="file15">github.com/nmarsollier/imagego/rest/server/error_handler.go (60.0%)</option>
 				
-				<option value="file16">github.com/nmarsollier/imagego/security/dao.go (80.0%)</option>
+				<option value="file16">github.com/nmarsollier/imagego/rest/server/test_utils.go (83.8%)</option>
 				
-				<option value="file17">github.com/nmarsollier/imagego/security/service.go (80.0%)</option>
+				<option value="file17">github.com/nmarsollier/imagego/security/dao.go (80.0%)</option>
 				
-				<option value="file18">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
+				<option value="file18">github.com/nmarsollier/imagego/security/service.go (80.0%)</option>
 				
-				<option value="file19">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
+				<option value="file19">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
 				
-				<option value="file20">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
+				<option value="file20">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
 				
-				<option value="file21">github.com/nmarsollier/imagego/tools/errs/validation.go (44.4%)</option>
+				<option value="file21">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/tools/httpx/client.go (75.0%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/tools/errs/validation.go (44.4%)</option>
 				
-				<option value="file23">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
+				<option value="file23">github.com/nmarsollier/imagego/tools/httpx/client.go (75.0%)</option>
 				
-				<option value="file24">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
+				<option value="file24">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
 				
-				<option value="file25">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
+				<option value="file25">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
 				
-				<option value="file26">github.com/nmarsollier/imagego/tools/strs/json.go (100.0%)</option>
+				<option value="file26">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/tools/tests/data.go (100.0%)</option>
-				
-				<option value="file28">github.com/nmarsollier/imagego/tools/tests/rest.go (76.9%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/tools/strs/json.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -658,7 +656,22 @@ func findAndResize(imageID string, size int, ctx ...interface{}) (*Image, error)
 }
 </pre>
 		
-		<pre class="file" id="file5" style="display: none">package main
+		<pre class="file" id="file5" style="display: none">package image
+
+func TestImage() *Image <span class="cov8" title="1">{
+        return New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
+}</span>
+
+func TestInvalidImage() *Image <span class="cov8" title="1">{
+        return New("___")
+}</span>
+
+func TestResizeImage() *Image <span class="cov8" title="1">{
+        return New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AYht+mSou0dLCDiEOE6mQXFXGsVShChVArtOpgcukfNGlJUlwcBdeCgz+LVQcXZ10dXAVB8AfE2cFJ0UVK/C4ptIjx4O4e3vvel7vvAKFVZZrZlwA03TIyqaSYy6+KgVcEEUGY1lGZmfU5SUrDc3zdw8f3uzjP8q77c4TVgskAn0icYHXDIt4gntm06pz3iaOsLKvE58QTBl2Q+JHristvnEsOCzwzamQz88RRYrHUw0oPs7KhEU8Tx1RNp3wh57LKeYuzVm2wzj35C0MFfWWZ6zRHkMIiliBBhIIGKqjCQpx2nRQTGTpPeviHHb9ELoVcFTByLKAGDbLjB/+D3701i1OTblIoCfS/2PbHGBDYBdpN2/4+tu32CeB/Bq70rr/WAmY/SW92tdgRENkGLq67mrIHXO4AQ0912ZAdyU9TKBaB9zP6pjwweAsMrLl965zj9AHIUq/SN8DBITBeoux1j3cHe/v2b02nfz9eInKemubWvQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+gIDw0IOcHU+YsAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAZklEQVR42u3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4DD+/AAGTr/KYAAAAAElFTkSuQmCC")
+}</span>
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package main
 
 import (
         "flag"
@@ -687,7 +700,7 @@ func main() <span class="cov0" title="0">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file6" style="display: none">package rabbit
+		<pre class="file" id="file7" style="display: none">package rabbit
 
 import (
         "encoding/json"
@@ -818,7 +831,7 @@ type message struct {
 }
 </pre>
 		
-		<pre class="file" id="file7" style="display: none">package rest
+		<pre class="file" id="file8" style="display: none">package rest
 
 import (
         "github.com/gin-gonic/gin"
@@ -856,7 +869,7 @@ func sendImage(c *gin.Context) <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file8" style="display: none">package rest
+		<pre class="file" id="file9" style="display: none">package rest
 
 import (
         "encoding/base64"
@@ -910,7 +923,7 @@ func toJpeg(data *image.Image) ([]byte, error) <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file9" style="display: none">package rest
+		<pre class="file" id="file10" style="display: none">package rest
 
 import (
         "github.com/gin-gonic/gin"
@@ -961,7 +974,7 @@ func normalizeParamSize(sizeHeader string) int <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file10" style="display: none">package rest
+		<pre class="file" id="file11" style="display: none">package rest
 
 import (
         "github.com/gin-gonic/gin"
@@ -1030,7 +1043,7 @@ type NewImageResponse struct {
 }
 </pre>
 		
-		<pre class="file" id="file11" style="display: none">package rest
+		<pre class="file" id="file12" style="display: none">package rest
 
 import (
         "fmt"
@@ -1052,7 +1065,7 @@ func InitRoutes() <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file12" style="display: none">package server
+		<pre class="file" id="file13" style="display: none">package server
 
 import (
         "strings"
@@ -1096,7 +1109,7 @@ func getHeaderToken(c *gin.Context) (string, error) <span class="cov8" title="1"
 }
 </pre>
 		
-		<pre class="file" id="file13" style="display: none">package server
+		<pre class="file" id="file14" style="display: none">package server
 
 import (
         "time"
@@ -1139,7 +1152,7 @@ func Router() *gin.Engine <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file14" style="display: none">package server
+		<pre class="file" id="file15" style="display: none">package server
 
 import (
         "strings"
@@ -1213,10 +1226,17 @@ type ErrorData struct {
 }
 </pre>
 		
-		<pre class="file" id="file15" style="display: none">package server
+		<pre class="file" id="file16" style="display: none">package server
 
 import (
+        "bytes"
+        "encoding/json"
+        "net/http"
+        "net/http/httptest"
+        "testing"
+
         "github.com/gin-gonic/gin"
+        "gopkg.in/go-playground/assert.v1"
 )
 
 // Obtiene Router engine con el contexto de testing adecuado
@@ -1242,9 +1262,66 @@ func TestCtx(c *gin.Context) []interface{} <span class="cov8" title="1">{
         }</span>
         <span class="cov8" title="1">return ctx</span>
 }
+
+// Requests Test functions
+
+func TestGetRequest(url string, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov8" title="1">{
+        req, _ := http.NewRequest("GET", url, bytes.NewBuffer([]byte{}))
+        if len(tokenString) &gt; 0 </span><span class="cov8" title="1">{
+                req.Header.Add("Authorization", "bearer "+tokenString)
+        }</span>
+        <span class="cov8" title="1">w := httptest.NewRecorder()
+        return req, w</span>
+}
+
+func TestDeleteRequest(url string, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov0" title="0">{
+        req, _ := http.NewRequest("DELETE", url, bytes.NewBuffer([]byte{}))
+        if len(tokenString) &gt; 0 </span><span class="cov0" title="0">{
+                req.Header.Add("Authorization", "bearer "+tokenString)
+        }</span>
+        <span class="cov0" title="0">w := httptest.NewRecorder()
+        return req, w</span>
+}
+
+func TestPostRequest(url string, body interface{}, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov8" title="1">{
+        jsonBody, _ := json.Marshal(body)
+
+        req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonBody))
+        if len(tokenString) &gt; 0 </span><span class="cov8" title="1">{
+                req.Header.Add("Authorization", "bearer "+tokenString)
+        }</span>
+        <span class="cov8" title="1">w := httptest.NewRecorder()
+        return req, w</span>
+}
+
+// Assertion Functions
+func AssertUnauthorized(t *testing.T, w *httptest.ResponseRecorder) <span class="cov8" title="1">{
+        assert.Equal(t, http.StatusUnauthorized, w.Code)
+
+        var result map[string]interface{}
+        json.Unmarshal(w.Body.Bytes(), &amp;result)
+
+        assert.Equal(t, result["error"], "Unauthorized")
+}</span>
+
+func AssertDocumentNotFound(t *testing.T, w *httptest.ResponseRecorder) <span class="cov8" title="1">{
+        assert.Equal(t, http.StatusNotFound, w.Code)
+
+        var result map[string]interface{}
+        json.Unmarshal(w.Body.Bytes(), &amp;result)
+        assert.Equal(t, "Document not found", result["error"])
+}</span>
+
+func AssertInternalServerError(t *testing.T, w *httptest.ResponseRecorder) <span class="cov8" title="1">{
+        assert.Equal(t, http.StatusInternalServerError, w.Code)
+}</span>
+
+func AssertBadRequestError(t *testing.T, w *httptest.ResponseRecorder) <span class="cov0" title="0">{
+        assert.Equal(t, http.StatusBadRequest, w.Code)
+}</span>
 </pre>
 		
-		<pre class="file" id="file16" style="display: none">package security
+		<pre class="file" id="file17" style="display: none">package security
 
 import (
         "encoding/json"
@@ -1288,7 +1365,7 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
 }
 </pre>
 		
-		<pre class="file" id="file17" style="display: none">package security
+		<pre class="file" id="file18" style="display: none">package security
 
 import (
         "time"
@@ -1327,7 +1404,7 @@ func Invalidate(token string) <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file18" style="display: none">package security
+		<pre class="file" id="file19" style="display: none">package security
 
 import (
         "bytes"
@@ -1368,7 +1445,7 @@ func ExpectHttpUnauthorized(mock *httpx.MockHTTPClient) <span class="cov8" title
 }</span>
 </pre>
 		
-		<pre class="file" id="file19" style="display: none">package env
+		<pre class="file" id="file20" style="display: none">package env
 
 import (
         "os"
@@ -1429,7 +1506,7 @@ func load() *Configuration <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file20" style="display: none">package errs
+		<pre class="file" id="file21" style="display: none">package errs
 
 // Unauthorized el usuario no esta autorizado al recurso
 var Unauthorized = NewRestError(401, "Unauthorized")
@@ -1476,7 +1553,7 @@ func (e *restError) Status() int <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file21" style="display: none">package errs
+		<pre class="file" id="file22" style="display: none">package errs
 
 import (
         "encoding/json"
@@ -1527,7 +1604,7 @@ type errField struct {
 }
 </pre>
 		
-		<pre class="file" id="file22" style="display: none">package httpx
+		<pre class="file" id="file23" style="display: none">package httpx
 
 import "net/http"
 
@@ -1546,7 +1623,7 @@ func Get(ctx ...interface{}) HTTPClient <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file23" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file24" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/httpx/client.go
 
 // Package httpx is a generated GoMock package.
@@ -1598,7 +1675,7 @@ func (mr *MockHTTPClientMockRecorder) Do(req interface{}) *gomock.Call <span cla
 }</span>
 </pre>
 		
-		<pre class="file" id="file24" style="display: none">package redisx
+		<pre class="file" id="file25" style="display: none">package redisx
 
 import (
         "time"
@@ -1641,7 +1718,7 @@ func (c redisClient) Set(key string, value interface{}, expiration time.Duration
 }</span>
 </pre>
 		
-		<pre class="file" id="file25" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file26" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/redisx/client.go
 
 // Package redisx is a generated GoMock package.
@@ -1707,102 +1784,13 @@ func (mr *MockRedisClientMockRecorder) Set(key, value, expiration interface{}) *
 }</span>
 </pre>
 		
-		<pre class="file" id="file26" style="display: none">package strs
+		<pre class="file" id="file27" style="display: none">package strs
 
 import "encoding/json"
 
 func ToJson(obj interface{}) string <span class="cov8" title="1">{
         jsonData, _ := json.Marshal(obj)
         return string(jsonData)
-}</span>
-</pre>
-		
-		<pre class="file" id="file27" style="display: none">package tests
-
-import (
-        "github.com/nmarsollier/imagego/image"
-)
-
-func TestImage() *image.Image <span class="cov8" title="1">{
-        return image.New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
-}</span>
-
-func TestInvalidImage() *image.Image <span class="cov8" title="1">{
-        return image.New("___")
-}</span>
-
-func TestResizeImage() *image.Image <span class="cov8" title="1">{
-        return image.New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AYht+mSou0dLCDiEOE6mQXFXGsVShChVArtOpgcukfNGlJUlwcBdeCgz+LVQcXZ10dXAVB8AfE2cFJ0UVK/C4ptIjx4O4e3vvel7vvAKFVZZrZlwA03TIyqaSYy6+KgVcEEUGY1lGZmfU5SUrDc3zdw8f3uzjP8q77c4TVgskAn0icYHXDIt4gntm06pz3iaOsLKvE58QTBl2Q+JHristvnEsOCzwzamQz88RRYrHUw0oPs7KhEU8Tx1RNp3wh57LKeYuzVm2wzj35C0MFfWWZ6zRHkMIiliBBhIIGKqjCQpx2nRQTGTpPeviHHb9ELoVcFTByLKAGDbLjB/+D3701i1OTblIoCfS/2PbHGBDYBdpN2/4+tu32CeB/Bq70rr/WAmY/SW92tdgRENkGLq67mrIHXO4AQ0912ZAdyU9TKBaB9zP6pjwweAsMrLl965zj9AHIUq/SN8DBITBeoux1j3cHe/v2b02nfz9eInKemubWvQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+gIDw0IOcHU+YsAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAZklEQVR42u3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4DD+/AAGTr/KYAAAAAElFTkSuQmCC")
-}</span>
-</pre>
-		
-		<pre class="file" id="file28" style="display: none">package tests
-
-import (
-        "bytes"
-        "encoding/json"
-        "net/http"
-        "net/http/httptest"
-        "testing"
-
-        "gopkg.in/go-playground/assert.v1"
-)
-
-// Requests Test functions
-
-func TestGetRequest(url string, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov8" title="1">{
-        req, _ := http.NewRequest("GET", url, bytes.NewBuffer([]byte{}))
-        if len(tokenString) &gt; 0 </span><span class="cov8" title="1">{
-                req.Header.Add("Authorization", "bearer "+tokenString)
-        }</span>
-        <span class="cov8" title="1">w := httptest.NewRecorder()
-        return req, w</span>
-}
-
-func TestDeleteRequest(url string, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov0" title="0">{
-        req, _ := http.NewRequest("DELETE", url, bytes.NewBuffer([]byte{}))
-        if len(tokenString) &gt; 0 </span><span class="cov0" title="0">{
-                req.Header.Add("Authorization", "bearer "+tokenString)
-        }</span>
-        <span class="cov0" title="0">w := httptest.NewRecorder()
-        return req, w</span>
-}
-
-func TestPostRequest(url string, body interface{}, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov8" title="1">{
-        jsonBody, _ := json.Marshal(body)
-
-        req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonBody))
-        if len(tokenString) &gt; 0 </span><span class="cov8" title="1">{
-                req.Header.Add("Authorization", "bearer "+tokenString)
-        }</span>
-        <span class="cov8" title="1">w := httptest.NewRecorder()
-        return req, w</span>
-}
-
-// Assertion Functions
-func AssertUnauthorized(t *testing.T, w *httptest.ResponseRecorder) <span class="cov8" title="1">{
-        assert.Equal(t, http.StatusUnauthorized, w.Code)
-
-        var result map[string]interface{}
-        json.Unmarshal(w.Body.Bytes(), &amp;result)
-
-        assert.Equal(t, result["error"], "Unauthorized")
-}</span>
-
-func AssertDocumentNotFound(t *testing.T, w *httptest.ResponseRecorder) <span class="cov8" title="1">{
-        assert.Equal(t, http.StatusNotFound, w.Code)
-
-        var result map[string]interface{}
-        json.Unmarshal(w.Body.Bytes(), &amp;result)
-        assert.Equal(t, "Document not found", result["error"])
-}</span>
-
-func AssertInternalServerError(t *testing.T, w *httptest.ResponseRecorder) <span class="cov8" title="1">{
-        assert.Equal(t, http.StatusInternalServerError, w.Code)
-}</span>
-
-func AssertBadRequestError(t *testing.T, w *httptest.ResponseRecorder) <span class="cov0" title="0">{
-        assert.Equal(t, http.StatusBadRequest, w.Code)
 }</span>
 </pre>
 		

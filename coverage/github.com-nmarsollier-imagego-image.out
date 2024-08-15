@@ -33,3 +33,6 @@ github.com/nmarsollier/imagego/image/service.go:39.16,41.3 1 0
 github.com/nmarsollier/imagego/image/service.go:43.2,44.16 2 0
 github.com/nmarsollier/imagego/image/service.go:44.16,46.3 1 0
 github.com/nmarsollier/imagego/image/service.go:48.2,48.19 1 0
+github.com/nmarsollier/imagego/image/test_tools.go:3.25,5.2 1 0
+github.com/nmarsollier/imagego/image/test_tools.go:7.32,9.2 1 0
+github.com/nmarsollier/imagego/image/test_tools.go:11.31,13.2 1 0

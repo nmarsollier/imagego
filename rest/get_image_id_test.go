@@ -6,17 +6,17 @@ import (
 
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
+	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/redisx"
-	"github.com/nmarsollier/imagego/tools/tests"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetImageIdHappyPath(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -32,7 +32,7 @@ func TestGetImageIdHappyPath(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
@@ -43,7 +43,7 @@ func TestGetImageIdHappyPath(t *testing.T) {
 
 func TestGetImageIdResizedHead(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -59,7 +59,7 @@ func TestGetImageIdResizedHead(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
 	req.Header.Add("Size", "800")
 	r.ServeHTTP(w, req)
 
@@ -71,7 +71,7 @@ func TestGetImageIdResizedHead(t *testing.T) {
 
 func TestGetImageIdResizedParam(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -87,7 +87,7 @@ func TestGetImageIdResizedParam(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID+"?Size=640", user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"?Size=640", user.ID)
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
@@ -98,7 +98,7 @@ func TestGetImageIdResizedParam(t *testing.T) {
 
 func TestGetImageIdResizeInvalid(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -114,7 +114,7 @@ func TestGetImageIdResizeInvalid(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
 	req.Header.Add("Size", "180")
 	r.ServeHTTP(w, req)
 
@@ -126,7 +126,7 @@ func TestGetImageIdResizeInvalid(t *testing.T) {
 
 func TestGetImageIdInvalidDocument(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -142,15 +142,15 @@ func TestGetImageIdInvalidDocument(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
 	r.ServeHTTP(w, req)
 
-	tests.AssertDocumentNotFound(t, w)
+	server.AssertDocumentNotFound(t, w)
 }
 
 func TestGetImageIdResizeNotNeed(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -180,7 +180,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
 	req.Header.Add("Size", "320")
 	r.ServeHTTP(w, req)
 
@@ -192,7 +192,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 
 func TestGetImageIdResized(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestResizeImage()
+	testImage := image.TestResizeImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -222,7 +222,7 @@ func TestGetImageIdResized(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
 	req.Header.Add("Size", "160")
 	r.ServeHTTP(w, req)
 

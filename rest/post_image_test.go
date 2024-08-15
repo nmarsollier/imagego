@@ -6,18 +6,18 @@ import (
 
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
+	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/httpx"
 	"github.com/nmarsollier/imagego/tools/redisx"
-	"github.com/nmarsollier/imagego/tools/tests"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestPostImageHappyPath(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks
 	ctrl := gomock.NewController(t)
@@ -37,7 +37,7 @@ func TestPostImageHappyPath(t *testing.T) {
 	r := server.TestRouter(httpMock, redisMock)
 	InitRoutes()
 
-	req, w := tests.TestPostRequest("/v1/image", testImage, user.ID)
+	req, w := server.TestPostRequest("/v1/image", testImage, user.ID)
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
@@ -48,7 +48,7 @@ func TestPostImageHappyPath(t *testing.T) {
 
 func TestPostImageError(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks
 	ctrl := gomock.NewController(t)
@@ -63,15 +63,15 @@ func TestPostImageError(t *testing.T) {
 	r := server.TestRouter(httpMock, redisMock)
 	InitRoutes()
 
-	req, w := tests.TestPostRequest("/v1/image", testImage, user.ID)
+	req, w := server.TestPostRequest("/v1/image", testImage, user.ID)
 	r.ServeHTTP(w, req)
 
-	tests.AssertDocumentNotFound(t, w)
+	server.AssertDocumentNotFound(t, w)
 }
 
 func TestPostImageNotAuthorized(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks
 	ctrl := gomock.NewController(t)
@@ -82,8 +82,8 @@ func TestPostImageNotAuthorized(t *testing.T) {
 	r := server.TestRouter(httpMock)
 	InitRoutes()
 
-	req, w := tests.TestPostRequest("/v1/image", testImage, user.ID)
+	req, w := server.TestPostRequest("/v1/image", testImage, user.ID)
 	r.ServeHTTP(w, req)
 
-	tests.AssertUnauthorized(t, w)
+	server.AssertUnauthorized(t, w)
 }

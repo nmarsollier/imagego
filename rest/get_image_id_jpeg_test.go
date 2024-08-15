@@ -6,17 +6,17 @@ import (
 
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
+	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/redisx"
-	"github.com/nmarsollier/imagego/tools/tests"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetImageIdJpegHappyPath(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestImage()
+	testImage := image.TestImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -32,7 +32,7 @@ func TestGetImageIdJpegHappyPath(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
@@ -43,7 +43,7 @@ func TestGetImageIdJpegHappyPath(t *testing.T) {
 
 func TestGetImageIdJpegInvalidImage(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestInvalidImage()
+	testImage := image.TestInvalidImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -59,15 +59,15 @@ func TestGetImageIdJpegInvalidImage(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
 	r.ServeHTTP(w, req)
 
-	tests.AssertInternalServerError(t, w)
+	server.AssertInternalServerError(t, w)
 }
 
 func TestGetImageIdJpegError(t *testing.T) {
 	user := security.TestUser()
-	testImage := tests.TestInvalidImage()
+	testImage := image.TestInvalidImage()
 
 	// Mocks Redis
 	ctrl := gomock.NewController(t)
@@ -78,8 +78,8 @@ func TestGetImageIdJpegError(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
+	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
 	r.ServeHTTP(w, req)
 
-	tests.AssertDocumentNotFound(t, w)
+	server.AssertDocumentNotFound(t, w)
 }
