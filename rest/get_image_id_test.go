@@ -49,7 +49,7 @@ func TestGetImageIdResizedHead(t *testing.T) {
 	redisMock := redis_client.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
-			assert.Equal(t, testImage.ID+"_160", arg1)
+			assert.Equal(t, testImage.ID+"_800", arg1)
 			return redis.NewStringResult(testImage.Image, nil)
 		},
 	).Times(1)
@@ -59,7 +59,7 @@ func TestGetImageIdResizedHead(t *testing.T) {
 	InitRoutes()
 
 	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
-	req.Header.Add("Size", "160")
+	req.Header.Add("Size", "800")
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
@@ -77,7 +77,7 @@ func TestGetImageIdResizedParam(t *testing.T) {
 	redisMock := redis_client.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
-			assert.Equal(t, testImage.ID+"_160", arg1)
+			assert.Equal(t, testImage.ID+"_640", arg1)
 			return redis.NewStringResult(testImage.Image, nil)
 		},
 	).Times(1)
@@ -86,7 +86,7 @@ func TestGetImageIdResizedParam(t *testing.T) {
 	r := server.TestRouter(redisMock)
 	InitRoutes()
 
-	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID+"?Size=160", user.ID)
+	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID+"?Size=640", user.ID)
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
@@ -156,7 +156,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 	redisMock := redis_client.NewMockRedisClient(ctrl)
 	redisMock.EXPECT().Get(gomock.Any()).DoAndReturn(
 		func(arg1 string) *redis.StringCmd {
-			assert.Equal(t, testImage.ID+"_160", arg1)
+			assert.Equal(t, testImage.ID+"_320", arg1)
 			return redis.NewStringResult("", errs.NotFound)
 		},
 	).Times(1)
@@ -169,7 +169,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 
 	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(
 		func(arg1 string, arg2 string, arg3 interface{}) *redis.StatusCmd {
-			assert.Equal(t, testImage.ID+"_160", arg1)
+			assert.Equal(t, testImage.ID+"_320", arg1)
 			assert.Equal(t, testImage.Image, arg2)
 			return redis.NewStatusResult(testImage.Image, nil)
 		},
@@ -180,7 +180,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 	InitRoutes()
 
 	req, w := tests.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
-	req.Header.Add("Size", "160")
+	req.Header.Add("Size", "320")
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)

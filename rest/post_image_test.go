@@ -67,3 +67,22 @@ func TestPostImageError(t *testing.T) {
 
 	tests.AssertDocumentNotFound(t, w)
 }
+
+func TestPostImageNotAuthorized(t *testing.T) {
+	user := tests.TestUser()
+	testImage := tests.TestImage()
+
+	// Mocks
+	ctrl := gomock.NewController(t)
+	httpMock := http_client.NewMockHTTPClient(ctrl)
+	tests.ExpectHttpUnauthorized(httpMock)
+
+	// REQUEST
+	r := server.TestRouter(httpMock)
+	InitRoutes()
+
+	req, w := tests.TestPostRequest("/v1/image", testImage, user.ID)
+	r.ServeHTTP(w, req)
+
+	tests.AssertUnauthorized(t, w)
+}

@@ -73,13 +73,13 @@
 				
 				<option value="file8">github.com/nmarsollier/imagego/rest/get_image_id_jpeg.go (100.0%)</option>
 				
-				<option value="file9">github.com/nmarsollier/imagego/rest/image_tools.go (73.7%)</option>
+				<option value="file9">github.com/nmarsollier/imagego/rest/image_tools.go (89.5%)</option>
 				
 				<option value="file10">github.com/nmarsollier/imagego/rest/post_image.go (80.0%)</option>
 				
 				<option value="file11">github.com/nmarsollier/imagego/rest/router.go (75.0%)</option>
 				
-				<option value="file12">github.com/nmarsollier/imagego/rest/server/auth_validator.go (60.0%)</option>
+				<option value="file12">github.com/nmarsollier/imagego/rest/server/auth_validator.go (86.7%)</option>
 				
 				<option value="file13">github.com/nmarsollier/imagego/rest/server/engine.go (100.0%)</option>
 				
@@ -87,9 +87,9 @@
 				
 				<option value="file15">github.com/nmarsollier/imagego/rest/server/test_utils.go (100.0%)</option>
 				
-				<option value="file16">github.com/nmarsollier/imagego/security/dao.go (60.0%)</option>
+				<option value="file16">github.com/nmarsollier/imagego/security/dao.go (70.0%)</option>
 				
-				<option value="file17">github.com/nmarsollier/imagego/security/service.go (50.0%)</option>
+				<option value="file17">github.com/nmarsollier/imagego/security/service.go (60.0%)</option>
 				
 				<option value="file18">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
 				
@@ -109,9 +109,9 @@
 				
 				<option value="file26">github.com/nmarsollier/imagego/tools/tests/data.go (100.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/tools/tests/http.go (50.0%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/tools/tests/http.go (100.0%)</option>
 				
-				<option value="file28">github.com/nmarsollier/imagego/tools/tests/rest.go (61.5%)</option>
+				<option value="file28">github.com/nmarsollier/imagego/tools/tests/rest.go (76.9%)</option>
 				
 				</select>
 			</div>
@@ -946,11 +946,11 @@ func normalizeParamSize(sizeHeader string) int <span class="cov8" title="1">{
         switch sizeHeader </span>{
         case "160":<span class="cov8" title="1">
                 return 160</span>
-        case "320":<span class="cov0" title="0">
+        case "320":<span class="cov8" title="1">
                 return 320</span>
-        case "640":<span class="cov0" title="0">
+        case "640":<span class="cov8" title="1">
                 return 640</span>
-        case "800":<span class="cov0" title="0">
+        case "800":<span class="cov8" title="1">
                 return 800</span>
         case "1024":<span class="cov0" title="0">
                 return 1024</span>
@@ -1065,7 +1065,7 @@ import (
 // ValidateAuthentication validate gets and check variable body to create new variable
 // puts model.Variable in context as body if everything is correct
 func ValidateAuthentication(c *gin.Context) <span class="cov8" title="1">{
-        if err := validateToken(c); err != nil </span><span class="cov0" title="0">{
+        if err := validateToken(c); err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 c.Abort()
                 return
@@ -1079,7 +1079,7 @@ func validateToken(c *gin.Context) error <span class="cov8" title="1">{
         }</span>
 
         <span class="cov8" title="1">ctx := TestCtx(c)
-        if _, err = security.Validate(tokenString, ctx...); err != nil </span><span class="cov0" title="0">{
+        if _, err = security.Validate(tokenString, ctx...); err != nil </span><span class="cov8" title="1">{
                 return errs.Unauthorized
         }</span>
 
@@ -1266,7 +1266,7 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
         }</span>
         <span class="cov8" title="1">req.Header.Add("Authorization", "bearer "+token)
         resp, err := http_client.Get(ctx...).Do(req)
-        if err != nil || resp.StatusCode != 200 </span><span class="cov0" title="0">{
+        if err != nil || resp.StatusCode != 200 </span><span class="cov8" title="1">{
                 glog.Error(err)
                 return nil, errs.Unauthorized
         }</span>
@@ -1318,7 +1318,7 @@ func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8
         }
 
         <span class="cov8" title="1">user, err := getRemoteToken(token, ctx...)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 return nil, errs.Unauthorized
         }</span>
 
@@ -1736,7 +1736,7 @@ func ExpectHttpToken(mock *http_client.MockHTTPClient, user *security.User) <spa
         mock.EXPECT().Do(gomock.Any()).Return(response, nil).Times(1)
 }</span>
 
-func ExpectHttpUnauthorized(mock *http_client.MockHTTPClient) <span class="cov0" title="0">{
+func ExpectHttpUnauthorized(mock *http_client.MockHTTPClient) <span class="cov8" title="1">{
         response := &amp;http.Response{
                 StatusCode: http.StatusUnauthorized,
                 Body:       io.NopCloser(bytes.NewBufferString("")),
@@ -1789,7 +1789,7 @@ func TestPostRequest(url string, body interface{}, tokenString string) (*http.Re
 }
 
 // Assertion Functions
-func AssertUnauthorized(t *testing.T, w *httptest.ResponseRecorder) <span class="cov0" title="0">{
+func AssertUnauthorized(t *testing.T, w *httptest.ResponseRecorder) <span class="cov8" title="1">{
         assert.Equal(t, http.StatusUnauthorized, w.Code)
 
         var result map[string]interface{}
