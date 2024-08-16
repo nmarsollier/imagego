@@ -27,4 +27,7 @@ go tool cover -func=./coverage/coverage.out | grep "total:"
 # Generate an HTML report
 go tool cover -html=./coverage/coverage.out -o coverage/coverage.html
 
-nohup open coverage/coverage.html > /dev/null 2>&1&
+if [ "$1" != "quiet" ]; then
+  nohup open coverage/coverage.html > /dev/null 2>&1&
+fi
+ 
