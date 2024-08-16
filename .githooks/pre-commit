@@ -30,7 +30,7 @@ if ! go build ; then
     exit 1
 fi
 
-rm authgo
+rm imagego
 
 # Ejecutar las pruebas
 echo "Running tests..."
