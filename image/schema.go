@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/golang/glog"
+	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/tools/errs"
 	uuid "github.com/satori/go.uuid"
 )
@@ -26,14 +26,14 @@ func New(img string) *Image {
 // ErrData la imagen no parece valida
 var ErrData = errs.NewValidation().Add("image", "invalid")
 
-func (e *Image) validateSchema() error {
+func (e *Image) validateSchema(ctx ...interface{}) error {
 	validate := validator.New()
 	if err := validate.Struct(e); err != nil {
-		glog.Error(err)
+		log.Get(ctx...).Error(err)
 		return err
 	}
 	if !strings.Contains(e.Image, "data:image/") {
-		glog.Error(ErrData)
+		log.Get(ctx...).Error(ErrData)
 		return ErrData
 	}
 	return nil

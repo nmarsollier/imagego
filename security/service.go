@@ -3,7 +3,7 @@ package security
 import (
 	"time"
 
-	"github.com/golang/glog"
+	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/tools/errs"
 	gocache "github.com/patrickmn/go-cache"
 )
@@ -31,7 +31,7 @@ func Validate(token string, ctx ...interface{}) (*User, error) {
 }
 
 // Invalidate invalida un token del cache
-func Invalidate(token string) {
+func Invalidate(token string, ctx ...interface{}) {
 	cache.Delete(token)
-	glog.Info("Token invalidado: ", token)
+	log.Get(ctx...).Info("Token invalidado: ", token)
 }

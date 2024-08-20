@@ -11,7 +11,7 @@ func getImage(c *gin.Context) (*image.Image, error) {
 	imageID := c.Param("imageID")
 	size := getSizeParam(c)
 
-	ctx := server.TestCtx(c)
+	ctx := server.GinCtx(c)
 	data, err := image.Find(imageID, size, ctx...)
 	if err != nil {
 		return nil, err

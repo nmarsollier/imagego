@@ -38,7 +38,7 @@ func saveImage(c *gin.Context) {
 		return
 	}
 
-	ctx := server.TestCtx(c)
+	ctx := server.GinCtx(c)
 	id, err := image.Insert(image.New(bodyImage), ctx...)
 	if err != nil {
 		c.Error(err)

@@ -67,49 +67,53 @@
 				
 				<option value="file5">github.com/nmarsollier/imagego/image/test_tools.go (100.0%)</option>
 				
-				<option value="file6">github.com/nmarsollier/imagego/main.go (0.0%)</option>
+				<option value="file6">github.com/nmarsollier/imagego/log/logger.go (100.0%)</option>
 				
-				<option value="file7">github.com/nmarsollier/imagego/rabbit/consume_logout.go (0.0%)</option>
+				<option value="file7">github.com/nmarsollier/imagego/main.go (0.0%)</option>
 				
-				<option value="file8">github.com/nmarsollier/imagego/rest/get_image_id.go (100.0%)</option>
+				<option value="file8">github.com/nmarsollier/imagego/rabbit/consume_logout.go (0.0%)</option>
 				
-				<option value="file9">github.com/nmarsollier/imagego/rest/get_image_id_jpeg.go (100.0%)</option>
+				<option value="file9">github.com/nmarsollier/imagego/rest/get_image_id.go (100.0%)</option>
 				
-				<option value="file10">github.com/nmarsollier/imagego/rest/image_tools.go (89.5%)</option>
+				<option value="file10">github.com/nmarsollier/imagego/rest/get_image_id_jpeg.go (100.0%)</option>
 				
-				<option value="file11">github.com/nmarsollier/imagego/rest/post_image.go (80.0%)</option>
+				<option value="file11">github.com/nmarsollier/imagego/rest/image_tools.go (89.5%)</option>
 				
-				<option value="file12">github.com/nmarsollier/imagego/rest/router.go (60.0%)</option>
+				<option value="file12">github.com/nmarsollier/imagego/rest/post_image.go (80.0%)</option>
 				
-				<option value="file13">github.com/nmarsollier/imagego/rest/server/auth_validator.go (86.7%)</option>
+				<option value="file13">github.com/nmarsollier/imagego/rest/router.go (60.0%)</option>
 				
-				<option value="file14">github.com/nmarsollier/imagego/rest/server/engine.go (100.0%)</option>
+				<option value="file14">github.com/nmarsollier/imagego/rest/server/authorization.go (89.5%)</option>
 				
-				<option value="file15">github.com/nmarsollier/imagego/rest/server/error_handler.go (60.0%)</option>
+				<option value="file15">github.com/nmarsollier/imagego/rest/server/error.go (60.0%)</option>
 				
-				<option value="file16">github.com/nmarsollier/imagego/rest/server/test_utils.go (83.8%)</option>
+				<option value="file16">github.com/nmarsollier/imagego/rest/server/logger.go (92.9%)</option>
 				
-				<option value="file17">github.com/nmarsollier/imagego/security/dao.go (80.0%)</option>
+				<option value="file17">github.com/nmarsollier/imagego/rest/server/server.go (100.0%)</option>
 				
-				<option value="file18">github.com/nmarsollier/imagego/security/service.go (80.0%)</option>
+				<option value="file18">github.com/nmarsollier/imagego/rest/server/test_utils.go (81.8%)</option>
 				
-				<option value="file19">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
+				<option value="file19">github.com/nmarsollier/imagego/security/dao.go (80.0%)</option>
 				
-				<option value="file20">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
+				<option value="file20">github.com/nmarsollier/imagego/security/service.go (80.0%)</option>
 				
-				<option value="file21">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
+				<option value="file21">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/tools/errs/validation.go (44.4%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
 				
-				<option value="file23">github.com/nmarsollier/imagego/tools/httpx/client.go (75.0%)</option>
+				<option value="file23">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
 				
-				<option value="file24">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
+				<option value="file24">github.com/nmarsollier/imagego/tools/errs/validation.go (44.4%)</option>
 				
-				<option value="file25">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
+				<option value="file25">github.com/nmarsollier/imagego/tools/httpx/client.go (75.0%)</option>
 				
-				<option value="file26">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
+				<option value="file26">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/tools/strs/json.go (100.0%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
+				
+				<option value="file28">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
+				
+				<option value="file29">github.com/nmarsollier/imagego/tools/strs/json.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -468,22 +472,22 @@ func init() <span class="cov8" title="1">{
 		<pre class="file" id="file1" style="display: none">package image
 
 import (
-        "github.com/golang/glog"
+        "github.com/nmarsollier/imagego/log"
         "github.com/nmarsollier/imagego/tools/errs"
         "github.com/nmarsollier/imagego/tools/redisx"
 )
 
 // Insert agrega una imagen a la db
 func Insert(image *Image, ctx ...interface{}) (string, error) <span class="cov8" title="1">{
-        if err := image.validateSchema(); err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+        if err := image.validateSchema(ctx...); err != nil </span><span class="cov0" title="0">{
+                log.Get(ctx...).Error(err)
                 return "", err
         }</span>
 
         <span class="cov8" title="1">client := redisx.Get(ctx...)
         err := client.Set(image.ID, image.Image, 0).Err()
         if err != nil </span><span class="cov8" title="1">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
                 return "", err
         }</span>
 
@@ -495,7 +499,7 @@ func find(imageID string, ctx ...interface{}) (*Image, error) <span class="cov8"
         client := redisx.Get(ctx...)
         data, err := client.Get(imageID).Result()
         if err != nil </span><span class="cov8" title="1">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
                 return nil, errs.NotFound
         }</span>
 
@@ -523,17 +527,17 @@ import (
         _ "image/png"
 
         "github.com/disintegration/imaging"
-        "github.com/golang/glog"
+        "github.com/nmarsollier/imagego/log"
 )
 
-func resize(image *Image, size int) (*Image, error) <span class="cov8" title="1">{
+func resize(image *Image, size int, ctx ...interface{}) (*Image, error) <span class="cov8" title="1">{
         str := image.Image[strings.Index(image.Image, ",")+1:]
 
         reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
 
         img, err := imaging.Decode(reader)
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
         }</span>
         <span class="cov8" title="1">bounds := img.Bounds()
         if bounds.Size().X &lt;= size </span><span class="cov8" title="1">{
@@ -569,7 +573,7 @@ import (
         "strings"
 
         "github.com/go-playground/validator/v10"
-        "github.com/golang/glog"
+        "github.com/nmarsollier/imagego/log"
         "github.com/nmarsollier/imagego/tools/errs"
         uuid "github.com/satori/go.uuid"
 )
@@ -591,14 +595,14 @@ func New(img string) *Image <span class="cov8" title="1">{
 // ErrData la imagen no parece valida
 var ErrData = errs.NewValidation().Add("image", "invalid")
 
-func (e *Image) validateSchema() error <span class="cov8" title="1">{
+func (e *Image) validateSchema(ctx ...interface{}) error <span class="cov8" title="1">{
         validate := validator.New()
         if err := validate.Struct(e); err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
                 return err
         }</span>
         <span class="cov8" title="1">if !strings.Contains(e.Image, "data:image/") </span><span class="cov0" title="0">{
-                glog.Error(ErrData)
+                log.Get(ctx...).Error(ErrData)
                 return ErrData
         }</span>
         <span class="cov8" title="1">return nil</span>
@@ -642,7 +646,7 @@ func findAndResize(imageID string, size int, ctx ...interface{}) (*Image, error)
                 return nil, err
         }</span>
 
-        <span class="cov8" title="1">image, err = resize(image, size)
+        <span class="cov8" title="1">image, err = resize(image, size, ctx...)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
@@ -671,7 +675,33 @@ func TestResizeImage() *Image <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file6" style="display: none">package main
+		<pre class="file" id="file6" style="display: none">package log
+
+import (
+        "github.com/sirupsen/logrus"
+)
+
+func new() *logrus.Entry <span class="cov8" title="1">{
+        logger := logrus.New()
+
+        logger.SetLevel(logrus.InfoLevel)
+
+        result := logger.WithField("Service", "imagego")
+
+        return result
+}</span>
+
+func Get(ctx ...interface{}) *logrus.Entry <span class="cov8" title="1">{
+        for _, o := range ctx </span><span class="cov8" title="1">{
+                if tc, ok := o.(*logrus.Entry); ok </span><span class="cov8" title="1">{
+                        return tc
+                }</span>
+        }
+        <span class="cov8" title="1">return new()</span>
+}
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">package main
 
 import (
         "flag"
@@ -700,16 +730,17 @@ func main() <span class="cov0" title="0">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file7" style="display: none">package rabbit
+		<pre class="file" id="file8" style="display: none">package rabbit
 
 import (
         "encoding/json"
         "errors"
         "time"
 
-        "github.com/golang/glog"
+        "github.com/nmarsollier/imagego/log"
         "github.com/nmarsollier/imagego/security"
         "github.com/nmarsollier/imagego/tools/env"
+        uuid "github.com/satori/go.uuid"
         "github.com/streadway/amqp"
 )
 
@@ -728,23 +759,28 @@ func Init() <span class="cov0" title="0">{
         go func() </span><span class="cov0" title="0">{
                 for </span><span class="cov0" title="0">{
                         listenLogout()
-                        glog.Info("RabbitMQ conectando en 5 segundos.")
+                        log.Get().Info("RabbitMQ conectando en 5 segundos.")
                         time.Sleep(5 * time.Second)
                 }</span>
         }()
 }
 
 func listenLogout() error <span class="cov0" title="0">{
+        logger := log.Get().
+                WithField("Controller", "Rabbit").
+                WithField("Path", "logout").
+                WithField("Method", "Consume")
+
         conn, err := amqp.Dial(env.Get().RabbitURL)
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                logger.Error(err)
                 return err
         }</span>
         <span class="cov0" title="0">defer conn.Close()
 
         chn, err := conn.Channel()
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                logger.Error(err)
                 return err
         }</span>
         <span class="cov0" title="0">defer chn.Close()
@@ -759,7 +795,7 @@ func listenLogout() error <span class="cov0" title="0">{
                 nil,      // arguments
         )
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                logger.Error(err)
                 return err
         }</span>
 
@@ -772,7 +808,7 @@ func listenLogout() error <span class="cov0" title="0">{
                 nil,   // arguments
         )
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                logger.Error(err)
                 return err
         }</span>
 
@@ -783,7 +819,7 @@ func listenLogout() error <span class="cov0" title="0">{
                 false,
                 nil)
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                logger.Error(err)
                 return err
         }</span>
 
@@ -797,41 +833,53 @@ func listenLogout() error <span class="cov0" title="0">{
                 nil,        // args
         )
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                logger.Error(err)
                 return err
         }</span>
 
-        <span class="cov0" title="0">glog.Info("RabbitMQ conectado")
+        <span class="cov0" title="0">logger.Info("RabbitMQ conectado")
 
         go func() </span><span class="cov0" title="0">{
                 for d := range mgs </span><span class="cov0" title="0">{
                         newMessage := &amp;message{}
                         body := d.Body
-                        glog.Info("Rabbit Consume : ", string(body))
+                        logger.Info("Rabbit Consume : ", string(body))
 
                         err = json.Unmarshal(body, newMessage)
                         if err == nil </span><span class="cov0" title="0">{
                                 if newMessage.Type == "logout" </span><span class="cov0" title="0">{
-                                        security.Invalidate(newMessage.Message)
+                                        l := logger.WithField("CorrelationId", getCorrelationId(newMessage))
+                                        security.Invalidate(newMessage.Message, l)
                                 }</span>
                         } else<span class="cov0" title="0"> {
-                                glog.Error(err)
+                                logger.Error(err)
                         }</span>
                 }
         }()
 
-        <span class="cov0" title="0">glog.Info("Closed connection: ", &lt;-conn.NotifyClose(make(chan *amqp.Error)))
+        <span class="cov0" title="0">logger.Info("Closed connection: ", &lt;-conn.NotifyClose(make(chan *amqp.Error)))
 
         return nil</span>
 }
 
 type message struct {
-        Type    string `json:"type" example:"logout"`
-        Message string `json:"message" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"`
+        Type          string `json:"type" example:"logout"`
+        CorrelationId string `json:"correlation_id" example:"123123" `
+        Message       string `json:"message" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"`
+}
+
+func getCorrelationId(c *message) string <span class="cov0" title="0">{
+        value := c.CorrelationId
+
+        if len(value) == 0 </span><span class="cov0" title="0">{
+                value = uuid.NewV4().String()
+        }</span>
+
+        <span class="cov0" title="0">return value</span>
 }
 </pre>
 		
-		<pre class="file" id="file8" style="display: none">package rest
+		<pre class="file" id="file9" style="display: none">package rest
 
 import (
         "github.com/gin-gonic/gin"
@@ -869,7 +917,7 @@ func sendImage(c *gin.Context) <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file9" style="display: none">package rest
+		<pre class="file" id="file10" style="display: none">package rest
 
 import (
         "encoding/base64"
@@ -923,7 +971,7 @@ func toJpeg(data *image.Image) ([]byte, error) <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file10" style="display: none">package rest
+		<pre class="file" id="file11" style="display: none">package rest
 
 import (
         "github.com/gin-gonic/gin"
@@ -936,7 +984,7 @@ func getImage(c *gin.Context) (*image.Image, error) <span class="cov8" title="1"
         imageID := c.Param("imageID")
         size := getSizeParam(c)
 
-        ctx := server.TestCtx(c)
+        ctx := server.GinCtx(c)
         data, err := image.Find(imageID, size, ctx...)
         if err != nil </span><span class="cov8" title="1">{
                 return nil, err
@@ -974,7 +1022,7 @@ func normalizeParamSize(sizeHeader string) int <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file11" style="display: none">package rest
+		<pre class="file" id="file12" style="display: none">package rest
 
 import (
         "github.com/gin-gonic/gin"
@@ -1014,7 +1062,7 @@ func saveImage(c *gin.Context) <span class="cov8" title="1">{
                 return
         }</span>
 
-        <span class="cov8" title="1">ctx := server.TestCtx(c)
+        <span class="cov8" title="1">ctx := server.GinCtx(c)
         id, err := image.Insert(image.New(bodyImage), ctx...)
         if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
@@ -1043,7 +1091,7 @@ type NewImageResponse struct {
 }
 </pre>
 		
-		<pre class="file" id="file12" style="display: none">package rest
+		<pre class="file" id="file13" style="display: none">package rest
 
 import (
         "fmt"
@@ -1066,12 +1114,13 @@ func InitRoutes() <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file13" style="display: none">package server
+		<pre class="file" id="file14" style="display: none">package server
 
 import (
         "strings"
 
         "github.com/gin-gonic/gin"
+        "github.com/nmarsollier/imagego/log"
         "github.com/nmarsollier/imagego/security"
         "github.com/nmarsollier/imagego/tools/errs"
 )
@@ -1079,25 +1128,30 @@ import (
 // ValidateAuthentication validate gets and check variable body to create new variable
 // puts model.Variable in context as body if everything is correct
 func ValidateAuthentication(c *gin.Context) <span class="cov8" title="1">{
-        if err := validateToken(c); err != nil </span><span class="cov8" title="1">{
+        user, err := validateToken(c)
+        if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 c.Abort()
                 return
         }</span>
+
+        <span class="cov8" title="1">ctx := GinCtx(c)
+        c.Set("logger", log.Get(ctx...).WithField("UserId", user.ID))</span>
 }
 
-func validateToken(c *gin.Context) error <span class="cov8" title="1">{
+func validateToken(c *gin.Context) (*security.User, error) <span class="cov8" title="1">{
         tokenString, err := getHeaderToken(c)
         if err != nil </span><span class="cov0" title="0">{
-                return errs.Unauthorized
+                return nil, errs.Unauthorized
         }</span>
 
-        <span class="cov8" title="1">ctx := TestCtx(c)
-        if _, err = security.Validate(tokenString, ctx...); err != nil </span><span class="cov8" title="1">{
-                return errs.Unauthorized
+        <span class="cov8" title="1">ctx := GinCtx(c)
+        user, err := security.Validate(tokenString, ctx...)
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, errs.Unauthorized
         }</span>
 
-        <span class="cov8" title="1">return nil</span>
+        <span class="cov8" title="1">return user, nil</span>
 }
 
 // get token from Authorization header
@@ -1107,46 +1161,6 @@ func getHeaderToken(c *gin.Context) (string, error) <span class="cov8" title="1"
                 return "", errs.Unauthorized
         }</span>
         <span class="cov8" title="1">return tokenString[7:], nil</span>
-}
-</pre>
-		
-		<pre class="file" id="file14" style="display: none">package server
-
-import (
-        "time"
-
-        "github.com/gin-contrib/gzip"
-        "github.com/gin-gonic/gin"
-        cors "github.com/itsjamie/gin-cors"
-        _ "github.com/nmarsollier/imagego/docs"
-        swaggerFiles "github.com/swaggo/files"
-        ginSwagger "github.com/swaggo/gin-swagger"
-)
-
-var engine *gin.Engine = nil
-
-func Router() *gin.Engine <span class="cov8" title="1">{
-        if engine != nil </span><span class="cov8" title="1">{
-                return engine
-        }</span>
-
-        <span class="cov8" title="1">engine = gin.Default()
-        engine.Use(gzip.Gzip(gzip.DefaultCompression))
-        engine.Use(ErrorHandler)
-
-        engine.Use(cors.Middleware(cors.Config{
-                Origins:         "*",
-                Methods:         "GET, PUT, POST, DELETE",
-                RequestHeaders:  "Origin, Authorization, Content-Type, Size",
-                ExposedHeaders:  "",
-                MaxAge:          50 * time.Second,
-                Credentials:     false,
-                ValidateHeaders: false,
-        }))
-
-        engine.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-        return engine</span>
 }
 </pre>
 		
@@ -1227,6 +1241,109 @@ type ErrorData struct {
 		<pre class="file" id="file16" style="display: none">package server
 
 import (
+        "github.com/gin-gonic/gin"
+        "github.com/nmarsollier/imagego/log"
+        uuid "github.com/satori/go.uuid"
+        "github.com/sirupsen/logrus"
+)
+
+func newGinLogger(c *gin.Context) *logrus.Entry <span class="cov8" title="1">{
+        return log.Get().
+                WithField("CorrelationId", getCorrelationId(c)).
+                WithField("Controller", "Rest").
+                WithField("Method", c.Request.Method).
+                WithField("Path", c.Request.URL.Path)
+}</span>
+
+func GinLoggerMiddleware(c *gin.Context) <span class="cov8" title="1">{
+        logger := newGinLogger(c)
+
+        c.Set("logger", logger)
+
+        c.Next()
+
+        if c.Request.Method != "OPTIONS" </span><span class="cov8" title="1">{
+                logger.WithField("status", c.Writer.Status()).Info("Completed")
+        }</span>
+}
+
+func ginLogger(c *gin.Context) *logrus.Entry <span class="cov8" title="1">{
+        logger, exist := c.Get("logger")
+        if !exist </span><span class="cov0" title="0">{
+                return newGinLogger(c)
+        }</span>
+        <span class="cov8" title="1">return logger.(*logrus.Entry)</span>
+}
+
+func getCorrelationId(c *gin.Context) string <span class="cov8" title="1">{
+        value := c.GetHeader("CorrelationId")
+
+        if len(value) == 0 </span><span class="cov8" title="1">{
+                value = uuid.NewV4().String()
+        }</span>
+
+        <span class="cov8" title="1">return value</span>
+}
+</pre>
+		
+		<pre class="file" id="file17" style="display: none">package server
+
+import (
+        "time"
+
+        "github.com/gin-contrib/gzip"
+        "github.com/gin-gonic/gin"
+        cors "github.com/itsjamie/gin-cors"
+        _ "github.com/nmarsollier/imagego/docs"
+        swaggerFiles "github.com/swaggo/files"
+        ginSwagger "github.com/swaggo/gin-swagger"
+)
+
+var engine *gin.Engine = nil
+
+func Router() *gin.Engine <span class="cov8" title="1">{
+        if engine != nil </span><span class="cov8" title="1">{
+                return engine
+        }</span>
+
+        <span class="cov8" title="1">engine = gin.Default()
+        engine.Use(gzip.Gzip(gzip.DefaultCompression))
+        engine.Use(GinLoggerMiddleware)
+        engine.Use(ErrorHandler)
+
+        engine.Use(cors.Middleware(cors.Config{
+                Origins:         "*",
+                Methods:         "GET, PUT, POST, DELETE",
+                RequestHeaders:  "Origin, Authorization, Content-Type, Size",
+                ExposedHeaders:  "",
+                MaxAge:          50 * time.Second,
+                Credentials:     false,
+                ValidateHeaders: false,
+        }))
+
+        engine.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+        return engine</span>
+}
+
+// Obtiene el contexto a serivcios externos
+// En prod este contexto esta vacio.
+func GinCtx(c *gin.Context) []interface{} <span class="cov8" title="1">{
+        var ctx []interface{}
+        // mock_ctx solo es para mocks en testing
+        if mocks, ok := c.Get("mock_ctx"); ok </span><span class="cov8" title="1">{
+                ctx = mocks.([]interface{})
+        }</span>
+
+        <span class="cov8" title="1">ctx = append(ctx, ginLogger(c))
+
+        return ctx</span>
+}
+</pre>
+		
+		<pre class="file" id="file18" style="display: none">package server
+
+import (
         "bytes"
         "encoding/json"
         "net/http"
@@ -1249,16 +1366,6 @@ func TestRouter(ctx ...interface{}) *gin.Engine <span class="cov8" title="1">{
                 }</span>)
         }
         <span class="cov8" title="1">return engine</span>
-}
-
-// Obtiene el contexto de interfaces mockeadas a serivcios externos
-// En prod este contexto esta vacio.
-func TestCtx(c *gin.Context) []interface{} <span class="cov8" title="1">{
-        var ctx []interface{}
-        if mocks, ok := c.Get("mock_ctx"); ok </span><span class="cov8" title="1">{
-                ctx = mocks.([]interface{})
-        }</span>
-        <span class="cov8" title="1">return ctx</span>
 }
 
 // Requests Test functions
@@ -1319,14 +1426,14 @@ func AssertBadRequestError(t *testing.T, w *httptest.ResponseRecorder) <span cla
 }</span>
 </pre>
 		
-		<pre class="file" id="file17" style="display: none">package security
+		<pre class="file" id="file19" style="display: none">package security
 
 import (
         "encoding/json"
         "net/http"
 
         "github.com/go-playground/validator/v10"
-        "github.com/golang/glog"
+        "github.com/nmarsollier/imagego/log"
         "github.com/nmarsollier/imagego/tools/env"
         "github.com/nmarsollier/imagego/tools/errs"
         "github.com/nmarsollier/imagego/tools/httpx"
@@ -1336,13 +1443,13 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
         // Buscamos el usuario remoto
         req, err := http.NewRequest("GET", env.Get().SecurityServerURL+"/v1/users/current", nil)
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
                 return nil, errs.Unauthorized
         }</span>
         <span class="cov8" title="1">req.Header.Add("Authorization", "bearer "+token)
         resp, err := httpx.Get(ctx...).Do(req)
         if err != nil || resp.StatusCode != 200 </span><span class="cov8" title="1">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
                 return nil, errs.Unauthorized
         }</span>
         <span class="cov8" title="1">defer resp.Body.Close()
@@ -1350,25 +1457,25 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
         user := &amp;User{}
         err = json.NewDecoder(resp.Body).Decode(user)
         if err != nil </span><span class="cov8" title="1">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
                 return nil, err
         }</span>
 
         <span class="cov8" title="1">validate := validator.New()
         if err := validate.Struct(user); err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                log.Get(ctx...).Error(err)
                 return nil, err
         }</span>
         <span class="cov8" title="1">return user, nil</span>
 }
 </pre>
 		
-		<pre class="file" id="file18" style="display: none">package security
+		<pre class="file" id="file20" style="display: none">package security
 
 import (
         "time"
 
-        "github.com/golang/glog"
+        "github.com/nmarsollier/imagego/log"
         "github.com/nmarsollier/imagego/tools/errs"
         gocache "github.com/patrickmn/go-cache"
 )
@@ -1396,13 +1503,13 @@ func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8
 }
 
 // Invalidate invalida un token del cache
-func Invalidate(token string) <span class="cov8" title="1">{
+func Invalidate(token string, ctx ...interface{}) <span class="cov8" title="1">{
         cache.Delete(token)
-        glog.Info("Token invalidado: ", token)
+        log.Get(ctx...).Info("Token invalidado: ", token)
 }</span>
 </pre>
 		
-		<pre class="file" id="file19" style="display: none">package security
+		<pre class="file" id="file21" style="display: none">package security
 
 import (
         "bytes"
@@ -1443,7 +1550,7 @@ func ExpectHttpUnauthorized(mock *httpx.MockHTTPClient) <span class="cov8" title
 }</span>
 </pre>
 		
-		<pre class="file" id="file20" style="display: none">package env
+		<pre class="file" id="file22" style="display: none">package env
 
 import (
         "os"
@@ -1504,7 +1611,7 @@ func load() *Configuration <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file21" style="display: none">package errs
+		<pre class="file" id="file23" style="display: none">package errs
 
 // Unauthorized el usuario no esta autorizado al recurso
 var Unauthorized = NewRestError(401, "Unauthorized")
@@ -1551,12 +1658,12 @@ func (e *restError) Status() int <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file22" style="display: none">package errs
+		<pre class="file" id="file24" style="display: none">package errs
 
 import (
         "encoding/json"
 
-        "github.com/golang/glog"
+        "github.com/nmarsollier/imagego/log"
 )
 
 // Validation es una interfaz para definir errores custom
@@ -1579,7 +1686,7 @@ type ValidationErr struct {
 func (e *ValidationErr) Error() string <span class="cov0" title="0">{
         body, err := json.Marshal(e)
         if err != nil </span><span class="cov0" title="0">{
-                glog.Error(err)
+                log.Get().Error(err)
                 return "ErrValidation invalid."
         }</span>
         <span class="cov0" title="0">return string(body)</span>
@@ -1602,7 +1709,7 @@ type errField struct {
 }
 </pre>
 		
-		<pre class="file" id="file23" style="display: none">package httpx
+		<pre class="file" id="file25" style="display: none">package httpx
 
 import "net/http"
 
@@ -1621,7 +1728,7 @@ func Get(ctx ...interface{}) HTTPClient <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file24" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file26" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/httpx/client.go
 
 // Package httpx is a generated GoMock package.
@@ -1673,7 +1780,7 @@ func (mr *MockHTTPClientMockRecorder) Do(req interface{}) *gomock.Call <span cla
 }</span>
 </pre>
 		
-		<pre class="file" id="file25" style="display: none">package redisx
+		<pre class="file" id="file27" style="display: none">package redisx
 
 import (
         "time"
@@ -1716,7 +1823,7 @@ func (c redisClient) Set(key string, value interface{}, expiration time.Duration
 }</span>
 </pre>
 		
-		<pre class="file" id="file26" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file28" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/redisx/client.go
 
 // Package redisx is a generated GoMock package.
@@ -1782,7 +1889,7 @@ func (mr *MockRedisClientMockRecorder) Set(key, value, expiration interface{}) *
 }</span>
 </pre>
 		
-		<pre class="file" id="file27" style="display: none">package strs
+		<pre class="file" id="file29" style="display: none">package strs
 
 import "encoding/json"
 

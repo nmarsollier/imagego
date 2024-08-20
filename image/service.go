@@ -35,7 +35,7 @@ func findAndResize(imageID string, size int, ctx ...interface{}) (*Image, error)
 		return nil, err
 	}
 
-	image, err = resize(image, size)
+	image, err = resize(image, size, ctx...)
 	if err != nil {
 		return nil, err
 	}

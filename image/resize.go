@@ -14,17 +14,17 @@ import (
 	_ "image/png"
 
 	"github.com/disintegration/imaging"
-	"github.com/golang/glog"
+	"github.com/nmarsollier/imagego/log"
 )
 
-func resize(image *Image, size int) (*Image, error) {
+func resize(image *Image, size int, ctx ...interface{}) (*Image, error) {
 	str := image.Image[strings.Index(image.Image, ",")+1:]
 
 	reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
 
 	img, err := imaging.Decode(reader)
 	if err != nil {
-		glog.Error(err)
+		log.Get(ctx...).Error(err)
 	}
 	bounds := img.Bounds()
 	if bounds.Size().X <= size {
