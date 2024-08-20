@@ -79,7 +79,7 @@
 				
 				<option value="file11">github.com/nmarsollier/imagego/rest/post_image.go (80.0%)</option>
 				
-				<option value="file12">github.com/nmarsollier/imagego/rest/router.go (75.0%)</option>
+				<option value="file12">github.com/nmarsollier/imagego/rest/router.go (60.0%)</option>
 				
 				<option value="file13">github.com/nmarsollier/imagego/rest/server/auth_validator.go (86.7%)</option>
 				
@@ -1055,6 +1055,7 @@ import (
 
 // StartEngine Runs gin server
 func StartEngine() <span class="cov0" title="0">{
+        InitRoutes()
         server.Router().Run(fmt.Sprintf(":%d", env.Get().Port))
 }</span>
 
@@ -1128,9 +1129,6 @@ func Router() *gin.Engine <span class="cov8" title="1">{
         if engine != nil </span><span class="cov8" title="1">{
                 return engine
         }</span>
-
-        // Hoy gin usa v8, para actualizar gin validator a v9.
-        // binding.Validator = new(defaultValidator)
 
         <span class="cov8" title="1">engine = gin.Default()
         engine.Use(gzip.Gzip(gzip.DefaultCompression))

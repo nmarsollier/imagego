@@ -11,7 +11,7 @@ github.com/nmarsollier/imagego/rest/server/auth_validator.go:38.48,40.3 1 0
 github.com/nmarsollier/imagego/rest/server/auth_validator.go:41.2,41.29 1 0
 github.com/nmarsollier/imagego/rest/server/engine.go:16.27,17.19 1 0
 github.com/nmarsollier/imagego/rest/server/engine.go:17.19,19.3 1 0
-github.com/nmarsollier/imagego/rest/server/engine.go:24.2,40.15 6 0
+github.com/nmarsollier/imagego/rest/server/engine.go:21.2,37.15 6 0
 github.com/nmarsollier/imagego/rest/server/error_handler.go:12.35,16.2 2 0
 github.com/nmarsollier/imagego/rest/server/error_handler.go:18.42,20.20 2 0
 github.com/nmarsollier/imagego/rest/server/error_handler.go:20.20,22.3 1 0
