@@ -18,9 +18,6 @@ func Router() *gin.Engine {
 		return engine
 	}
 
-	// Hoy gin usa v8, para actualizar gin validator a v9.
-	// binding.Validator = new(defaultValidator)
-
 	engine = gin.Default()
 	engine.Use(gzip.Gzip(gzip.DefaultCompression))
 	engine.Use(ErrorHandler)

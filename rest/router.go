@@ -10,6 +10,7 @@ import (
 
 // StartEngine Runs gin server
 func StartEngine() {
+	InitRoutes()
 	server.Router().Run(fmt.Sprintf(":%d", env.Get().Port))
 }
 
