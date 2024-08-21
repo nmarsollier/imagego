@@ -1,8 +1,6 @@
 package main
 
 import (
-	"flag"
-
 	"github.com/nmarsollier/imagego/rabbit"
 	"github.com/nmarsollier/imagego/rest"
 )
@@ -17,11 +15,6 @@ import (
 // @host		localhost:3001
 // @BasePath	/v1
 func main() {
-	// For logging
-	flag.Parse()
-	flag.Set("logtostderr", "true")
-	flag.Set("v", "2")
-
 	rabbit.Init()
 	rest.StartEngine()
 }

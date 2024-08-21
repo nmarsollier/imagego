@@ -1,6 +1,7 @@
 package log
 
 import (
+	uuid "github.com/satori/go.uuid"
 	"github.com/sirupsen/logrus"
 )
 
@@ -9,7 +10,7 @@ func new() *logrus.Entry {
 
 	logger.SetLevel(logrus.InfoLevel)
 
-	result := logger.WithField("Service", "imagego")
+	result := logger.WithField("Service", "imagego").WithField("Thread", uuid.NewV4().String())
 
 	return result
 }
