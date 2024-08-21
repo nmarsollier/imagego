@@ -1,6 +1,6 @@
 mode: set
-github.com/nmarsollier/imagego/log/logger.go:7.26,15.2 4 0
-github.com/nmarsollier/imagego/log/logger.go:17.44,18.24 1 0
-github.com/nmarsollier/imagego/log/logger.go:18.24,19.38 1 0
-github.com/nmarsollier/imagego/log/logger.go:19.38,21.4 1 0
-github.com/nmarsollier/imagego/log/logger.go:23.2,23.14 1 0
+github.com/nmarsollier/imagego/log/logger.go:8.26,16.2 4 0
+github.com/nmarsollier/imagego/log/logger.go:18.44,19.24 1 0
+github.com/nmarsollier/imagego/log/logger.go:19.24,20.38 1 0
+github.com/nmarsollier/imagego/log/logger.go:20.38,22.4 1 0
+github.com/nmarsollier/imagego/log/logger.go:24.2,24.14 1 0

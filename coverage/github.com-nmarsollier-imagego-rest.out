@@ -1,5 +1,5 @@
 mode: set
-github.com/nmarsollier/imagego/docs/docs.go:342.13,344.2 1 1
+github.com/nmarsollier/imagego/docs/docs.go:338.13,340.2 1 1
 github.com/nmarsollier/imagego/image/dao.go:10.63,11.53 1 1
 github.com/nmarsollier/imagego/image/dao.go:11.53,14.3 2 0
 github.com/nmarsollier/imagego/image/dao.go:16.2,18.16 3 1
@@ -37,11 +37,11 @@ github.com/nmarsollier/imagego/image/service.go:48.2,48.19 1 1
 github.com/nmarsollier/imagego/image/test_tools.go:3.25,5.2 1 1
 github.com/nmarsollier/imagego/image/test_tools.go:7.32,9.2 1 1
 github.com/nmarsollier/imagego/image/test_tools.go:11.31,13.2 1 1
-github.com/nmarsollier/imagego/log/logger.go:7.26,15.2 4 1
-github.com/nmarsollier/imagego/log/logger.go:17.44,18.24 1 1
-github.com/nmarsollier/imagego/log/logger.go:18.24,19.38 1 1
-github.com/nmarsollier/imagego/log/logger.go:19.38,21.4 1 1
-github.com/nmarsollier/imagego/log/logger.go:23.2,23.14 1 1
+github.com/nmarsollier/imagego/log/logger.go:8.26,16.2 4 1
+github.com/nmarsollier/imagego/log/logger.go:18.44,19.24 1 1
+github.com/nmarsollier/imagego/log/logger.go:19.24,20.38 1 1
+github.com/nmarsollier/imagego/log/logger.go:20.38,22.4 1 1
+github.com/nmarsollier/imagego/log/logger.go:24.2,24.14 1 1
 github.com/nmarsollier/imagego/rest/get_image_id.go:23.23,25.2 1 1
 github.com/nmarsollier/imagego/rest/get_image_id.go:27.32,30.16 2 1
 github.com/nmarsollier/imagego/rest/get_image_id.go:30.16,33.3 2 1
@@ -107,13 +107,13 @@ github.com/nmarsollier/imagego/rest/server/error.go:63.2,63.18 1 0
 github.com/nmarsollier/imagego/rest/server/error.go:66.55,68.2 1 1
 github.com/nmarsollier/imagego/rest/server/logger.go:10.49,16.2 1 1
 github.com/nmarsollier/imagego/rest/server/logger.go:18.42,25.35 4 1
-github.com/nmarsollier/imagego/rest/server/logger.go:25.35,27.3 1 1
-github.com/nmarsollier/imagego/rest/server/logger.go:30.46,32.12 2 1
-github.com/nmarsollier/imagego/rest/server/logger.go:32.12,34.3 1 0
-github.com/nmarsollier/imagego/rest/server/logger.go:35.2,35.31 1 1
-github.com/nmarsollier/imagego/rest/server/logger.go:38.46,41.21 2 1
-github.com/nmarsollier/imagego/rest/server/logger.go:41.21,43.3 1 1
-github.com/nmarsollier/imagego/rest/server/logger.go:45.2,45.14 1 1
+github.com/nmarsollier/imagego/rest/server/logger.go:25.35,28.3 2 1
+github.com/nmarsollier/imagego/rest/server/logger.go:31.46,33.12 2 1
+github.com/nmarsollier/imagego/rest/server/logger.go:33.12,35.3 1 0
+github.com/nmarsollier/imagego/rest/server/logger.go:36.2,36.31 1 1
+github.com/nmarsollier/imagego/rest/server/logger.go:39.46,42.21 2 1
+github.com/nmarsollier/imagego/rest/server/logger.go:42.21,44.3 1 1
+github.com/nmarsollier/imagego/rest/server/logger.go:46.2,46.14 1 1
 github.com/nmarsollier/imagego/rest/server/server.go:16.27,17.19 1 1
 github.com/nmarsollier/imagego/rest/server/server.go:17.19,19.3 1 1
 github.com/nmarsollier/imagego/rest/server/server.go:21.2,38.15 7 1
@@ -152,7 +152,9 @@ github.com/nmarsollier/imagego/security/service.go:17.36,19.4 1 0
 github.com/nmarsollier/imagego/security/service.go:22.2,23.16 2 1
 github.com/nmarsollier/imagego/security/service.go:23.16,25.3 1 1
 github.com/nmarsollier/imagego/security/service.go:28.2,30.18 2 1
-github.com/nmarsollier/imagego/security/service.go:34.51,37.2 2 0
+github.com/nmarsollier/imagego/security/service.go:34.51,35.21 1 0
+github.com/nmarsollier/imagego/security/service.go:35.21,38.3 2 0
+github.com/nmarsollier/imagego/security/service.go:40.2,41.51 2 0
 github.com/nmarsollier/imagego/security/test_utils.go:15.23,22.2 1 1
 github.com/nmarsollier/imagego/security/test_utils.go:25.62,31.2 2 1
 github.com/nmarsollier/imagego/security/test_utils.go:33.57,39.2 2 1

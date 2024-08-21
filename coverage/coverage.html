@@ -87,7 +87,7 @@
 				
 				<option value="file15">github.com/nmarsollier/imagego/rest/server/error.go (60.0%)</option>
 				
-				<option value="file16">github.com/nmarsollier/imagego/rest/server/logger.go (92.9%)</option>
+				<option value="file16">github.com/nmarsollier/imagego/rest/server/logger.go (93.3%)</option>
 				
 				<option value="file17">github.com/nmarsollier/imagego/rest/server/server.go (100.0%)</option>
 				
@@ -95,7 +95,7 @@
 				
 				<option value="file19">github.com/nmarsollier/imagego/security/dao.go (80.0%)</option>
 				
-				<option value="file20">github.com/nmarsollier/imagego/security/service.go (80.0%)</option>
+				<option value="file20">github.com/nmarsollier/imagego/security/service.go (69.2%)</option>
 				
 				<option value="file21">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
 				
@@ -414,10 +414,6 @@ const docTemplate = `{
                 "message": {
                     "type": "string",
                     "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"
-                },
-                "type": {
-                    "type": "string",
-                    "example": "logout"
                 }
             }
         },
@@ -682,6 +678,7 @@ func TestResizeImage() *Image <span class="cov8" title="1">{
 		<pre class="file" id="file6" style="display: none">package log
 
 import (
+        uuid "github.com/satori/go.uuid"
         "github.com/sirupsen/logrus"
 )
 
@@ -690,7 +687,7 @@ func new() *logrus.Entry <span class="cov8" title="1">{
 
         logger.SetLevel(logrus.InfoLevel)
 
-        result := logger.WithField("Service", "imagego")
+        result := logger.WithField("Service", "imagego").WithField("Thread", uuid.NewV4().String())
 
         return result
 }</span>
@@ -708,8 +705,6 @@ func Get(ctx ...interface{}) *logrus.Entry <span class="cov8" title="1">{
 		<pre class="file" id="file7" style="display: none">package main
 
 import (
-        "flag"
-
         "github.com/nmarsollier/imagego/rabbit"
         "github.com/nmarsollier/imagego/rest"
 )
@@ -724,11 +719,6 @@ import (
 // @host                localhost:3001
 // @BasePath        /v1
 func main() <span class="cov0" title="0">{
-        // For logging
-        flag.Parse()
-        flag.Set("logtostderr", "true")
-        flag.Set("v", "2")
-
         rabbit.Init()
         rest.StartEngine()
 }</span>
@@ -772,7 +762,7 @@ func Init() <span class="cov0" title="0">{
 func listenLogout() error <span class="cov0" title="0">{
         logger := log.Get().
                 WithField("Controller", "Rabbit").
-                WithField("Path", "logout").
+                WithField("Queue", "logout").
                 WithField("Method", "Consume")
 
         conn, err := amqp.Dial(env.Get().RabbitURL)
@@ -851,11 +841,9 @@ func listenLogout() error <span class="cov0" title="0">{
 
                         err = json.Unmarshal(body, newMessage)
                         if err == nil </span><span class="cov0" title="0">{
-                                if newMessage.Type == "logout" </span><span class="cov0" title="0">{
-                                        l := logger.WithField("CorrelationId", getCorrelationId(newMessage))
-                                        security.Invalidate(newMessage.Message, l)
-                                }</span>
-                        } else<span class="cov0" title="0"> {
+                                l := logger.WithField("CorrelationId", getCorrelationId(newMessage))
+                                security.Invalidate(newMessage.Message, l)
+                        }</span> else<span class="cov0" title="0"> {
                                 logger.Error(err)
                         }</span>
                 }
@@ -867,7 +855,6 @@ func listenLogout() error <span class="cov0" title="0">{
 }
 
 type message struct {
-        Type          string `json:"type" example:"logout"`
         CorrelationId string `json:"correlation_id" example:"123123" `
         Message       string `json:"message" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"`
 }
@@ -1267,7 +1254,8 @@ func GinLoggerMiddleware(c *gin.Context) <span class="cov8" title="1">{
         c.Next()
 
         if c.Request.Method != "OPTIONS" </span><span class="cov8" title="1">{
-                logger.WithField("status", c.Writer.Status()).Info("Completed")
+                ctx := GinCtx(c)
+                log.Get(ctx...).WithField("status", c.Writer.Status()).Info("Completed")
         }</span>
 }
 
@@ -1508,9 +1496,14 @@ func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8
 
 // Invalidate invalida un token del cache
 func Invalidate(token string, ctx ...interface{}) <span class="cov8" title="1">{
-        cache.Delete(token)
-        log.Get(ctx...).Info("Token invalidado: ", token)
-}</span>
+        if len(token) &lt;= 7 </span><span class="cov0" title="0">{
+                log.Get(ctx...).Info("Token no valido: ", token)
+                return
+        }</span>
+
+        <span class="cov8" title="1">cache.Delete(token)
+        log.Get(ctx...).Info("Token invalidado: ", token)</span>
+}
 </pre>
 		
 		<pre class="file" id="file21" style="display: none">package security

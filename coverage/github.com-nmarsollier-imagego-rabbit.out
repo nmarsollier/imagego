@@ -17,10 +17,9 @@ github.com/nmarsollier/imagego/rabbit/consume_logout.go:103.16,106.3 2 0
 github.com/nmarsollier/imagego/rabbit/consume_logout.go:108.2,110.12 2 0
 github.com/nmarsollier/imagego/rabbit/consume_logout.go:110.12,111.22 1 0
 github.com/nmarsollier/imagego/rabbit/consume_logout.go:111.22,117.18 5 0
-github.com/nmarsollier/imagego/rabbit/consume_logout.go:117.18,118.36 1 0
-github.com/nmarsollier/imagego/rabbit/consume_logout.go:118.36,121.6 2 0
-github.com/nmarsollier/imagego/rabbit/consume_logout.go:122.10,124.5 1 0
-github.com/nmarsollier/imagego/rabbit/consume_logout.go:128.2,130.12 2 0
-github.com/nmarsollier/imagego/rabbit/consume_logout.go:139.42,142.21 2 0
-github.com/nmarsollier/imagego/rabbit/consume_logout.go:142.21,144.3 1 0
-github.com/nmarsollier/imagego/rabbit/consume_logout.go:146.2,146.14 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:117.18,120.5 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:120.10,122.5 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:126.2,128.12 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:136.42,139.21 2 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:139.21,141.3 1 0
+github.com/nmarsollier/imagego/rabbit/consume_logout.go:143.2,143.14 1 0
