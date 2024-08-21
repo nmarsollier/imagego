@@ -1,13 +1,13 @@
 mode: set
-github.com/nmarsollier/imagego/log/logger.go:28.67,30.16 2 0
-github.com/nmarsollier/imagego/log/logger.go:30.16,32.3 1 0
-github.com/nmarsollier/imagego/log/logger.go:33.2,33.12 1 0
-github.com/nmarsollier/imagego/log/logger.go:36.59,38.2 1 0
-github.com/nmarsollier/imagego/log/logger.go:39.49,42.2 2 0
-github.com/nmarsollier/imagego/log/logger.go:44.45,46.16 2 0
-github.com/nmarsollier/imagego/log/logger.go:46.16,57.3 3 0
-github.com/nmarsollier/imagego/log/logger.go:60.26,69.2 5 0
-github.com/nmarsollier/imagego/log/logger.go:71.44,72.24 1 0
-github.com/nmarsollier/imagego/log/logger.go:72.24,73.38 1 0
-github.com/nmarsollier/imagego/log/logger.go:73.38,75.4 1 0
-github.com/nmarsollier/imagego/log/logger.go:77.2,77.14 1 0
+github.com/nmarsollier/imagego/log/logger.go:29.67,31.16 2 0
+github.com/nmarsollier/imagego/log/logger.go:31.16,33.3 1 0
+github.com/nmarsollier/imagego/log/logger.go:34.2,34.12 1 0
+github.com/nmarsollier/imagego/log/logger.go:37.59,39.2 1 0
+github.com/nmarsollier/imagego/log/logger.go:40.49,43.2 2 0
+github.com/nmarsollier/imagego/log/logger.go:45.45,47.16 2 0
+github.com/nmarsollier/imagego/log/logger.go:47.16,58.3 3 0
+github.com/nmarsollier/imagego/log/logger.go:61.26,70.2 5 0
+github.com/nmarsollier/imagego/log/logger.go:72.44,73.24 1 0
+github.com/nmarsollier/imagego/log/logger.go:73.24,74.38 1 0
+github.com/nmarsollier/imagego/log/logger.go:74.38,76.4 1 0
+github.com/nmarsollier/imagego/log/logger.go:78.2,78.14 1 0

@@ -99,7 +99,7 @@
 				
 				<option value="file21">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/tools/env/env.go (66.7%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/tools/env/env.go (64.7%)</option>
 				
 				<option value="file23">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
 				
@@ -702,6 +702,7 @@ import (
         "fmt"
         "net"
 
+        "github.com/nmarsollier/imagego/tools/env"
         uuid "github.com/satori/go.uuid"
         "github.com/sirupsen/logrus"
 )
@@ -740,7 +741,7 @@ func (hook *logrusConnectionHook) Close() error <span class="cov0" title="0">{
 }</span>
 
 func configureFluent(logger *logrus.Logger) <span class="cov8" title="1">{
-        conn, err := net.Dial("tcp", "localhost:24224")
+        conn, err := net.Dial("tcp", env.Get().FluentUrl)
         if err == nil </span><span class="cov8" title="1">{
                 logger.SetFormatter(&amp;logrus.JSONFormatter{})
                 logger.SetOutput(conn)
@@ -1642,6 +1643,7 @@ type Configuration struct {
         RabbitURL         string `json:"rabbitUrl"`
         RedisURL          string `json:"redisUrl"`
         SecurityServerURL string `json:"securityServerUrl"`
+        FluentUrl         string `json:"fluentUrl"`
 }
 
 var config *Configuration
@@ -1652,6 +1654,7 @@ func new() *Configuration <span class="cov8" title="1">{
                 RabbitURL:         "amqp://localhost",
                 RedisURL:          "localhost:6379",
                 SecurityServerURL: "http://localhost:3000",
+                FluentUrl:         "localhost:24224",
         }
 }</span>
 
@@ -1681,6 +1684,10 @@ func load() *Configuration <span class="cov8" title="1">{
                         result.Port = intVal
                 }</span>
         }
+
+        <span class="cov8" title="1">if value := os.Getenv("FLUENT_URL"); len(value) &gt; 0 </span><span class="cov0" title="0">{
+                result.FluentUrl = value
+        }</span>
 
         <span class="cov8" title="1">if value := os.Getenv("AUTH_SERVICE_URL"); len(value) &gt; 0 </span><span class="cov0" title="0">{
                 result.SecurityServerURL = value
