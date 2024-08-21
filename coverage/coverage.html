@@ -67,7 +67,7 @@
 				
 				<option value="file5">github.com/nmarsollier/imagego/image/test_tools.go (100.0%)</option>
 				
-				<option value="file6">github.com/nmarsollier/imagego/log/logger.go (100.0%)</option>
+				<option value="file6">github.com/nmarsollier/imagego/log/logger.go (90.5%)</option>
 				
 				<option value="file7">github.com/nmarsollier/imagego/main.go (0.0%)</option>
 				
@@ -93,7 +93,7 @@
 				
 				<option value="file18">github.com/nmarsollier/imagego/rest/server/test_utils.go (81.8%)</option>
 				
-				<option value="file19">github.com/nmarsollier/imagego/security/dao.go (80.0%)</option>
+				<option value="file19">github.com/nmarsollier/imagego/security/dao.go (81.8%)</option>
 				
 				<option value="file20">github.com/nmarsollier/imagego/security/service.go (69.2%)</option>
 				
@@ -203,6 +203,13 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -253,6 +260,13 @@ const docTemplate = `{
                 ],
                 "summary": "Obtener imagen",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "[160|320|640|800|1024|1200]",
@@ -316,6 +330,13 @@ const docTemplate = `{
                 ],
                 "summary": "Obtener jpeg",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "[160|320|640|800|1024|1200]",
@@ -678,17 +699,70 @@ func TestResizeImage() *Image <span class="cov8" title="1">{
 		<pre class="file" id="file6" style="display: none">package log
 
 import (
+        "fmt"
+        "net"
+
         uuid "github.com/satori/go.uuid"
         "github.com/sirupsen/logrus"
 )
 
+const LOG_FIELD_CORRELATION_ID = "correlation_id"
+const LOG_FIELD_CONTOROLLER = "controller"
+const LOG_FIELD_RABBIT_ACTION = "rabbit_action"
+const LOG_FIELD_RABBIT_EXCHANGE = "exchange"
+const LOG_FIELD_RABBIT_QUEUE = "queue"
+const LOG_FIELD_HTTP_METHOD = "http_method"
+const LOG_FIELD_HTTP_PATH = "http_path"
+const LOG_FIELD_HTTP_STATUS = "http_status"
+const LOG_FIELD_SERVER = "server"
+const LOG_FIELD_USER_ID = "user_id"
+const LOG_FIELD_THREAD = "thread"
+
+type logrusConnectionHook struct {
+        conn net.Conn
+        fmt  logrus.Formatter
+}
+
+func (hook *logrusConnectionHook) Fire(entry *logrus.Entry) error <span class="cov8" title="1">{
+        msg, err := hook.fmt.Format(entry)
+        if err == nil </span><span class="cov8" title="1">{
+                fmt.Println(string(msg))
+        }</span>
+        <span class="cov8" title="1">return nil</span>
+}
+
+func (hook *logrusConnectionHook) Levels() []logrus.Level <span class="cov8" title="1">{
+        return logrus.AllLevels
+}</span>
+func (hook *logrusConnectionHook) Close() error <span class="cov0" title="0">{
+        hook.conn.Close()
+        return nil
+}</span>
+
+func configureFluent(logger *logrus.Logger) <span class="cov8" title="1">{
+        conn, err := net.Dial("tcp", "localhost:24224")
+        if err == nil </span><span class="cov8" title="1">{
+                logger.SetFormatter(&amp;logrus.JSONFormatter{})
+                logger.SetOutput(conn)
+                logger.AddHook(&amp;logrusConnectionHook{
+                        conn: conn,
+                        fmt: &amp;logrus.TextFormatter{
+                                FullTimestamp:  true,
+                                ForceColors:    true,
+                                DisableSorting: false,
+                        },
+                })
+        }</span>
+}
+
 func new() *logrus.Entry <span class="cov8" title="1">{
         logger := logrus.New()
+        configureFluent(logger)
 
-        logger.SetLevel(logrus.InfoLevel)
-
-        result := logger.WithField("Service", "imagego").WithField("Thread", uuid.NewV4().String())
-
+        logger.SetLevel(logrus.DebugLevel)
+        result := logger.
+                WithField(LOG_FIELD_SERVER, "imagego").
+                WithField(LOG_FIELD_THREAD, uuid.NewV4().String())
         return result
 }</span>
 
@@ -761,9 +835,10 @@ func Init() <span class="cov0" title="0">{
 
 func listenLogout() error <span class="cov0" title="0">{
         logger := log.Get().
-                WithField("Controller", "Rabbit").
-                WithField("Queue", "logout").
-                WithField("Method", "Consume")
+                WithField(log.LOG_FIELD_CONTOROLLER, "Rabbit").
+                WithField(log.LOG_FIELD_RABBIT_QUEUE, "auth").
+                WithField(log.LOG_FIELD_RABBIT_EXCHANGE, "logout").
+                WithField(log.LOG_FIELD_RABBIT_ACTION, "Consume")
 
         conn, err := amqp.Dial(env.Get().RabbitURL)
         if err != nil </span><span class="cov0" title="0">{
@@ -841,7 +916,7 @@ func listenLogout() error <span class="cov0" title="0">{
 
                         err = json.Unmarshal(body, newMessage)
                         if err == nil </span><span class="cov0" title="0">{
-                                l := logger.WithField("CorrelationId", getCorrelationId(newMessage))
+                                l := logger.WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(newMessage))
                                 security.Invalidate(newMessage.Message, l)
                         }</span> else<span class="cov0" title="0"> {
                                 logger.Error(err)
@@ -882,13 +957,14 @@ import (
 //        @Tags                        Imagen
 //        @Accept                        json
 //        @Produce                json
-//        @Param                        Size        path                string                                true        "[160|320|640|800|1024|1200]"
-//        @Param                        imageID        path                string                                true        "ID de la imagen"
-//        @Success                200                {object}        image.Image                        "Informacion de la Imagen"
-//        @Failure                400                {object}        errs.ValidationErr        "Bad Request"
-//        @Failure                401                {object}        server.ErrorData        "Unauthorized"
-//        @Failure                404                {object}        server.ErrorData        "Not Found"
-//        @Failure                500                {object}        server.ErrorData        "Internal Server Error"
+//        @Param                        correlation_id        header                string                                true        "Logging Correlation Id"
+//        @Param                        Size                        path                string                                true        "[160|320|640|800|1024|1200]"
+//        @Param                        imageID                        path                string                                true        "ID de la imagen"
+//        @Success                200                                {object}        image.Image                        "Informacion de la Imagen"
+//        @Failure                400                                {object}        errs.ValidationErr        "Bad Request"
+//        @Failure                401                                {object}        server.ErrorData        "Unauthorized"
+//        @Failure                404                                {object}        server.ErrorData        "Not Found"
+//        @Failure                500                                {object}        server.ErrorData        "Internal Server Error"
 //        @Router                        /v1/image/:imageID [get]
 //
 // Obtiene una imagen del servidor en formato base64
@@ -925,13 +1001,14 @@ import (
 //        @Tags                        Imagen
 //        @Accept                        json
 //        @Produce                image/jpeg
-//        @Param                        Size        path                string                                true        "[160|320|640|800|1024|1200]"
-//        @Param                        imageID        path                string                                true        "ID de la imagen"
-//        @Success                200                {file}                jpeg                                "Imagen"
-//        @Failure                400                {object}        errs.ValidationErr        "Bad Request"
-//        @Failure                401                {object}        server.ErrorData        "Unauthorized"
-//        @Failure                404                {object}        server.ErrorData        "Not Found"
-//        @Failure                500                {object}        server.ErrorData        "Internal Server Error"
+//        @Param                        correlation_id        header                string                                true        "Logging Correlation Id"
+//        @Param                        Size                        path                string                                true        "[160|320|640|800|1024|1200]"
+//        @Param                        imageID                        path                string                                true        "ID de la imagen"
+//        @Success                200                                {file}                jpeg                                "Imagen"
+//        @Failure                400                                {object}        errs.ValidationErr        "Bad Request"
+//        @Failure                401                                {object}        server.ErrorData        "Unauthorized"
+//        @Failure                404                                {object}        server.ErrorData        "Not Found"
+//        @Failure                500                                {object}        server.ErrorData        "Internal Server Error"
 //        @Router                        /v1/image/:imageID/jpeg [get]
 //
 // Obtiene una imagen del servidor en formato jpeg.
@@ -1030,6 +1107,7 @@ import (
 //        @Produce                json
 //        @Param                        image                        body                NewRequest                        true        "Imagen en base64"
 //        @Param                        Authorization        header                string                                true        "bearer {token}"
+//        @Param                        correlation_id        header                string                                true        "Logging Correlation Id"
 //        @Success                200                                {object}        NewImageResponse        "Imagen"
 //        @Failure                400                                {object}        errs.ValidationErr        "Bad Request"
 //        @Failure                401                                {object}        server.ErrorData        "Unauthorized"
@@ -1127,7 +1205,7 @@ func ValidateAuthentication(c *gin.Context) <span class="cov8" title="1">{
         }</span>
 
         <span class="cov8" title="1">ctx := GinCtx(c)
-        c.Set("logger", log.Get(ctx...).WithField("UserId", user.ID))</span>
+        c.Set("logger", log.Get(ctx...).WithField(log.LOG_FIELD_USER_ID, user.ID))</span>
 }
 
 func validateToken(c *gin.Context) (*security.User, error) <span class="cov8" title="1">{
@@ -1240,10 +1318,10 @@ import (
 
 func newGinLogger(c *gin.Context) *logrus.Entry <span class="cov8" title="1">{
         return log.Get().
-                WithField("CorrelationId", getCorrelationId(c)).
-                WithField("Controller", "Rest").
-                WithField("Method", c.Request.Method).
-                WithField("Path", c.Request.URL.Path)
+                WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(c)).
+                WithField(log.LOG_FIELD_CONTOROLLER, "Rest").
+                WithField(log.LOG_FIELD_HTTP_METHOD, c.Request.Method).
+                WithField(log.LOG_FIELD_HTTP_PATH, c.Request.URL.Path)
 }</span>
 
 func GinLoggerMiddleware(c *gin.Context) <span class="cov8" title="1">{
@@ -1255,7 +1333,7 @@ func GinLoggerMiddleware(c *gin.Context) <span class="cov8" title="1">{
 
         if c.Request.Method != "OPTIONS" </span><span class="cov8" title="1">{
                 ctx := GinCtx(c)
-                log.Get(ctx...).WithField("status", c.Writer.Status()).Info("Completed")
+                log.Get(ctx...).WithField(log.LOG_FIELD_HTTP_STATUS, c.Writer.Status()).Info("Completed")
         }</span>
 }
 
@@ -1268,7 +1346,7 @@ func ginLogger(c *gin.Context) *logrus.Entry <span class="cov8" title="1">{
 }
 
 func getCorrelationId(c *gin.Context) string <span class="cov8" title="1">{
-        value := c.GetHeader("CorrelationId")
+        value := c.GetHeader(log.LOG_FIELD_CORRELATION_ID)
 
         if len(value) == 0 </span><span class="cov8" title="1">{
                 value = uuid.NewV4().String()
@@ -1439,7 +1517,11 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
                 return nil, errs.Unauthorized
         }</span>
         <span class="cov8" title="1">req.Header.Add("Authorization", "bearer "+token)
-        resp, err := httpx.Get(ctx...).Do(req)
+        if corrId, ok := log.Get(ctx...).Data[log.LOG_FIELD_CORRELATION_ID].(string); ok </span><span class="cov8" title="1">{
+                req.Header.Add(log.LOG_FIELD_CORRELATION_ID, corrId)
+        }</span>
+
+        <span class="cov8" title="1">resp, err := httpx.Get(ctx...).Do(req)
         if err != nil || resp.StatusCode != 200 </span><span class="cov8" title="1">{
                 log.Get(ctx...).Error(err)
                 return nil, errs.Unauthorized

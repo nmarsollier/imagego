@@ -48,6 +48,7 @@ Agrega una nueva imagen al servidor.
 | ---- | ---------- | ----------- | -------- | ------ |
 | image | body | Imagen en base64 | Yes | [rest.NewRequest](#restnewrequest) |
 | Authorization | header | bearer {token} | Yes | string |
+| correlation_id | header | Logging Correlation Id | Yes | string |
 
 ##### Responses
 
@@ -74,6 +75,7 @@ Obtiene una imagen del servidor en formato base64
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
+| correlation_id | header | Logging Correlation Id | Yes | string |
 | Size | path | [160\|320\|640\|800\|1024\|1200] | Yes | string |
 | imageID | path | ID de la imagen | Yes | string |
 
@@ -102,6 +104,7 @@ Obtiene una imagen del servidor en formato jpeg.
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
+| correlation_id | header | Logging Correlation Id | Yes | string |
 | Size | path | [160\|320\|640\|800\|1024\|1200] | Yes | string |
 | imageID | path | ID de la imagen | Yes | string |
 

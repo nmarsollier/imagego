@@ -74,6 +74,13 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -124,6 +131,13 @@ const docTemplate = `{
                 ],
                 "summary": "Obtener imagen",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "[160|320|640|800|1024|1200]",
@@ -187,6 +201,13 @@ const docTemplate = `{
                 ],
                 "summary": "Obtener jpeg",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "[160|320|640|800|1024|1200]",

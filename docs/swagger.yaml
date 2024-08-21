@@ -96,6 +96,11 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: Logging Correlation Id
+        in: header
+        name: correlation_id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -128,6 +133,11 @@ paths:
       - application/json
       description: Obtiene una imagen del servidor en formato base64
       parameters:
+      - description: Logging Correlation Id
+        in: header
+        name: correlation_id
+        required: true
+        type: string
       - description: '[160|320|640|800|1024|1200]'
         in: path
         name: Size
@@ -170,6 +180,11 @@ paths:
       - application/json
       description: Obtiene una imagen del servidor en formato jpeg.
       parameters:
+      - description: Logging Correlation Id
+        in: header
+        name: correlation_id
+        required: true
+        type: string
       - description: '[160|320|640|800|1024|1200]'
         in: path
         name: Size

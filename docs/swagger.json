@@ -68,6 +68,13 @@
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -118,6 +125,13 @@
                 ],
                 "summary": "Obtener imagen",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "[160|320|640|800|1024|1200]",
@@ -181,6 +195,13 @@
                 ],
                 "summary": "Obtener jpeg",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "[160|320|640|800|1024|1200]",
