@@ -11,6 +11,7 @@ type Configuration struct {
 	RabbitURL         string `json:"rabbitUrl"`
 	RedisURL          string `json:"redisUrl"`
 	SecurityServerURL string `json:"securityServerUrl"`
+	FluentUrl         string `json:"fluentUrl"`
 }
 
 var config *Configuration
@@ -21,6 +22,7 @@ func new() *Configuration {
 		RabbitURL:         "amqp://localhost",
 		RedisURL:          "localhost:6379",
 		SecurityServerURL: "http://localhost:3000",
+		FluentUrl:         "localhost:24224",
 	}
 }
 
@@ -49,6 +51,10 @@ func load() *Configuration {
 		if intVal, err := strconv.Atoi(value); err != nil {
 			result.Port = intVal
 		}
+	}
+
+	if value := os.Getenv("FLUENT_URL"); len(value) > 0 {
+		result.FluentUrl = value
 	}
 
 	if value := os.Getenv("AUTH_SERVICE_URL"); len(value) > 0 {

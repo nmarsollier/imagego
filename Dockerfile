@@ -6,6 +6,7 @@ WORKDIR /go/src/github.com/nmarsollier/imagego
 ENV REDIS_URL=host.docker.internal:6379
 ENV RABBIT_URL=amqp://host.docker.internal
 ENV AUTH_SERVICE_URL=http://host.docker.internal:3000
+ENV FLUENT_URL=host.docker.internal:24224
 
 # Puerto de Image Service y debug
 EXPOSE 3001

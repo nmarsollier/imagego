@@ -4,6 +4,7 @@ FROM golang:1.22.6-bullseye
 ENV REDIS_URL=host.docker.internal:6379
 ENV RABBIT_URL=amqp://host.docker.internal
 ENV AUTH_SERVICE_URL=http://host.docker.internal:3000
+ENV FLUENT_URL=host.docker.internal:24224
 
 WORKDIR /go/src/github.com/nmarsollier/imagego
 RUN curl -L https://github.com/nmarsollier/imagego/archive/refs/heads/master.tar.gz | tar xz --strip=1
