@@ -19,6 +19,10 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) {
 		return nil, errs.Unauthorized
 	}
 	req.Header.Add("Authorization", "bearer "+token)
+	if corrId, ok := log.Get(ctx...).Data[log.LOG_FIELD_CORRELATION_ID].(string); ok {
+		req.Header.Add(log.LOG_FIELD_CORRELATION_ID, corrId)
+	}
+
 	resp, err := httpx.Get(ctx...).Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		log.Get(ctx...).Error(err)

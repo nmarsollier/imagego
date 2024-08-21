@@ -10,6 +10,7 @@ import (
 //	@Tags			Imagen
 //	@Accept			json
 //	@Produce		json
+//	@Param			correlation_id	header		string				true	"Logging Correlation Id"
 //	@Param			Size	path		string				true	"[160|320|640|800|1024|1200]"
 //	@Param			imageID	path		string				true	"ID de la imagen"
 //	@Success		200		{object}	image.Image			"Informacion de la Imagen"

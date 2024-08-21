@@ -35,9 +35,10 @@ func Init() {
 
 func listenLogout() error {
 	logger := log.Get().
-		WithField("Controller", "Rabbit").
-		WithField("Queue", "logout").
-		WithField("Method", "Consume")
+		WithField(log.LOG_FIELD_CONTOROLLER, "Rabbit").
+		WithField(log.LOG_FIELD_RABBIT_QUEUE, "auth").
+		WithField(log.LOG_FIELD_RABBIT_EXCHANGE, "logout").
+		WithField(log.LOG_FIELD_RABBIT_ACTION, "Consume")
 
 	conn, err := amqp.Dial(env.Get().RabbitURL)
 	if err != nil {
@@ -115,7 +116,7 @@ func listenLogout() error {
 
 			err = json.Unmarshal(body, newMessage)
 			if err == nil {
-				l := logger.WithField("CorrelationId", getCorrelationId(newMessage))
+				l := logger.WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(newMessage))
 				security.Invalidate(newMessage.Message, l)
 			} else {
 				logger.Error(err)

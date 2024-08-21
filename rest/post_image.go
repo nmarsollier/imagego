@@ -15,6 +15,7 @@ import (
 //	@Produce		json
 //	@Param			image			body		NewRequest			true	"Imagen en base64"
 //	@Param			Authorization	header		string				true	"bearer {token}"
+//	@Param			correlation_id	header		string				true	"Logging Correlation Id"
 //	@Success		200				{object}	NewImageResponse	"Imagen"
 //	@Failure		400				{object}	errs.ValidationErr	"Bad Request"
 //	@Failure		401				{object}	server.ErrorData	"Unauthorized"
