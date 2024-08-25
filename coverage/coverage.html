@@ -67,7 +67,7 @@
 				
 				<option value="file5">github.com/nmarsollier/imagego/image/test_tools.go (100.0%)</option>
 				
-				<option value="file6">github.com/nmarsollier/imagego/log/logger.go (90.5%)</option>
+				<option value="file6">github.com/nmarsollier/imagego/log/logger.go (52.4%)</option>
 				
 				<option value="file7">github.com/nmarsollier/imagego/main.go (0.0%)</option>
 				
@@ -99,7 +99,7 @@
 				
 				<option value="file21">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/tools/env/env.go (64.7%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/tools/env/env.go (100.0%)</option>
 				
 				<option value="file23">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
 				
@@ -724,15 +724,15 @@ type logrusConnectionHook struct {
         fmt  logrus.Formatter
 }
 
-func (hook *logrusConnectionHook) Fire(entry *logrus.Entry) error <span class="cov8" title="1">{
+func (hook *logrusConnectionHook) Fire(entry *logrus.Entry) error <span class="cov0" title="0">{
         msg, err := hook.fmt.Format(entry)
-        if err == nil </span><span class="cov8" title="1">{
+        if err == nil </span><span class="cov0" title="0">{
                 fmt.Println(string(msg))
         }</span>
-        <span class="cov8" title="1">return nil</span>
+        <span class="cov0" title="0">return nil</span>
 }
 
-func (hook *logrusConnectionHook) Levels() []logrus.Level <span class="cov8" title="1">{
+func (hook *logrusConnectionHook) Levels() []logrus.Level <span class="cov0" title="0">{
         return logrus.AllLevels
 }</span>
 func (hook *logrusConnectionHook) Close() error <span class="cov0" title="0">{
@@ -742,7 +742,7 @@ func (hook *logrusConnectionHook) Close() error <span class="cov0" title="0">{
 
 func configureFluent(logger *logrus.Logger) <span class="cov8" title="1">{
         conn, err := net.Dial("tcp", env.Get().FluentUrl)
-        if err == nil </span><span class="cov8" title="1">{
+        if err == nil </span><span class="cov0" title="0">{
                 logger.SetFormatter(&amp;logrus.JSONFormatter{})
                 logger.SetOutput(conn)
                 logger.AddHook(&amp;logrusConnectionHook{
@@ -1671,25 +1671,25 @@ func Get() *Configuration <span class="cov8" title="1">{
 func load() *Configuration <span class="cov8" title="1">{
         result := new()
 
-        if value := os.Getenv("REDIS_URL"); len(value) &gt; 0 </span><span class="cov0" title="0">{
+        if value := os.Getenv("REDIS_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
                 result.RedisURL = value
         }</span>
 
-        <span class="cov8" title="1">if value := os.Getenv("RABBIT_URL"); len(value) &gt; 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if value := os.Getenv("RABBIT_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
                 result.RabbitURL = value
         }</span>
 
-        <span class="cov8" title="1">if value := os.Getenv("PORT"); len(value) &gt; 0 </span><span class="cov0" title="0">{
-                if intVal, err := strconv.Atoi(value); err != nil </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if value := os.Getenv("PORT"); len(value) &gt; 0 </span><span class="cov8" title="1">{
+                if intVal, err := strconv.Atoi(value); err == nil </span><span class="cov8" title="1">{
                         result.Port = intVal
                 }</span>
         }
 
-        <span class="cov8" title="1">if value := os.Getenv("FLUENT_URL"); len(value) &gt; 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if value := os.Getenv("FLUENT_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
                 result.FluentUrl = value
         }</span>
 
-        <span class="cov8" title="1">if value := os.Getenv("AUTH_SERVICE_URL"); len(value) &gt; 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if value := os.Getenv("AUTH_SERVICE_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
                 result.SecurityServerURL = value
         }</span>
 
