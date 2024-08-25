@@ -711,7 +711,7 @@ import (
 )
 
 const LOG_FIELD_CORRELATION_ID = "correlation_id"
-const LOG_FIELD_CONTOROLLER = "controller"
+const LOG_FIELD_CONTROLLER = "controller"
 const LOG_FIELD_RABBIT_ACTION = "rabbit_action"
 const LOG_FIELD_RABBIT_EXCHANGE = "exchange"
 const LOG_FIELD_RABBIT_QUEUE = "queue"
@@ -855,7 +855,7 @@ func Init() <span class="cov0" title="0">{
 
 func listenLogout() error <span class="cov0" title="0">{
         logger := log.Get().
-                WithField(log.LOG_FIELD_CONTOROLLER, "Rabbit").
+                WithField(log.LOG_FIELD_CONTROLLER, "Rabbit").
                 WithField(log.LOG_FIELD_RABBIT_QUEUE, "auth").
                 WithField(log.LOG_FIELD_RABBIT_EXCHANGE, "logout").
                 WithField(log.LOG_FIELD_RABBIT_ACTION, "Consume")
@@ -1339,7 +1339,7 @@ import (
 func newGinLogger(c *gin.Context) *logrus.Entry <span class="cov8" title="1">{
         return log.Get().
                 WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(c)).
-                WithField(log.LOG_FIELD_CONTOROLLER, "Rest").
+                WithField(log.LOG_FIELD_CONTROLLER, "Rest").
                 WithField(log.LOG_FIELD_HTTP_METHOD, c.Request.Method).
                 WithField(log.LOG_FIELD_HTTP_PATH, c.Request.URL.Path)
 }</span>
