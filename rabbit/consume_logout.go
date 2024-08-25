@@ -35,7 +35,7 @@ func Init() {
 
 func listenLogout() error {
 	logger := log.Get().
-		WithField(log.LOG_FIELD_CONTOROLLER, "Rabbit").
+		WithField(log.LOG_FIELD_CONTROLLER, "Rabbit").
 		WithField(log.LOG_FIELD_RABBIT_QUEUE, "auth").
 		WithField(log.LOG_FIELD_RABBIT_EXCHANGE, "logout").
 		WithField(log.LOG_FIELD_RABBIT_ACTION, "Consume")
