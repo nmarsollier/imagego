@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLoad(t *testing.T) {
+func TestDefault(t *testing.T) {
 	// Test case 1: Default values
 	config := load()
 	assert.Equal(t, 3001, config.Port)
@@ -15,7 +15,9 @@ func TestLoad(t *testing.T) {
 	assert.Equal(t, "localhost:6379", config.RedisURL)
 	assert.Equal(t, "http://localhost:3000", config.SecurityServerURL)
 	assert.Equal(t, "localhost:24224", config.FluentUrl)
+}
 
+func TestLoad(t *testing.T) {
 	// Test case 2: Custom values from environment variables
 	os.Setenv("REDIS_URL", "custom_redis_url")
 	os.Setenv("RABBIT_URL", "custom_rabbit_url")
