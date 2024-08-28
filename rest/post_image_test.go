@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/image"
+	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
@@ -34,7 +35,7 @@ func TestPostImageHappyPath(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(httpMock, redisMock)
+	r := server.TestRouter(httpMock, redisMock, log.NewTestLogger(ctrl, 6, 0, 1, 1))
 	InitRoutes()
 
 	req, w := server.TestPostRequest("/v1/image", testImage, user.ID)
@@ -60,7 +61,7 @@ func TestPostImageError(t *testing.T) {
 	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).Return(redis.NewStatusResult("", errs.NotFound)).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(httpMock, redisMock)
+	r := server.TestRouter(httpMock, redisMock, log.NewTestLogger(ctrl, 6, 1, 1, 1))
 	InitRoutes()
 
 	req, w := server.TestPostRequest("/v1/image", testImage, user.ID)
@@ -79,7 +80,7 @@ func TestPostImageNotAuthorized(t *testing.T) {
 	security.ExpectHttpUnauthorized(httpMock)
 
 	// REQUEST
-	r := server.TestRouter(httpMock)
+	r := server.TestRouter(httpMock, log.NewTestLogger(ctrl, 5, 1, 1, 1))
 	InitRoutes()
 
 	req, w := server.TestPostRequest("/v1/image", testImage, user.ID)

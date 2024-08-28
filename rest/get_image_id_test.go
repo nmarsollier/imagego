@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/image"
+	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
@@ -56,7 +57,7 @@ func TestGetImageIdResizedHead(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 0, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
@@ -84,7 +85,7 @@ func TestGetImageIdResizedParam(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 0, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"?Size=640", user.ID)
@@ -111,7 +112,7 @@ func TestGetImageIdResizeInvalid(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 0, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
@@ -139,7 +140,7 @@ func TestGetImageIdInvalidDocument(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 1, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
@@ -177,7 +178,7 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 1, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)
@@ -219,7 +220,7 @@ func TestGetImageIdResized(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 1, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID, user.ID)

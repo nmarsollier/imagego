@@ -13,14 +13,14 @@ import (
 
 var engine *gin.Engine = nil
 
-func Router() *gin.Engine {
+func Router(ctx ...interface{}) *gin.Engine {
 	if engine != nil {
 		return engine
 	}
 
 	engine = gin.Default()
 	engine.Use(gzip.Gzip(gzip.DefaultCompression))
-	engine.Use(GinLoggerMiddleware)
+	engine.Use(GinLoggerMiddleware(ctx...))
 	engine.Use(ErrorHandler)
 
 	engine.Use(cors.Middleware(cors.Config{

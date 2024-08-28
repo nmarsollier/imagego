@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/image"
+	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
@@ -29,7 +30,7 @@ func TestGetImageIdJpegHappyPath(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 0, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
@@ -56,7 +57,7 @@ func TestGetImageIdJpegInvalidImage(t *testing.T) {
 	).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 0, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
@@ -75,7 +76,7 @@ func TestGetImageIdJpegError(t *testing.T) {
 	redisMock.EXPECT().Get(gomock.Any()).Return(redis.NewStringResult("", errs.NotFound)).Times(1)
 
 	// REQUEST
-	r := server.TestRouter(redisMock)
+	r := server.TestRouter(redisMock, log.NewTestLogger(ctrl, 5, 1, 1, 0))
 	InitRoutes()
 
 	req, w := server.TestGetRequest("/v1/image/"+testImage.ID+"/jpeg", user.ID)
