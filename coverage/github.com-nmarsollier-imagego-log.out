@@ -11,9 +11,9 @@ github.com/nmarsollier/imagego/log/logger.go:54.49,57.2 2 0
 github.com/nmarsollier/imagego/log/logger.go:59.45,61.16 2 0
 github.com/nmarsollier/imagego/log/logger.go:61.16,72.3 3 0
 github.com/nmarsollier/imagego/log/logrus_logger.go:16.49,18.2 1 0
-github.com/nmarsollier/imagego/log/logrus_logger.go:20.75,23.2 2 0
-github.com/nmarsollier/imagego/log/logrus_logger.go:25.48,27.2 1 0
-github.com/nmarsollier/imagego/log/logrus_logger.go:29.43,31.2 1 0
+github.com/nmarsollier/imagego/log/logrus_logger.go:20.75,24.2 1 0
+github.com/nmarsollier/imagego/log/logrus_logger.go:26.48,28.2 1 0
+github.com/nmarsollier/imagego/log/logrus_logger.go:30.43,32.2 1 0
 github.com/nmarsollier/imagego/log/logrus_logger_mocks.go:26.67,30.2 3 0
 github.com/nmarsollier/imagego/log/logrus_logger_mocks.go:33.65,35.2 1 0
 github.com/nmarsollier/imagego/log/logrus_logger_mocks.go:38.48,43.2 4 0
