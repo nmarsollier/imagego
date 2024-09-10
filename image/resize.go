@@ -14,7 +14,7 @@ import (
 	_ "image/png"
 
 	"github.com/disintegration/imaging"
-	"github.com/nmarsollier/imagego/log"
+	"github.com/nmarsollier/imagego/tools/log"
 )
 
 func resize(image *Image, size int, ctx ...interface{}) (*Image, error) {

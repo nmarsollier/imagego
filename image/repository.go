@@ -1,8 +1,8 @@
 package image
 
 import (
-	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/tools/errs"
+	"github.com/nmarsollier/imagego/tools/log"
 	"github.com/nmarsollier/imagego/tools/redisx"
 )
 

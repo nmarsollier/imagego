@@ -7,10 +7,10 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/image"
-	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
+	"github.com/nmarsollier/imagego/tools/log"
 	"github.com/nmarsollier/imagego/tools/redisx"
 	"github.com/stretchr/testify/assert"
 )

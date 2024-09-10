@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/tools/errs"
+	"github.com/nmarsollier/imagego/tools/log"
 	uuid "github.com/satori/go.uuid"
 )
 

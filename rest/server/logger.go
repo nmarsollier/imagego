@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/log"
+	"github.com/nmarsollier/imagego/tools/log"
 	uuid "github.com/satori/go.uuid"
 )
 

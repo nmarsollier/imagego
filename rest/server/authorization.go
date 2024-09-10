@@ -4,9 +4,9 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
+	"github.com/nmarsollier/imagego/tools/log"
 )
 
 // ValidateAuthentication validate gets and check variable body to create new variable

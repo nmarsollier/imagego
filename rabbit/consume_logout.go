@@ -5,9 +5,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/nmarsollier/imagego/log"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/env"
+	"github.com/nmarsollier/imagego/tools/log"
 	uuid "github.com/satori/go.uuid"
 	"github.com/streadway/amqp"
 )
