@@ -91,35 +91,37 @@
 				
 				<option value="file17">github.com/nmarsollier/imagego/rest/server/test_utils.go (81.8%)</option>
 				
-				<option value="file18">github.com/nmarsollier/imagego/security/dao.go (81.8%)</option>
+				<option value="file18">github.com/nmarsollier/imagego/security/invalidate_service.go (60.0%)</option>
 				
-				<option value="file19">github.com/nmarsollier/imagego/security/service.go (69.2%)</option>
+				<option value="file19">github.com/nmarsollier/imagego/security/repository.go (81.8%)</option>
 				
 				<option value="file20">github.com/nmarsollier/imagego/security/test_utils.go (100.0%)</option>
 				
-				<option value="file21">github.com/nmarsollier/imagego/tools/env/env.go (100.0%)</option>
+				<option value="file21">github.com/nmarsollier/imagego/security/validate_service.go (75.0%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/tools/env/env.go (100.0%)</option>
 				
-				<option value="file23">github.com/nmarsollier/imagego/tools/errs/validation.go (50.0%)</option>
+				<option value="file23">github.com/nmarsollier/imagego/tools/errs/rest_error.go (100.0%)</option>
 				
-				<option value="file24">github.com/nmarsollier/imagego/tools/httpx/client.go (75.0%)</option>
+				<option value="file24">github.com/nmarsollier/imagego/tools/errs/validation.go (50.0%)</option>
 				
-				<option value="file25">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
+				<option value="file25">github.com/nmarsollier/imagego/tools/httpx/client.go (75.0%)</option>
 				
-				<option value="file26">github.com/nmarsollier/imagego/tools/log/logger.go (90.0%)</option>
+				<option value="file26">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/tools/log/logrus_logger.go (100.0%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/tools/log/logger.go (90.0%)</option>
 				
-				<option value="file28">github.com/nmarsollier/imagego/tools/log/logrus_logger_mocks.go (100.0%)</option>
+				<option value="file28">github.com/nmarsollier/imagego/tools/log/logrus_logger.go (100.0%)</option>
 				
-				<option value="file29">github.com/nmarsollier/imagego/tools/log/test_tools.go (100.0%)</option>
+				<option value="file29">github.com/nmarsollier/imagego/tools/log/logrus_logger_mocks.go (100.0%)</option>
 				
-				<option value="file30">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
+				<option value="file30">github.com/nmarsollier/imagego/tools/log/test_tools.go (100.0%)</option>
 				
-				<option value="file31">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
+				<option value="file31">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
 				
-				<option value="file32">github.com/nmarsollier/imagego/tools/strs/json.go (100.0%)</option>
+				<option value="file32">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
+				
+				<option value="file33">github.com/nmarsollier/imagego/tools/strs/json.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -1425,15 +1427,37 @@ func AssertBadRequestError(t *testing.T, w *httptest.ResponseRecorder) <span cla
 		<pre class="file" id="file18" style="display: none">package security
 
 import (
+        "github.com/nmarsollier/imagego/tools/log"
+)
+
+// Invalidate invalida un token del cache
+func Invalidate(token string, ctx ...interface{}) <span class="cov8" title="1">{
+        if len(token) &lt;= 7 </span><span class="cov0" title="0">{
+                log.Get(ctx...).Info("Token no valido: ", token)
+                return
+        }</span>
+
+        <span class="cov8" title="1">cache.Delete(token)
+        log.Get(ctx...).Info("Token invalidado: ", token)</span>
+}
+</pre>
+		
+		<pre class="file" id="file19" style="display: none">package security
+
+import (
         "encoding/json"
         "net/http"
+        "time"
 
         "github.com/go-playground/validator/v10"
         "github.com/nmarsollier/imagego/tools/env"
         "github.com/nmarsollier/imagego/tools/errs"
         "github.com/nmarsollier/imagego/tools/httpx"
         "github.com/nmarsollier/imagego/tools/log"
+        gocache "github.com/patrickmn/go-cache"
 )
+
+var cache = gocache.New(60*time.Minute, 10*time.Minute)
 
 func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class="cov8" title="1">{
         // Buscamos el usuario remoto
@@ -1467,50 +1491,6 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
                 return nil, err
         }</span>
         <span class="cov8" title="1">return user, nil</span>
-}
-</pre>
-		
-		<pre class="file" id="file19" style="display: none">package security
-
-import (
-        "time"
-
-        "github.com/nmarsollier/imagego/tools/errs"
-        "github.com/nmarsollier/imagego/tools/log"
-        gocache "github.com/patrickmn/go-cache"
-)
-
-var cache = gocache.New(60*time.Minute, 10*time.Minute)
-
-// Validate valida si el token es valido
-func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8" title="1">{
-        // Si esta en cache, retornamos el cache
-        if found, ok := cache.Get(token); ok </span><span class="cov0" title="0">{
-                if user, ok := found.(*User); ok </span><span class="cov0" title="0">{
-                        return user, nil
-                }</span>
-        }
-
-        <span class="cov8" title="1">user, err := getRemoteToken(token, ctx...)
-        if err != nil </span><span class="cov8" title="1">{
-                return nil, errs.Unauthorized
-        }</span>
-
-        // Todo bien, se agrega al cache y se retorna
-        <span class="cov8" title="1">cache.Set(token, user, gocache.DefaultExpiration)
-
-        return user, nil</span>
-}
-
-// Invalidate invalida un token del cache
-func Invalidate(token string, ctx ...interface{}) <span class="cov8" title="1">{
-        if len(token) &lt;= 7 </span><span class="cov0" title="0">{
-                log.Get(ctx...).Info("Token no valido: ", token)
-                return
-        }</span>
-
-        <span class="cov8" title="1">cache.Delete(token)
-        log.Get(ctx...).Info("Token invalidado: ", token)</span>
 }
 </pre>
 		
@@ -1555,7 +1535,35 @@ func ExpectHttpUnauthorized(mock *httpx.MockHTTPClient) <span class="cov8" title
 }</span>
 </pre>
 		
-		<pre class="file" id="file21" style="display: none">package env
+		<pre class="file" id="file21" style="display: none">package security
+
+import (
+        "github.com/nmarsollier/imagego/tools/errs"
+        gocache "github.com/patrickmn/go-cache"
+)
+
+// Validate valida si el token es valido
+func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8" title="1">{
+        // Si esta en cache, retornamos el cache
+        if found, ok := cache.Get(token); ok </span><span class="cov0" title="0">{
+                if user, ok := found.(*User); ok </span><span class="cov0" title="0">{
+                        return user, nil
+                }</span>
+        }
+
+        <span class="cov8" title="1">user, err := getRemoteToken(token, ctx...)
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, errs.Unauthorized
+        }</span>
+
+        // Todo bien, se agrega al cache y se retorna
+        <span class="cov8" title="1">cache.Set(token, user, gocache.DefaultExpiration)
+
+        return user, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file22" style="display: none">package env
 
 import (
         "os"
@@ -1622,7 +1630,7 @@ func load() *Configuration <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file22" style="display: none">package errs
+		<pre class="file" id="file23" style="display: none">package errs
 
 // Unauthorized el usuario no esta autorizado al recurso
 var Unauthorized = NewRestError(401, "Unauthorized")
@@ -1669,7 +1677,7 @@ func (e *restError) Status() int <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file23" style="display: none">package errs
+		<pre class="file" id="file24" style="display: none">package errs
 
 import (
         "encoding/json"
@@ -1717,7 +1725,7 @@ type errField struct {
 }
 </pre>
 		
-		<pre class="file" id="file24" style="display: none">package httpx
+		<pre class="file" id="file25" style="display: none">package httpx
 
 import "net/http"
 
@@ -1736,7 +1744,7 @@ func Get(ctx ...interface{}) HTTPClient <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file25" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file26" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/httpx/client.go
 
 // Package httpx is a generated GoMock package.
@@ -1788,7 +1796,7 @@ func (mr *MockHTTPClientMockRecorder) Do(req interface{}) *gomock.Call <span cla
 }</span>
 </pre>
 		
-		<pre class="file" id="file26" style="display: none">package log
+		<pre class="file" id="file27" style="display: none">package log
 
 import (
         "fmt"
@@ -1863,7 +1871,7 @@ func configureFluent(logger *logrus.Logger) <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file27" style="display: none">package log
+		<pre class="file" id="file28" style="display: none">package log
 
 import "github.com/sirupsen/logrus"
 
@@ -1897,7 +1905,7 @@ func (l logRusEntry) Data() logrus.Fields <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file28" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file29" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/log/logrus_logger.go
 
 // Package log is a generated GoMock package.
@@ -1994,7 +2002,7 @@ func (mr *MockLogRusEntryMockRecorder) WithField(key, value interface{}) *gomock
 }</span>
 </pre>
 		
-		<pre class="file" id="file29" style="display: none">package log
+		<pre class="file" id="file30" style="display: none">package log
 
 import (
         "github.com/golang/mock/gomock"
@@ -2015,7 +2023,7 @@ func NewTestLogger(ctrl *gomock.Controller, withFieldCount int, errorCount int, 
 }</span>
 </pre>
 		
-		<pre class="file" id="file30" style="display: none">package redisx
+		<pre class="file" id="file31" style="display: none">package redisx
 
 import (
         "time"
@@ -2058,7 +2066,7 @@ func (c redisClient) Set(key string, value interface{}, expiration time.Duration
 }</span>
 </pre>
 		
-		<pre class="file" id="file31" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file32" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./tools/redisx/client.go
 
 // Package redisx is a generated GoMock package.
@@ -2124,7 +2132,7 @@ func (mr *MockRedisClientMockRecorder) Set(key, value, expiration interface{}) *
 }</span>
 </pre>
 		
-		<pre class="file" id="file32" style="display: none">package strs
+		<pre class="file" id="file33" style="display: none">package strs
 
 import "encoding/json"
 
