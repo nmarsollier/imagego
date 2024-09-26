@@ -4,10 +4,10 @@ import (
 	"github.com/nmarsollier/imagego/tools/errs"
 )
 
-// ErrSize el tamaño es incorrecto
+// ErrSize the size is incorrect
 var ErrSize = errs.NewValidation().Add("size", "invalid")
 
-// Find busca una imagen para un tamaño en particular
+// Find searches for an image of a particular size
 func Find(imageID string, size int, ctx ...interface{}) (*Image, error) {
 	if size <= 0 {
 		return find(imageID, ctx...)
@@ -15,7 +15,7 @@ func Find(imageID string, size int, ctx ...interface{}) (*Image, error) {
 
 	sizedID := buildSizeID(imageID, size)
 
-	// Busco el tamaño justo de imagen
+	// Search for the exact image size
 	image, err := find(sizedID, ctx...)
 	if err != nil && err != errs.NotFound {
 		return nil, err
@@ -28,8 +28,8 @@ func Find(imageID string, size int, ctx ...interface{}) (*Image, error) {
 }
 
 func findAndResize(imageID string, size int, ctx ...interface{}) (*Image, error) {
-	// No se encuentra el tamaño buscado, buscamos la original,
-	// y le ajustamos el tamaño, guardamos...
+	// The desired size is not found, search for the original,
+	// resize it, save...
 	image, err := find(imageID, ctx...)
 	if err != nil {
 		return nil, err

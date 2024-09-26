@@ -13,17 +13,17 @@ nmarsollier@gmail.com
 #### GET
 ##### Summary
 
-Mensage Rabbit
+Rabbit Message
 
 ##### Description
 
-Escucha de mensajes logout desde auth.
+Listens for logout messages from auth.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| body | body | Estructura general del mensage | Yes | [rabbit.message](#rabbitmessage) |
+| body | body | General message structure | Yes | [rabbit.message](#rabbitmessage) |
 
 ##### Responses
 
@@ -36,17 +36,17 @@ Escucha de mensajes logout desde auth.
 #### POST
 ##### Summary
 
-Guardar imagen
+Save image
 
 ##### Description
 
-Agrega una nueva imagen al servidor.
+Adds a new image to the server.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| image | body | Imagen en base64 | Yes | [rest.NewRequest](#restnewrequest) |
+| image | body | Image in base64 | Yes | [rest.NewRequest](#restnewrequest) |
 | Authorization | header | bearer {token} | Yes | string |
 | correlation_id | header | Logging Correlation Id | Yes | string |
 
@@ -54,7 +54,7 @@ Agrega una nueva imagen al servidor.
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | Imagen | [rest.NewImageResponse](#restnewimageresponse) |
+| 200 | Image | [rest.NewImageResponse](#restnewimageresponse) |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [server.ErrorData](#servererrordata) |
 | 404 | Not Found | [server.ErrorData](#servererrordata) |
@@ -65,11 +65,11 @@ Agrega una nueva imagen al servidor.
 #### GET
 ##### Summary
 
-Obtener imagen
+Get image
 
 ##### Description
 
-Obtiene una imagen del servidor en formato base64
+Gets an image from the server in base64 format
 
 ##### Parameters
 
@@ -77,13 +77,13 @@ Obtiene una imagen del servidor en formato base64
 | ---- | ---------- | ----------- | -------- | ------ |
 | correlation_id | header | Logging Correlation Id | Yes | string |
 | Size | path | [160\|320\|640\|800\|1024\|1200] | Yes | string |
-| imageID | path | ID de la imagen | Yes | string |
+| imageID | path | Image ID | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | Informacion de la Imagen | [image.Image](#imageimage) |
+| 200 | Image Information | [image.Image](#imageimage) |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [server.ErrorData](#servererrordata) |
 | 404 | Not Found | [server.ErrorData](#servererrordata) |
@@ -94,11 +94,11 @@ Obtiene una imagen del servidor en formato base64
 #### GET
 ##### Summary
 
-Obtener jpeg
+Get jpeg
 
 ##### Description
 
-Obtiene una imagen del servidor en formato jpeg.
+Gets an image from the server in jpeg format.
 
 ##### Parameters
 
@@ -106,13 +106,13 @@ Obtiene una imagen del servidor en formato jpeg.
 | ---- | ---------- | ----------- | -------- | ------ |
 | correlation_id | header | Logging Correlation Id | Yes | string |
 | Size | path | [160\|320\|640\|800\|1024\|1200] | Yes | string |
-| imageID | path | ID de la imagen | Yes | string |
+| imageID | path | Image ID | Yes | string |
 
 ##### Responses
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | Imagen | file |
+| 200 | Image | file |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [server.ErrorData](#servererrordata) |
 | 404 | Not Found | [server.ErrorData](#servererrordata) |

@@ -11,8 +11,8 @@ import (
 	"gopkg.in/go-playground/assert.v1"
 )
 
-// Obtiene Router engine con el contexto de testing adecuado
-// mockeando interfaces a serivcios externos
+// Gets Router engine with the appropriate testing context
+// mocking interfaces to external services
 func TestRouter(ctx ...interface{}) *gin.Engine {
 	engine = nil
 	Router(ctx...)

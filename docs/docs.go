@@ -20,7 +20,7 @@ const docTemplate = `{
     "paths": {
         "/rabbit/logout": {
             "get": {
-                "description": "Escucha de mensajes logout desde auth.",
+                "description": "Listens for logout messages from auth.",
                 "consumes": [
                     "application/json"
                 ],
@@ -30,10 +30,10 @@ const docTemplate = `{
                 "tags": [
                     "Rabbit"
                 ],
-                "summary": "Mensage Rabbit",
+                "summary": "Rabbit Message",
                 "parameters": [
                     {
-                        "description": "Estructura general del mensage",
+                        "description": "General message structure",
                         "name": "body",
                         "in": "body",
                         "required": true,
@@ -47,7 +47,7 @@ const docTemplate = `{
         },
         "/v1/image": {
             "post": {
-                "description": "Agrega una nueva imagen al servidor.",
+                "description": "Adds a new image to the server.",
                 "consumes": [
                     "application/json"
                 ],
@@ -55,12 +55,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Imagen"
+                    "Image"
                 ],
-                "summary": "Guardar imagen",
+                "summary": "Save image",
                 "parameters": [
                     {
-                        "description": "Imagen en base64",
+                        "description": "Image in base64",
                         "name": "image",
                         "in": "body",
                         "required": true,
@@ -85,7 +85,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Imagen",
+                        "description": "Image",
                         "schema": {
                             "$ref": "#/definitions/rest.NewImageResponse"
                         }
@@ -119,7 +119,7 @@ const docTemplate = `{
         },
         "/v1/image/:imageID": {
             "get": {
-                "description": "Obtiene una imagen del servidor en formato base64",
+                "description": "Gets an image from the server in base64 format",
                 "consumes": [
                     "application/json"
                 ],
@@ -127,9 +127,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Imagen"
+                    "Image"
                 ],
-                "summary": "Obtener imagen",
+                "summary": "Get image",
                 "parameters": [
                     {
                         "type": "string",
@@ -147,7 +147,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "ID de la imagen",
+                        "description": "Image ID",
                         "name": "imageID",
                         "in": "path",
                         "required": true
@@ -155,7 +155,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Informacion de la Imagen",
+                        "description": "Image Information",
                         "schema": {
                             "$ref": "#/definitions/image.Image"
                         }
@@ -189,7 +189,7 @@ const docTemplate = `{
         },
         "/v1/image/:imageID/jpeg": {
             "get": {
-                "description": "Obtiene una imagen del servidor en formato jpeg.",
+                "description": "Gets an image from the server in jpeg format.",
                 "consumes": [
                     "application/json"
                 ],
@@ -197,9 +197,9 @@ const docTemplate = `{
                     "image/jpeg"
                 ],
                 "tags": [
-                    "Imagen"
+                    "Image"
                 ],
-                "summary": "Obtener jpeg",
+                "summary": "Get jpeg",
                 "parameters": [
                     {
                         "type": "string",
@@ -217,7 +217,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "ID de la imagen",
+                        "description": "Image ID",
                         "name": "imageID",
                         "in": "path",
                         "required": true
@@ -225,7 +225,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Imagen",
+                        "description": "Image",
                         "schema": {
                             "type": "file"
                         }

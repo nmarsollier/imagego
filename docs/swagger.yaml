@@ -65,9 +65,9 @@ paths:
     get:
       consumes:
       - application/json
-      description: Escucha de mensajes logout desde auth.
+      description: Listens for logout messages from auth.
       parameters:
-      - description: Estructura general del mensage
+      - description: General message structure
         in: body
         name: body
         required: true
@@ -76,16 +76,16 @@ paths:
       produces:
       - application/json
       responses: {}
-      summary: Mensage Rabbit
+      summary: Rabbit Message
       tags:
       - Rabbit
   /v1/image:
     post:
       consumes:
       - application/json
-      description: Agrega una nueva imagen al servidor.
+      description: Adds a new image to the server.
       parameters:
-      - description: Imagen en base64
+      - description: Image in base64
         in: body
         name: image
         required: true
@@ -105,7 +105,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: Imagen
+          description: Image
           schema:
             $ref: '#/definitions/rest.NewImageResponse'
         "400":
@@ -124,14 +124,14 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.ErrorData'
-      summary: Guardar imagen
+      summary: Save image
       tags:
-      - Imagen
+      - Image
   /v1/image/:imageID:
     get:
       consumes:
       - application/json
-      description: Obtiene una imagen del servidor en formato base64
+      description: Gets an image from the server in base64 format
       parameters:
       - description: Logging Correlation Id
         in: header
@@ -143,7 +143,7 @@ paths:
         name: Size
         required: true
         type: string
-      - description: ID de la imagen
+      - description: Image ID
         in: path
         name: imageID
         required: true
@@ -152,7 +152,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: Informacion de la Imagen
+          description: Image Information
           schema:
             $ref: '#/definitions/image.Image'
         "400":
@@ -171,14 +171,14 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.ErrorData'
-      summary: Obtener imagen
+      summary: Get image
       tags:
-      - Imagen
+      - Image
   /v1/image/:imageID/jpeg:
     get:
       consumes:
       - application/json
-      description: Obtiene una imagen del servidor en formato jpeg.
+      description: Gets an image from the server in jpeg format.
       parameters:
       - description: Logging Correlation Id
         in: header
@@ -190,7 +190,7 @@ paths:
         name: Size
         required: true
         type: string
-      - description: ID de la imagen
+      - description: Image ID
         in: path
         name: imageID
         required: true
@@ -199,7 +199,7 @@ paths:
       - image/jpeg
       responses:
         "200":
-          description: Imagen
+          description: Image
           schema:
             type: file
         "400":
@@ -218,7 +218,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.ErrorData'
-      summary: Obtener jpeg
+      summary: Get jpeg
       tags:
-      - Imagen
+      - Image
 swagger: "2.0"

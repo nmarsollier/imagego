@@ -6,7 +6,7 @@ import (
 	"github.com/nmarsollier/imagego/rest/server"
 )
 
-// GetImage devuelve una imagen guardada en formato base64
+// GetImage returns a saved image in base64 format
 func getImage(c *gin.Context) (*image.Image, error) {
 	imageID := c.Param("imageID")
 	size := getSizeParam(c)
@@ -29,7 +29,7 @@ func getSizeParam(c *gin.Context) int {
 	return normalizeParamSize(headerSize)
 }
 
-// normalizeParamSize retorna el tamaño a partir del header
+// normalizeParamSize returns the size from the header
 func normalizeParamSize(sizeHeader string) int {
 	switch sizeHeader {
 	case "160":

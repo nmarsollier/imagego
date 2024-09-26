@@ -6,7 +6,7 @@ import (
 	"github.com/nmarsollier/imagego/tools/redisx"
 )
 
-// Insert agrega una imagen a la db
+// Insert adds an image to the db
 func Insert(image *Image, ctx ...interface{}) (string, error) {
 	if err := image.validateSchema(ctx...); err != nil {
 		log.Get(ctx...).Error(err)
@@ -23,7 +23,7 @@ func Insert(image *Image, ctx ...interface{}) (string, error) {
 	return image.ID, nil
 }
 
-// Find encuentra y devuelve una imagen desde la base de datos
+// Find finds and returns an image from the database
 func find(imageID string, ctx ...interface{}) (*Image, error) {
 	client := redisx.Get(ctx...)
 	data, err := client.Get(imageID).Result()

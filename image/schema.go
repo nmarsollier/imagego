@@ -23,7 +23,7 @@ func New(img string) *Image {
 	}
 }
 
-// ErrData la imagen no parece valida
+// ErrData the image does not seem valid
 var ErrData = errs.NewValidation().Add("image", "invalid")
 
 func (e *Image) validateSchema(ctx ...interface{}) error {

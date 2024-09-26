@@ -14,15 +14,15 @@ import (
 
 var ErrChannelNotInitialized = errors.New("channel not initialized")
 
-//	@Summary		Mensage Rabbit
-//	@Description	Escucha de mensajes logout desde auth.
+//	@Summary		Rabbit Message
+//	@Description	Listens for logout messages from auth.
 //	@Tags			Rabbit
 //	@Accept			json
 //	@Produce		json
-//	@Param			body	body	message	true	"Estructura general del mensage"
+//	@Param			body	body	message	true	"General message structure"
 //	@Router			/rabbit/logout [get]
 //
-// Escucha de mensajes logout desde auth.
+// Listens for logout messages from auth.
 func Init() {
 	go func() {
 		for {

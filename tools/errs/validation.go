@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 )
 
-// Validation es una interfaz para definir errores custom
-// Validation es un error de validaciones de parameteros o de campos
+// Validation is an interface to define custom errors
+// Validation is an error for parameter or field validations
 type Validation interface {
 	Add(path string, message string) Validation
 	Error() string
@@ -29,7 +29,7 @@ func (e *ValidationErr) Error() string {
 	return string(body)
 }
 
-// Add agrega errores a un validation error
+// Add adds errors to a validation error
 func (e *ValidationErr) Add(path string, message string) Validation {
 	err := errField{
 		Path:    path,
@@ -39,7 +39,7 @@ func (e *ValidationErr) Add(path string, message string) Validation {
 	return e
 }
 
-// errField define un campo inválido. path y mensaje de error
+// errField defines an invalid field. path and error message
 type errField struct {
 	Path    string `json:"path"`
 	Message string `json:"message"`

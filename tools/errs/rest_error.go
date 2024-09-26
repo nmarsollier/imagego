@@ -1,18 +1,18 @@
 package errs
 
-// Unauthorized el usuario no esta autorizado al recurso
+// Unauthorized the user is not authorized to access the resource
 var Unauthorized = NewRestError(401, "Unauthorized")
 
-// NotFound cuando un registro no se encuentra en la db
+// NotFound when a record is not found in the db
 var NotFound = NewRestError(404, "Document not found")
 
-// AlreadyExist cuando no se puede ingresar un registro a la db
+// AlreadyExist when a record cannot be inserted into the db
 var AlreadyExist = NewRestError(400, "Already exist")
 
-// Internal esta aplicación no sabe como manejar el error
+// Internal this application does not know how to handle the error
 var Internal = NewRestError(500, "Internal server error")
 
-// - Creación de errors -
+// - Creation of errors -
 // NewRestError creates a new errCustom
 func NewRestError(status int, message string) RestError {
 	return &restError{
@@ -21,15 +21,15 @@ func NewRestError(status int, message string) RestError {
 	}
 }
 
-//  - Algunas definiciones necesarias -
+//  - Some necessary definitions -
 
-// RestError es una interfaz para definir errores custom
+// RestError is an interface to define custom errors
 type RestError interface {
 	Status() int
 	Error() string
 }
 
-// restError es un error personalizado para http
+// restError is a custom error for http
 type restError struct {
 	status  int
 	Message string `json:"error"`

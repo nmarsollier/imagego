@@ -6,24 +6,24 @@ import (
 	"github.com/nmarsollier/imagego/rest/server"
 )
 
-// Agrega una nueva imagen al servidor.
+// Adds a new image to the server.
 //
-//	@Summary		Guardar imagen
-//	@Description	Agrega una nueva imagen al servidor.
-//	@Tags			Imagen
+//	@Summary		Save image
+//	@Description	Adds a new image to the server.
+//	@Tags			Image
 //	@Accept			json
 //	@Produce		json
-//	@Param			image			body		NewRequest			true	"Imagen en base64"
+//	@Param			image			body		NewRequest			true	"Image in base64"
 //	@Param			Authorization	header		string				true	"bearer {token}"
 //	@Param			correlation_id	header		string				true	"Logging Correlation Id"
-//	@Success		200				{object}	NewImageResponse	"Imagen"
+//	@Success		200				{object}	NewImageResponse	"Image"
 //	@Failure		400				{object}	errs.ValidationErr	"Bad Request"
 //	@Failure		401				{object}	server.ErrorData	"Unauthorized"
 //	@Failure		404				{object}	server.ErrorData	"Not Found"
 //	@Failure		500				{object}	server.ErrorData	"Internal Server Error"
 //	@Router			/v1/image [post]
 //
-// Init inicializa la ruta
+// Init initializes the route
 func initPostImage() {
 	server.Router().POST(
 		"/v1/image",

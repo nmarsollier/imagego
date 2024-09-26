@@ -29,26 +29,26 @@ func handleErrorIfNeeded(c *gin.Context) {
 	handleError(c, err)
 }
 
-// handleError maneja cualquier error para serializarlo como JSON al cliente
+// handleError handles any error to serialize it as JSON to the client
 func handleError(c *gin.Context, err interface{}) {
-	// Compruebo tipos de errores conocidos
+	// Check for known error types
 	switch value := err.(type) {
 	case errs.RestError:
-		// Son validaciones hechas con NewCustom
+		// These are validations made with NewCustom
 		handleCustom(c, value)
 	case errs.Validation:
-		// Son validaciones hechas con NewValidation
+		// These are validations made with NewValidation
 		c.JSON(400, err)
 	case validator.ValidationErrors:
-		// Son las validaciones de validator usadas en validaciones de estructuras
+		// These are validator validations used in structure validations
 		handleValidationError(c, value)
 	case error:
-		// Otros errores
+		// Other errors
 		c.JSON(500, ErrorData{
 			Error: value.Error(),
 		})
 	default:
-		// No se sabe que es, devolvemos internal
+		// Unknown error type, return internal error
 		handleCustom(c, errs.Internal)
 	}
 }

@@ -38,8 +38,7 @@ func Router(ctx ...interface{}) *gin.Engine {
 	return engine
 }
 
-// Obtiene el contexto a serivcios externos
-// En prod este contexto esta vacio.
+// Gets the context for external services
 func GinCtx(c *gin.Context) []interface{} {
 	var ctx []interface{}
 	// mock_ctx solo es para mocks en testing

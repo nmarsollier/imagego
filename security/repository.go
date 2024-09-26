@@ -16,7 +16,7 @@ import (
 var cache = gocache.New(60*time.Minute, 10*time.Minute)
 
 func getRemoteToken(token string, ctx ...interface{}) (*User, error) {
-	// Buscamos el usuario remoto
+	// Fetch the remote user
 	req, err := http.NewRequest("GET", env.Get().SecurityServerURL+"/v1/users/current", nil)
 	if err != nil {
 		log.Get(ctx...).Error(err)
