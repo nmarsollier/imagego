@@ -7,8 +7,8 @@ github.com/nmarsollier/imagego/rest/server/authorization.go:28.16,30.3 1 0
 github.com/nmarsollier/imagego/rest/server/authorization.go:32.2,34.16 3 0
 github.com/nmarsollier/imagego/rest/server/authorization.go:34.16,36.3 1 0
 github.com/nmarsollier/imagego/rest/server/authorization.go:38.2,38.18 1 0
-github.com/nmarsollier/imagego/rest/server/authorization.go:42.53,44.48 2 0
-github.com/nmarsollier/imagego/rest/server/authorization.go:44.48,46.3 1 0
+github.com/nmarsollier/imagego/rest/server/authorization.go:42.53,44.65 2 0
+github.com/nmarsollier/imagego/rest/server/authorization.go:44.65,46.3 1 0
 github.com/nmarsollier/imagego/rest/server/authorization.go:47.2,47.29 1 0
 github.com/nmarsollier/imagego/rest/server/error.go:12.35,16.2 2 0
 github.com/nmarsollier/imagego/rest/server/error.go:18.42,20.20 2 0

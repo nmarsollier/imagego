@@ -47,7 +47,7 @@ Adds a new image to the server.
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
 | image | body | Image in base64 | Yes | [rest.NewRequest](#restnewrequest) |
-| Authorization | header | bearer {token} | Yes | string |
+| Authorization | header | Bearer {token} | Yes | string |
 | correlation_id | header | Logging Correlation Id | Yes | string |
 
 ##### Responses

@@ -207,7 +207,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "bearer {token}",
+                        "description": "Bearer {token}",
                         "name": "Authorization",
                         "in": "header",
                         "required": true
@@ -1034,7 +1034,7 @@ import (
 //        @Accept                        json
 //        @Produce                json
 //        @Param                        image                        body                NewRequest                        true        "Image in base64"
-//        @Param                        Authorization        header                string                                true        "bearer {token}"
+//        @Param                        Authorization        header                string                                true        "Bearer {token}"
 //        @Param                        correlation_id        header                string                                true        "Logging Correlation Id"
 //        @Success                200                                {object}        NewImageResponse        "Image"
 //        @Failure                400                                {object}        errs.ValidationErr        "Bad Request"
@@ -1154,7 +1154,7 @@ func validateToken(c *gin.Context) (*security.User, error) <span class="cov8" ti
 // get token from Authorization header
 func getHeaderToken(c *gin.Context) (string, error) <span class="cov8" title="1">{
         tokenString := c.GetHeader("Authorization")
-        if strings.Index(tokenString, "bearer ") != 0 </span><span class="cov0" title="0">{
+        if strings.Index(strings.ToUpper(tokenString), "BEARER ") != 0 </span><span class="cov0" title="0">{
                 return "", errs.Unauthorized
         }</span>
         <span class="cov8" title="1">return tokenString[7:], nil</span>
@@ -1370,7 +1370,7 @@ func TestRouter(ctx ...interface{}) *gin.Engine <span class="cov8" title="1">{
 func TestGetRequest(url string, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov8" title="1">{
         req, _ := http.NewRequest("GET", url, bytes.NewBuffer([]byte{}))
         if len(tokenString) &gt; 0 </span><span class="cov8" title="1">{
-                req.Header.Add("Authorization", "bearer "+tokenString)
+                req.Header.Add("Authorization", "Bearer "+tokenString)
         }</span>
         <span class="cov8" title="1">w := httptest.NewRecorder()
         return req, w</span>
@@ -1379,7 +1379,7 @@ func TestGetRequest(url string, tokenString string) (*http.Request, *httptest.Re
 func TestDeleteRequest(url string, tokenString string) (*http.Request, *httptest.ResponseRecorder) <span class="cov0" title="0">{
         req, _ := http.NewRequest("DELETE", url, bytes.NewBuffer([]byte{}))
         if len(tokenString) &gt; 0 </span><span class="cov0" title="0">{
-                req.Header.Add("Authorization", "bearer "+tokenString)
+                req.Header.Add("Authorization", "Bearer "+tokenString)
         }</span>
         <span class="cov0" title="0">w := httptest.NewRecorder()
         return req, w</span>
@@ -1390,7 +1390,7 @@ func TestPostRequest(url string, body interface{}, tokenString string) (*http.Re
 
         req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonBody))
         if len(tokenString) &gt; 0 </span><span class="cov8" title="1">{
-                req.Header.Add("Authorization", "bearer "+tokenString)
+                req.Header.Add("Authorization", "Bearer "+tokenString)
         }</span>
         <span class="cov8" title="1">w := httptest.NewRecorder()
         return req, w</span>
@@ -1465,7 +1465,7 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
                 log.Get(ctx...).Error(err)
                 return nil, errs.Unauthorized
         }</span>
-        <span class="cov8" title="1">req.Header.Add("Authorization", "bearer "+token)
+        <span class="cov8" title="1">req.Header.Add("Authorization", "Bearer "+token)
         if corrId, ok := log.Get(ctx...).Data()[log.LOG_FIELD_CORRELATION_ID].(string); ok </span><span class="cov8" title="1">{
                 req.Header.Add(log.LOG_FIELD_CORRELATION_ID, corrId)
         }</span>

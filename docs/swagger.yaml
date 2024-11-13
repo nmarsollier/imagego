@@ -91,7 +91,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/rest.NewRequest'
-      - description: bearer {token}
+      - description: Bearer {token}
         in: header
         name: Authorization
         required: true
