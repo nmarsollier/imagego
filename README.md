@@ -1,9 +1,12 @@
+<!-- cSpell:language es -->
+
 ### Si queres sabes mas sobre mi:
+
 [Nestor Marsollier](https://github.com/nmarsollier/profile)
 
 # Image Service en GO
 
-Image Service en GO reemplaza la version realizada en Node del proyecto  [ecommerce](https://github.com/nmarsollier/ecommerce).
+Image Service en GO reemplaza la version realizada en Node del proyecto [ecommerce](https://github.com/nmarsollier/ecommerce).
 
 Si bien esta desarrollado con fines académicos, si se refinan los detalles puede utilizarse en producción.
 
@@ -17,6 +20,17 @@ Las imágenes pueden recuperarse en formato base64 o bien en formato jpeg.
 
 La documentación de las api también se pueden consultar desde el home del microservicio
 que una vez levantado el servidor se puede navegar en [localhost:3001](http://localhost:3001/docs/index.html)
+
+El servidor GraphQL puede navegar en [localhost:4001](http://localhost:4001/)
+
+## Directorios
+
+- **iamge:** Logica de negocio del agregado image
+- **security:** Validaciones de usuario contra el MS de Auth
+- **graph:** Servidor y Controllers GraphQL federation server
+- **rabbit:** Servidor y Controllers RabbitMQ
+- **rest:** Servidor y Controllers Rest
+- **tools:** Herramientas varias
 
 ## Dependencias
 
@@ -48,10 +62,11 @@ cd $GOPATH/src/github.com/nmarsollier/imagego
 
 ```bash
 git config core.hooksPath .githooks
-go install github.com/swaggo/gin-swagger/swaggerFiles 
-go install github.com/swaggo/gin-swagger 
+go install github.com/swaggo/gin-swagger/swaggerFiles
+go install github.com/swaggo/gin-swagger
 go install github.com/swaggo/swag/cmd/swag
 go install github.com/golang/mock/mockgen@v1.6.0
+go install github.com/99designs/gqlgen@v0.17.56
 ```
 
 ## Build y ejecución
@@ -77,10 +92,9 @@ No se requiere ninguna configuración adicional, solo levantarlo luego de instal
 
 ## Apidoc
 
-
 Usamos [swaggo](https://github.com/swaggo/swag)
 
-Requisitos 
+Requisitos
 
 ```bash
 go install github.com/swaggo/swag/cmd/swag@latest
@@ -94,18 +108,17 @@ swag init
 
 Para generar el archivo README-API.md
 
-Requisito 
+Requisito
 
 ```bash
 sudo npm install -g swagger-markdown
 ```
 
-y ejecutamos 
+y ejecutamos
 
 ```bash
 npx swagger-markdown -i ./docs/swagger.yaml -o README-API.md
 ```
-
 
 ## Configuración del servidor
 
@@ -114,7 +127,8 @@ Este servidor usa las siguientes variables de entorno para configuración :
 RABBIT_URL : Url de rabbit (default amqp://localhost)
 REDIS_URL : Url de redis (default localhost:6379)
 PORT : Puerto (default 3000)
-AUTH_SERVICE_URL : Secret para password (default http://localhost:3000)
+AUTH_SERVICE_URL : Secret para password (default http://localhost:3001)
+GQL_PORT : Puerto GraphQL (default 4001)
 
 ## Docker
 
@@ -129,11 +143,13 @@ docker build -t dev-image-go .
 ### El contenedor
 
 Mac | Windows
+
 ```bash
 docker run -it --name dev-image-go -p 3001:3001 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego dev-image-go
 ```
 
 Linux
+
 ```bash
 docker run -it --add-host host.docker.internal:172.17.0.1 --name dev-image-go -p 3001:3001 -p 40001:40001 -v $PWD:/go/src/github.com/nmarsollier/imagego dev-image-go
 ```

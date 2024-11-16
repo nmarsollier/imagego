@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/nmarsollier/imagego/graph/server"
 	"github.com/nmarsollier/imagego/rabbit"
 	"github.com/nmarsollier/imagego/rest"
 )
@@ -15,6 +16,7 @@ import (
 // @host		localhost:3001
 // @BasePath	/v1
 func main() {
+	go server.Start()
 	rabbit.Init()
 	rest.StartEngine()
 }

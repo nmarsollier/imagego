@@ -8,6 +8,7 @@ import (
 // Configuration properties
 type Configuration struct {
 	Port              int    `json:"port"`
+	GqlPort           int    `json:"gqlPort"`
 	RabbitURL         string `json:"rabbitUrl"`
 	RedisURL          string `json:"redisUrl"`
 	SecurityServerURL string `json:"securityServerUrl"`
@@ -19,6 +20,7 @@ var config *Configuration
 func new() *Configuration {
 	return &Configuration{
 		Port:              3001,
+		GqlPort:           4001,
 		RabbitURL:         "amqp://localhost",
 		RedisURL:          "localhost:6379",
 		SecurityServerURL: "http://localhost:3000",
@@ -50,6 +52,12 @@ func load() *Configuration {
 	if value := os.Getenv("PORT"); len(value) > 0 {
 		if intVal, err := strconv.Atoi(value); err == nil {
 			result.Port = intVal
+		}
+	}
+
+	if value := os.Getenv("GQL_PORT"); len(value) > 0 {
+		if intVal, err := strconv.Atoi(value); err == nil {
+			result.GqlPort = intVal
 		}
 	}
 

@@ -1,0 +1,22 @@
+type Image @key(fields: "id") {
+  id: String!
+  image: String!
+}
+
+enum ImageSize {
+  SIZE_160
+  SIZE_320
+  SIZE_640
+  SIZE_800
+  SIZE_1024
+  SIZE_1200
+  ORIGINAL
+}
+
+type Query {
+  getImage(id: String!, size: ImageSize!): Image!
+}
+
+type Mutation {
+  createImage(imageBase64: String!): String!
+}
