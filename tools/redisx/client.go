@@ -13,8 +13,8 @@ var (
 	instance *redis.Client
 )
 
-func Get(ctx ...interface{}) RedisClient {
-	for _, o := range ctx {
+func Get(deps ...interface{}) RedisClient {
+	for _, o := range deps {
 		if client, ok := o.(RedisClient); ok {
 			return client
 		}

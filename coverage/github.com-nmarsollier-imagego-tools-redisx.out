@@ -1,6 +1,6 @@
 mode: set
-github.com/nmarsollier/imagego/tools/redisx/client.go:16.42,17.24 1 0
-github.com/nmarsollier/imagego/tools/redisx/client.go:17.24,18.40 1 0
+github.com/nmarsollier/imagego/tools/redisx/client.go:16.43,17.25 1 0
+github.com/nmarsollier/imagego/tools/redisx/client.go:17.25,18.40 1 0
 github.com/nmarsollier/imagego/tools/redisx/client.go:18.40,20.4 1 0
 github.com/nmarsollier/imagego/tools/redisx/client.go:23.2,23.17 1 0
 github.com/nmarsollier/imagego/tools/redisx/client.go:23.17,29.3 1 0

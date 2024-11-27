@@ -13,14 +13,14 @@ import (
 
 var engine *gin.Engine = nil
 
-func Router(ctx ...interface{}) *gin.Engine {
+func Router(deps ...interface{}) *gin.Engine {
 	if engine != nil {
 		return engine
 	}
 
 	engine = gin.Default()
 	engine.Use(gzip.Gzip(gzip.DefaultCompression))
-	engine.Use(GinLoggerMiddleware(ctx...))
+	engine.Use(GinLoggerMiddleware(deps...))
 	engine.Use(ErrorHandler)
 
 	engine.Use(cors.Middleware(cors.Config{
@@ -39,14 +39,14 @@ func Router(ctx ...interface{}) *gin.Engine {
 }
 
 // Gets the context for external services
-func GinCtx(c *gin.Context) []interface{} {
-	var ctx []interface{}
-	// mock_ctx solo es para mocks en testing
-	if mocks, ok := c.Get("mock_ctx"); ok {
-		ctx = mocks.([]interface{})
+func GinDeps(c *gin.Context) []interface{} {
+	var deps []interface{}
+	// mock_deps solo es para mocks en testing
+	if mocks, ok := c.Get("mock_deps"); ok {
+		deps = mocks.([]interface{})
 	}
 
-	ctx = append(ctx, ginLogger(c))
+	deps = append(deps, ginLogger(c))
 
-	return ctx
+	return deps
 }

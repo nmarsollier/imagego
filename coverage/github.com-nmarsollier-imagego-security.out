@@ -1,11 +1,11 @@
 mode: set
-github.com/nmarsollier/imagego/security/invalidate_service.go:8.51,9.21 1 1
+github.com/nmarsollier/imagego/security/invalidate_service.go:8.52,9.21 1 1
 github.com/nmarsollier/imagego/security/invalidate_service.go:9.21,12.3 2 0
-github.com/nmarsollier/imagego/security/invalidate_service.go:14.2,15.51 2 1
-github.com/nmarsollier/imagego/security/repository.go:18.70,21.16 2 1
+github.com/nmarsollier/imagego/security/invalidate_service.go:14.2,15.52 2 1
+github.com/nmarsollier/imagego/security/repository.go:18.71,21.16 2 1
 github.com/nmarsollier/imagego/security/repository.go:21.16,24.3 2 0
-github.com/nmarsollier/imagego/security/repository.go:25.2,26.85 2 1
-github.com/nmarsollier/imagego/security/repository.go:26.85,28.3 1 0
+github.com/nmarsollier/imagego/security/repository.go:25.2,26.86 2 1
+github.com/nmarsollier/imagego/security/repository.go:26.86,28.3 1 0
 github.com/nmarsollier/imagego/security/repository.go:30.2,31.42 2 1
 github.com/nmarsollier/imagego/security/repository.go:31.42,34.3 2 1
 github.com/nmarsollier/imagego/security/repository.go:35.2,39.16 4 1
@@ -16,7 +16,7 @@ github.com/nmarsollier/imagego/security/repository.go:49.2,49.18 1 1
 github.com/nmarsollier/imagego/security/test_utils.go:15.23,22.2 1 1
 github.com/nmarsollier/imagego/security/test_utils.go:25.62,31.2 2 1
 github.com/nmarsollier/imagego/security/test_utils.go:33.57,39.2 2 1
-github.com/nmarsollier/imagego/security/validate_service.go:9.64,11.39 1 1
+github.com/nmarsollier/imagego/security/validate_service.go:9.65,11.39 1 1
 github.com/nmarsollier/imagego/security/validate_service.go:11.39,12.36 1 0
 github.com/nmarsollier/imagego/security/validate_service.go:12.36,14.4 1 0
 github.com/nmarsollier/imagego/security/validate_service.go:17.2,18.16 2 1
@@ -49,16 +49,16 @@ github.com/nmarsollier/imagego/tools/errs/validation.go:24.40,26.16 2 0
 github.com/nmarsollier/imagego/tools/errs/validation.go:26.16,28.3 1 0
 github.com/nmarsollier/imagego/tools/errs/validation.go:29.2,29.21 1 0
 github.com/nmarsollier/imagego/tools/errs/validation.go:33.69,40.2 3 0
-github.com/nmarsollier/imagego/tools/httpx/client.go:9.41,10.24 1 1
-github.com/nmarsollier/imagego/tools/httpx/client.go:10.24,11.39 1 1
+github.com/nmarsollier/imagego/tools/httpx/client.go:9.42,10.25 1 1
+github.com/nmarsollier/imagego/tools/httpx/client.go:10.25,11.39 1 1
 github.com/nmarsollier/imagego/tools/httpx/client.go:11.39,13.4 1 1
 github.com/nmarsollier/imagego/tools/httpx/client.go:16.2,16.27 1 0
 github.com/nmarsollier/imagego/tools/httpx/client_mocks.go:26.65,30.2 3 1
 github.com/nmarsollier/imagego/tools/httpx/client_mocks.go:33.63,35.2 1 1
 github.com/nmarsollier/imagego/tools/httpx/client_mocks.go:38.72,44.2 5 1
 github.com/nmarsollier/imagego/tools/httpx/client_mocks.go:47.72,50.2 2 1
-github.com/nmarsollier/imagego/tools/log/logger.go:24.42,25.24 1 1
-github.com/nmarsollier/imagego/tools/log/logger.go:25.24,26.36 1 1
+github.com/nmarsollier/imagego/tools/log/logger.go:24.43,25.25 1 1
+github.com/nmarsollier/imagego/tools/log/logger.go:25.25,26.36 1 1
 github.com/nmarsollier/imagego/tools/log/logger.go:26.36,28.4 1 0
 github.com/nmarsollier/imagego/tools/log/logger.go:30.2,35.35 5 1
 github.com/nmarsollier/imagego/tools/log/logger.go:43.67,45.16 2 0

@@ -5238,10 +5238,10 @@ import (
         uuid "github.com/satori/go.uuid"
 )
 
-func newLogger(ctx context.Context, env ...interface{}) log.LogRusEntry <span class="cov0" title="0">{
+func newLogger(ctx context.Context, deps ...interface{}) log.LogRusEntry <span class="cov0" title="0">{
         operationContext := graphql.GetOperationContext(ctx)
 
-        return log.Get(env...).
+        return log.Get(deps...).
                 WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(ctx)).
                 WithField(log.LOG_FIELD_CONTROLLER, "Rest").
                 WithField(log.LOG_FIELD_HTTP_METHOD, operationContext.OperationName).
@@ -5280,15 +5280,15 @@ import (
 var ErrSize = errs.NewValidation().Add("size", "invalid")
 
 // Find searches for an image of a particular size
-func Find(imageID string, size int, ctx ...interface{}) (*Image, error) <span class="cov8" title="1">{
+func Find(imageID string, size int, deps ...interface{}) (*Image, error) <span class="cov8" title="1">{
         if size &lt;= 0 </span><span class="cov8" title="1">{
-                return find(imageID, ctx...)
+                return find(imageID, deps...)
         }</span>
 
         <span class="cov8" title="1">sizedID := buildSizeID(imageID, size)
 
         // Search for the exact image size
-        image, err := find(sizedID, ctx...)
+        image, err := find(sizedID, deps...)
         if err != nil &amp;&amp; err != errs.NotFound </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
@@ -5296,23 +5296,23 @@ func Find(imageID string, size int, ctx ...interface{}) (*Image, error) <span cl
                 return image, nil
         }</span>
 
-        <span class="cov8" title="1">return findAndResize(imageID, size, ctx...)</span>
+        <span class="cov8" title="1">return findAndResize(imageID, size, deps...)</span>
 }
 
-func findAndResize(imageID string, size int, ctx ...interface{}) (*Image, error) <span class="cov8" title="1">{
+func findAndResize(imageID string, size int, deps ...interface{}) (*Image, error) <span class="cov8" title="1">{
         // The desired size is not found, search for the original,
         // resize it, save...
-        image, err := find(imageID, ctx...)
+        image, err := find(imageID, deps...)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
 
-        <span class="cov8" title="1">image, err = resize(image, size, ctx...)
+        <span class="cov8" title="1">image, err = resize(image, size, deps...)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
 
-        <span class="cov8" title="1">_, err = Insert(image, ctx...)
+        <span class="cov8" title="1">_, err = Insert(image, deps...)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
@@ -5330,16 +5330,16 @@ import (
 )
 
 // Insert adds an image to the db
-func Insert(image *Image, ctx ...interface{}) (string, error) <span class="cov8" title="1">{
-        if err := image.validateSchema(ctx...); err != nil </span><span class="cov0" title="0">{
-                log.Get(ctx...).Error(err)
+func Insert(image *Image, deps ...interface{}) (string, error) <span class="cov8" title="1">{
+        if err := image.validateSchema(deps...); err != nil </span><span class="cov0" title="0">{
+                log.Get(deps...).Error(err)
                 return "", err
         }</span>
 
-        <span class="cov8" title="1">client := redisx.Get(ctx...)
+        <span class="cov8" title="1">client := redisx.Get(deps...)
         err := client.Set(image.ID, image.Image, 0).Err()
         if err != nil </span><span class="cov8" title="1">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
                 return "", err
         }</span>
 
@@ -5347,11 +5347,11 @@ func Insert(image *Image, ctx ...interface{}) (string, error) <span class="cov8"
 }
 
 // Find finds and returns an image from the database
-func find(imageID string, ctx ...interface{}) (*Image, error) <span class="cov8" title="1">{
-        client := redisx.Get(ctx...)
+func find(imageID string, deps ...interface{}) (*Image, error) <span class="cov8" title="1">{
+        client := redisx.Get(deps...)
         data, err := client.Get(imageID).Result()
         if err != nil </span><span class="cov8" title="1">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
                 return nil, errs.NotFound
         }</span>
 
@@ -5382,14 +5382,14 @@ import (
         "github.com/nmarsollier/imagego/tools/log"
 )
 
-func resize(image *Image, size int, ctx ...interface{}) (*Image, error) <span class="cov8" title="1">{
+func resize(image *Image, size int, deps ...interface{}) (*Image, error) <span class="cov8" title="1">{
         str := image.Image[strings.Index(image.Image, ",")+1:]
 
         reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
 
         img, err := imaging.Decode(reader)
         if err != nil </span><span class="cov0" title="0">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
         }</span>
         <span class="cov8" title="1">bounds := img.Bounds()
         if bounds.Size().X &lt;= size </span><span class="cov8" title="1">{
@@ -5447,14 +5447,14 @@ func New(img string) *Image <span class="cov8" title="1">{
 // ErrData the image does not seem valid
 var ErrData = errs.NewValidation().Add("image", "invalid")
 
-func (e *Image) validateSchema(ctx ...interface{}) error <span class="cov8" title="1">{
+func (e *Image) validateSchema(deps ...interface{}) error <span class="cov8" title="1">{
         validate := validator.New()
         if err := validate.Struct(e); err != nil </span><span class="cov0" title="0">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
                 return err
         }</span>
         <span class="cov8" title="1">if !strings.Contains(e.Image, "data:image/") </span><span class="cov0" title="0">{
-                log.Get(ctx...).Error(ErrData)
+                log.Get(deps...).Error(ErrData)
                 return ErrData
         }</span>
         <span class="cov8" title="1">return nil</span>
@@ -5754,8 +5754,8 @@ func getImage(c *gin.Context) (*image.Image, error) <span class="cov8" title="1"
         imageID := c.Param("imageID")
         size := getSizeParam(c)
 
-        ctx := server.GinCtx(c)
-        data, err := image.Find(imageID, size, ctx...)
+        deps := server.GinDeps(c)
+        data, err := image.Find(imageID, size, deps...)
         if err != nil </span><span class="cov8" title="1">{
                 return nil, err
         }</span>
@@ -5833,8 +5833,8 @@ func saveImage(c *gin.Context) <span class="cov8" title="1">{
                 return
         }</span>
 
-        <span class="cov8" title="1">ctx := server.GinCtx(c)
-        id, err := image.Insert(image.New(bodyImage), ctx...)
+        <span class="cov8" title="1">deps := server.GinDeps(c)
+        id, err := image.Insert(image.New(bodyImage), deps...)
         if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 return
@@ -5906,8 +5906,8 @@ func ValidateAuthentication(c *gin.Context) <span class="cov8" title="1">{
                 return
         }</span>
 
-        <span class="cov8" title="1">ctx := GinCtx(c)
-        c.Set("logger", log.Get(ctx...).WithField(log.LOG_FIELD_USER_ID, user.ID))</span>
+        <span class="cov8" title="1">deps := GinDeps(c)
+        c.Set("logger", log.Get(deps...).WithField(log.LOG_FIELD_USER_ID, user.ID))</span>
 }
 
 func validateToken(c *gin.Context) (*security.User, error) <span class="cov8" title="1">{
@@ -5916,8 +5916,8 @@ func validateToken(c *gin.Context) (*security.User, error) <span class="cov8" ti
                 return nil, errs.Unauthorized
         }</span>
 
-        <span class="cov8" title="1">ctx := GinCtx(c)
-        user, err := security.Validate(tokenString, ctx...)
+        <span class="cov8" title="1">deps := GinDeps(c)
+        user, err := security.Validate(tokenString, deps...)
         if err != nil </span><span class="cov8" title="1">{
                 return nil, errs.Unauthorized
         }</span>
@@ -6017,24 +6017,24 @@ import (
         uuid "github.com/satori/go.uuid"
 )
 
-func newGinLogger(c *gin.Context, ctx ...interface{}) log.LogRusEntry <span class="cov8" title="1">{
-        return log.Get(ctx...).
+func newGinLogger(c *gin.Context, deps ...interface{}) log.LogRusEntry <span class="cov8" title="1">{
+        return log.Get(deps...).
                 WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(c)).
                 WithField(log.LOG_FIELD_CONTROLLER, "Rest").
                 WithField(log.LOG_FIELD_HTTP_METHOD, c.Request.Method).
                 WithField(log.LOG_FIELD_HTTP_PATH, c.Request.URL.Path)
 }</span>
 
-func GinLoggerMiddleware(ctx ...interface{}) gin.HandlerFunc <span class="cov8" title="1">{
+func GinLoggerMiddleware(deps ...interface{}) gin.HandlerFunc <span class="cov8" title="1">{
         return func(c *gin.Context) </span><span class="cov8" title="1">{
-                logger := newGinLogger(c, ctx...)
+                logger := newGinLogger(c, deps...)
                 c.Set("logger", logger)
 
                 c.Next()
 
                 if c.Request.Method != "OPTIONS" </span><span class="cov8" title="1">{
-                        ctx := GinCtx(c)
-                        log.Get(ctx...).WithField(log.LOG_FIELD_HTTP_STATUS, c.Writer.Status()).Info("Completed")
+                        deps := GinDeps(c)
+                        log.Get(deps...).WithField(log.LOG_FIELD_HTTP_STATUS, c.Writer.Status()).Info("Completed")
                 }</span>
         }
 }
@@ -6073,14 +6073,14 @@ import (
 
 var engine *gin.Engine = nil
 
-func Router(ctx ...interface{}) *gin.Engine <span class="cov8" title="1">{
+func Router(deps ...interface{}) *gin.Engine <span class="cov8" title="1">{
         if engine != nil </span><span class="cov8" title="1">{
                 return engine
         }</span>
 
         <span class="cov8" title="1">engine = gin.Default()
         engine.Use(gzip.Gzip(gzip.DefaultCompression))
-        engine.Use(GinLoggerMiddleware(ctx...))
+        engine.Use(GinLoggerMiddleware(deps...))
         engine.Use(ErrorHandler)
 
         engine.Use(cors.Middleware(cors.Config{
@@ -6099,16 +6099,16 @@ func Router(ctx ...interface{}) *gin.Engine <span class="cov8" title="1">{
 }
 
 // Gets the context for external services
-func GinCtx(c *gin.Context) []interface{} <span class="cov8" title="1">{
-        var ctx []interface{}
-        // mock_ctx solo es para mocks en testing
-        if mocks, ok := c.Get("mock_ctx"); ok </span><span class="cov8" title="1">{
-                ctx = mocks.([]interface{})
+func GinDeps(c *gin.Context) []interface{} <span class="cov8" title="1">{
+        var deps []interface{}
+        // mock_deps solo es para mocks en testing
+        if mocks, ok := c.Get("mock_deps"); ok </span><span class="cov8" title="1">{
+                deps = mocks.([]interface{})
         }</span>
 
-        <span class="cov8" title="1">ctx = append(ctx, ginLogger(c))
+        <span class="cov8" title="1">deps = append(deps, ginLogger(c))
 
-        return ctx</span>
+        return deps</span>
 }
 </pre>
 		
@@ -6127,12 +6127,12 @@ import (
 
 // Gets Router engine with the appropriate testing context
 // mocking interfaces to external services
-func TestRouter(ctx ...interface{}) *gin.Engine <span class="cov8" title="1">{
+func TestRouter(deps ...interface{}) *gin.Engine <span class="cov8" title="1">{
         engine = nil
-        Router(ctx...)
-        if len(ctx) &gt; 0 </span><span class="cov8" title="1">{
+        Router(deps...)
+        if len(deps) &gt; 0 </span><span class="cov8" title="1">{
                 engine.Use(func(c *gin.Context) </span><span class="cov8" title="1">{
-                        c.Set("mock_ctx", ctx)
+                        c.Set("mock_deps", deps)
                         c.Next()
                 }</span>)
         }
@@ -6204,14 +6204,14 @@ import (
 )
 
 // Invalidate invalidates a token from the cache
-func Invalidate(token string, ctx ...interface{}) <span class="cov8" title="1">{
+func Invalidate(token string, deps ...interface{}) <span class="cov8" title="1">{
         if len(token) &lt;= 7 </span><span class="cov0" title="0">{
-                log.Get(ctx...).Info("Token no valido: ", token)
+                log.Get(deps...).Info("Token no valido: ", token)
                 return
         }</span>
 
         <span class="cov8" title="1">cache.Delete(token)
-        log.Get(ctx...).Info("Token invalidado: ", token)</span>
+        log.Get(deps...).Info("Token invalidado: ", token)</span>
 }
 </pre>
 		
@@ -6232,21 +6232,21 @@ import (
 
 var cache = gocache.New(60*time.Minute, 10*time.Minute)
 
-func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class="cov8" title="1">{
+func getRemoteToken(token string, deps ...interface{}) (*User, error) <span class="cov8" title="1">{
         // Fetch the remote user
         req, err := http.NewRequest("GET", env.Get().SecurityServerURL+"/v1/users/current", nil)
         if err != nil </span><span class="cov0" title="0">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
                 return nil, errs.Unauthorized
         }</span>
         <span class="cov8" title="1">req.Header.Add("Authorization", "Bearer "+token)
-        if corrId, ok := log.Get(ctx...).Data()[log.LOG_FIELD_CORRELATION_ID].(string); ok </span><span class="cov8" title="1">{
+        if corrId, ok := log.Get(deps...).Data()[log.LOG_FIELD_CORRELATION_ID].(string); ok </span><span class="cov8" title="1">{
                 req.Header.Add(log.LOG_FIELD_CORRELATION_ID, corrId)
         }</span>
 
-        <span class="cov8" title="1">resp, err := httpx.Get(ctx...).Do(req)
+        <span class="cov8" title="1">resp, err := httpx.Get(deps...).Do(req)
         if err != nil || resp.StatusCode != 200 </span><span class="cov8" title="1">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
                 return nil, errs.Unauthorized
         }</span>
         <span class="cov8" title="1">defer resp.Body.Close()
@@ -6254,13 +6254,13 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) <span class
         user := &amp;User{}
         err = json.NewDecoder(resp.Body).Decode(user)
         if err != nil </span><span class="cov8" title="1">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
                 return nil, err
         }</span>
 
         <span class="cov8" title="1">validate := validator.New()
         if err := validate.Struct(user); err != nil </span><span class="cov0" title="0">{
-                log.Get(ctx...).Error(err)
+                log.Get(deps...).Error(err)
                 return nil, err
         }</span>
         <span class="cov8" title="1">return user, nil</span>
@@ -6316,7 +6316,7 @@ import (
 )
 
 // Validate checks if the token is valid
-func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8" title="1">{
+func Validate(token string, deps ...interface{}) (*User, error) <span class="cov8" title="1">{
         // If it is in cache, return the cache
         if found, ok := cache.Get(token); ok </span><span class="cov0" title="0">{
                 if user, ok := found.(*User); ok </span><span class="cov0" title="0">{
@@ -6324,7 +6324,7 @@ func Validate(token string, ctx ...interface{}) (*User, error) <span class="cov8
                 }</span>
         }
 
-        <span class="cov8" title="1">user, err := getRemoteToken(token, ctx...)
+        <span class="cov8" title="1">user, err := getRemoteToken(token, deps...)
         if err != nil </span><span class="cov8" title="1">{
                 return nil, errs.Unauthorized
         }</span>
@@ -6514,8 +6514,8 @@ type HTTPClient interface {
         Do(req *http.Request) (*http.Response, error)
 }
 
-func Get(ctx ...interface{}) HTTPClient <span class="cov8" title="1">{
-        for _, o := range ctx </span><span class="cov8" title="1">{
+func Get(deps ...interface{}) HTTPClient <span class="cov8" title="1">{
+        for _, o := range deps </span><span class="cov8" title="1">{
                 if client, ok := o.(HTTPClient); ok </span><span class="cov8" title="1">{
                         return client
                 }</span>
@@ -6600,8 +6600,8 @@ const LOG_FIELD_SERVER = "server"
 const LOG_FIELD_USER_ID = "user_id"
 const LOG_FIELD_THREAD = "thread"
 
-func Get(ctx ...interface{}) LogRusEntry <span class="cov8" title="1">{
-        for _, o := range ctx </span><span class="cov8" title="1">{
+func Get(deps ...interface{}) LogRusEntry <span class="cov8" title="1">{
+        for _, o := range deps </span><span class="cov8" title="1">{
                 if ti, ok := o.(LogRusEntry); ok </span><span class="cov8" title="1">{
                         return ti
                 }</span>
@@ -6819,8 +6819,8 @@ var (
         instance *redis.Client
 )
 
-func Get(ctx ...interface{}) RedisClient <span class="cov8" title="1">{
-        for _, o := range ctx </span><span class="cov8" title="1">{
+func Get(deps ...interface{}) RedisClient <span class="cov8" title="1">{
+        for _, o := range deps </span><span class="cov8" title="1">{
                 if client, ok := o.(RedisClient); ok </span><span class="cov8" title="1">{
                         return client
                 }</span>

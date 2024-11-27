@@ -7,16 +7,16 @@ import (
 )
 
 // Insert adds an image to the db
-func Insert(image *Image, ctx ...interface{}) (string, error) {
-	if err := image.validateSchema(ctx...); err != nil {
-		log.Get(ctx...).Error(err)
+func Insert(image *Image, deps ...interface{}) (string, error) {
+	if err := image.validateSchema(deps...); err != nil {
+		log.Get(deps...).Error(err)
 		return "", err
 	}
 
-	client := redisx.Get(ctx...)
+	client := redisx.Get(deps...)
 	err := client.Set(image.ID, image.Image, 0).Err()
 	if err != nil {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 		return "", err
 	}
 
@@ -24,11 +24,11 @@ func Insert(image *Image, ctx ...interface{}) (string, error) {
 }
 
 // Find finds and returns an image from the database
-func find(imageID string, ctx ...interface{}) (*Image, error) {
-	client := redisx.Get(ctx...)
+func find(imageID string, deps ...interface{}) (*Image, error) {
+	client := redisx.Get(deps...)
 	data, err := client.Get(imageID).Result()
 	if err != nil {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 		return nil, errs.NotFound
 	}
 

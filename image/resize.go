@@ -17,14 +17,14 @@ import (
 	"github.com/nmarsollier/imagego/tools/log"
 )
 
-func resize(image *Image, size int, ctx ...interface{}) (*Image, error) {
+func resize(image *Image, size int, deps ...interface{}) (*Image, error) {
 	str := image.Image[strings.Index(image.Image, ",")+1:]
 
 	reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
 
 	img, err := imaging.Decode(reader)
 	if err != nil {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 	}
 	bounds := img.Bounds()
 	if bounds.Size().X <= size {

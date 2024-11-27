@@ -26,14 +26,14 @@ func New(img string) *Image {
 // ErrData the image does not seem valid
 var ErrData = errs.NewValidation().Add("image", "invalid")
 
-func (e *Image) validateSchema(ctx ...interface{}) error {
+func (e *Image) validateSchema(deps ...interface{}) error {
 	validate := validator.New()
 	if err := validate.Struct(e); err != nil {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 		return err
 	}
 	if !strings.Contains(e.Image, "data:image/") {
-		log.Get(ctx...).Error(ErrData)
+		log.Get(deps...).Error(ErrData)
 		return ErrData
 	}
 	return nil

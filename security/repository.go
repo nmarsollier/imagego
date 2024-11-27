@@ -15,21 +15,21 @@ import (
 
 var cache = gocache.New(60*time.Minute, 10*time.Minute)
 
-func getRemoteToken(token string, ctx ...interface{}) (*User, error) {
+func getRemoteToken(token string, deps ...interface{}) (*User, error) {
 	// Fetch the remote user
 	req, err := http.NewRequest("GET", env.Get().SecurityServerURL+"/v1/users/current", nil)
 	if err != nil {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 		return nil, errs.Unauthorized
 	}
 	req.Header.Add("Authorization", "Bearer "+token)
-	if corrId, ok := log.Get(ctx...).Data()[log.LOG_FIELD_CORRELATION_ID].(string); ok {
+	if corrId, ok := log.Get(deps...).Data()[log.LOG_FIELD_CORRELATION_ID].(string); ok {
 		req.Header.Add(log.LOG_FIELD_CORRELATION_ID, corrId)
 	}
 
-	resp, err := httpx.Get(ctx...).Do(req)
+	resp, err := httpx.Get(deps...).Do(req)
 	if err != nil || resp.StatusCode != 200 {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 		return nil, errs.Unauthorized
 	}
 	defer resp.Body.Close()
@@ -37,13 +37,13 @@ func getRemoteToken(token string, ctx ...interface{}) (*User, error) {
 	user := &User{}
 	err = json.NewDecoder(resp.Body).Decode(user)
 	if err != nil {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 		return nil, err
 	}
 
 	validate := validator.New()
 	if err := validate.Struct(user); err != nil {
-		log.Get(ctx...).Error(err)
+		log.Get(deps...).Error(err)
 		return nil, err
 	}
 	return user, nil

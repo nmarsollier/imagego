@@ -8,15 +8,15 @@ import (
 var ErrSize = errs.NewValidation().Add("size", "invalid")
 
 // Find searches for an image of a particular size
-func Find(imageID string, size int, ctx ...interface{}) (*Image, error) {
+func Find(imageID string, size int, deps ...interface{}) (*Image, error) {
 	if size <= 0 {
-		return find(imageID, ctx...)
+		return find(imageID, deps...)
 	}
 
 	sizedID := buildSizeID(imageID, size)
 
 	// Search for the exact image size
-	image, err := find(sizedID, ctx...)
+	image, err := find(sizedID, deps...)
 	if err != nil && err != errs.NotFound {
 		return nil, err
 	}
@@ -24,23 +24,23 @@ func Find(imageID string, size int, ctx ...interface{}) (*Image, error) {
 		return image, nil
 	}
 
-	return findAndResize(imageID, size, ctx...)
+	return findAndResize(imageID, size, deps...)
 }
 
-func findAndResize(imageID string, size int, ctx ...interface{}) (*Image, error) {
+func findAndResize(imageID string, size int, deps ...interface{}) (*Image, error) {
 	// The desired size is not found, search for the original,
 	// resize it, save...
-	image, err := find(imageID, ctx...)
+	image, err := find(imageID, deps...)
 	if err != nil {
 		return nil, err
 	}
 
-	image, err = resize(image, size, ctx...)
+	image, err = resize(image, size, deps...)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = Insert(image, ctx...)
+	_, err = Insert(image, deps...)
 	if err != nil {
 		return nil, err
 	}

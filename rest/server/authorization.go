@@ -19,8 +19,8 @@ func ValidateAuthentication(c *gin.Context) {
 		return
 	}
 
-	ctx := GinCtx(c)
-	c.Set("logger", log.Get(ctx...).WithField(log.LOG_FIELD_USER_ID, user.ID))
+	deps := GinDeps(c)
+	c.Set("logger", log.Get(deps...).WithField(log.LOG_FIELD_USER_ID, user.ID))
 }
 
 func validateToken(c *gin.Context) (*security.User, error) {
@@ -29,8 +29,8 @@ func validateToken(c *gin.Context) (*security.User, error) {
 		return nil, errs.Unauthorized
 	}
 
-	ctx := GinCtx(c)
-	user, err := security.Validate(tokenString, ctx...)
+	deps := GinDeps(c)
+	user, err := security.Validate(tokenString, deps...)
 	if err != nil {
 		return nil, errs.Unauthorized
 	}
