@@ -1,6 +1,7 @@
 package image
 
 import (
+	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/tools/errs"
 )
 
@@ -8,7 +9,7 @@ import (
 var ErrSize = errs.NewValidation().Add("size", "invalid")
 
 // Find searches for an image of a particular size
-func Find(imageID string, size int, deps ...interface{}) (*Image, error) {
+func Find(imageID string, size int, deps ...interface{}) (*db.Image, error) {
 	if size <= 0 {
 		return find(imageID, deps...)
 	}
@@ -27,7 +28,7 @@ func Find(imageID string, size int, deps ...interface{}) (*Image, error) {
 	return findAndResize(imageID, size, deps...)
 }
 
-func findAndResize(imageID string, size int, deps ...interface{}) (*Image, error) {
+func findAndResize(imageID string, size int, deps ...interface{}) (*db.Image, error) {
 	// The desired size is not found, search for the original,
 	// resize it, save...
 	image, err := find(imageID, deps...)

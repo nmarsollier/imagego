@@ -157,7 +157,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Image Information",
                         "schema": {
-                            "$ref": "#/definitions/image.Image"
+                            "$ref": "#/definitions/db.Image"
                         }
                     },
                     "400": {
@@ -259,6 +259,21 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "db.Image": {
+            "type": "object",
+            "required": [
+                "id",
+                "image"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                }
+            }
+        },
         "errs.ValidationErr": {
             "type": "object",
             "properties": {
@@ -277,21 +292,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "path": {
-                    "type": "string"
-                }
-            }
-        },
-        "image.Image": {
-            "type": "object",
-            "required": [
-                "id",
-                "image"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "image": {
                     "type": "string"
                 }
             }

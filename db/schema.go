@@ -1,4 +1,4 @@
-package image
+package db
 
 import (
 	"strings"
@@ -11,12 +11,12 @@ import (
 
 // Image estructura de la imagen
 type Image struct {
-	ID    string `json:"id"  validate:"required"`
-	Image string `json:"image"  validate:"required"`
+	ID    string `json:"id"  validate:"required" dynamodbav:"img"`
+	Image string `json:"image"  validate:"required" dynamodbav:"image"`
 }
 
-// New crea una nueva imagen
-func New(img string) *Image {
+// NewImage crea una nueva imagen
+func NewImage(img string) *Image {
 	return &Image{
 		ID:    uuid.NewV4().String(),
 		Image: img,
@@ -26,7 +26,7 @@ func New(img string) *Image {
 // ErrData the image does not seem valid
 var ErrData = errs.NewValidation().Add("image", "invalid")
 
-func (e *Image) validateSchema(deps ...interface{}) error {
+func (e *Image) ValidateSchema(deps ...interface{}) error {
 	validate := validator.New()
 	if err := validate.Struct(e); err != nil {
 		log.Get(deps...).Error(err)

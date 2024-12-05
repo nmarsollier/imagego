@@ -5,13 +5,13 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
+	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/rest/server"
 	"github.com/nmarsollier/imagego/security"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/httpx"
 	"github.com/nmarsollier/imagego/tools/log"
-	"github.com/nmarsollier/imagego/tools/redisx"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,7 +25,7 @@ func TestPostImageHappyPath(t *testing.T) {
 	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
-	redisMock := redisx.NewMockImageDao(ctrl)
+	redisMock := db.NewMockImageDao(ctrl)
 	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(
 		func(arg1 string, arg2 string, arg3 interface{}) (string, error) {
 			assert.NotEmpty(t, arg2)
@@ -56,7 +56,7 @@ func TestPostImageError(t *testing.T) {
 	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
-	redisMock := redisx.NewMockImageDao(ctrl)
+	redisMock := db.NewMockImageDao(ctrl)
 	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).Return("", errs.NotFound).Times(1)
 
 	// REQUEST

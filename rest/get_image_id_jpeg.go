@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/image"
+	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/rest/server"
 )
 
@@ -46,7 +46,7 @@ func sendJpegImage(c *gin.Context) {
 	c.Data(200, "image/jpeg", decodedData)
 }
 
-func toJpeg(data *image.Image) ([]byte, error) {
+func toJpeg(data *db.Image) ([]byte, error) {
 	str := data.Image[strings.Index(data.Image, ",")+1:]
 	reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
 	return ioutil.ReadAll(reader)

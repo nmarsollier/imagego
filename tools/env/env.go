@@ -13,6 +13,10 @@ type Configuration struct {
 	RedisURL          string `json:"redisUrl"`
 	SecurityServerURL string `json:"securityServerUrl"`
 	FluentUrl         string `json:"fluentUrl"`
+	Source            string `json:"fluentUrl"`
+	AwsAccessKeyId    string `json:"AwsAccessKeyId"`
+	AwsSecret         string `json:"AwsSecret"`
+	AwsRegion         string `json:"AwsRegion"`
 }
 
 var config *Configuration
@@ -25,6 +29,10 @@ func new() *Configuration {
 		RedisURL:          "localhost:6379",
 		SecurityServerURL: "http://localhost:3000",
 		FluentUrl:         "localhost:24224",
+		Source:            "redis",
+		AwsAccessKeyId:    "placeholder_value",
+		AwsSecret:         "placeholder_value",
+		AwsRegion:         "placeholder_value",
 	}
 }
 
@@ -67,6 +75,19 @@ func load() *Configuration {
 
 	if value := os.Getenv("AUTH_SERVICE_URL"); len(value) > 0 {
 		result.SecurityServerURL = value
+	}
+
+	if value := os.Getenv("SOURCE"); len(value) > 0 {
+		result.Source = value
+	}
+	if value := os.Getenv("AWS_ACCESS_KEY_ID"); len(value) > 0 {
+		result.AwsAccessKeyId = value
+	}
+	if value := os.Getenv("AWS_SECRET_ACCESS_KEY"); len(value) > 0 {
+		result.AwsSecret = value
+	}
+	if value := os.Getenv("AWS_REGION"); len(value) > 0 {
+		result.AwsRegion = value
 	}
 
 	return result

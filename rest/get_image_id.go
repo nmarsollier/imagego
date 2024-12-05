@@ -13,7 +13,7 @@ import (
 //	@Param			correlation_id	header		string				true	"Logging Correlation Id"
 //	@Param			Size			path		string				true	"[160|320|640|800|1024|1200]"
 //	@Param			imageID			path		string				true	"Image ID"
-//	@Success		200				{object}	image.Image			"Image Information"
+//	@Success		200				{object}	db.Image			"Image Information"
 //	@Failure		400				{object}	errs.ValidationErr	"Bad Request"
 //	@Failure		401				{object}	server.ErrorData	"Unauthorized"
 //	@Failure		404				{object}	server.ErrorData	"Not Found"

@@ -1,19 +1,19 @@
 package image
 
 import (
+	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/log"
-	"github.com/nmarsollier/imagego/tools/redisx"
 )
 
 // Insert adds an image to the db
-func Insert(image *Image, deps ...interface{}) (string, error) {
-	if err := image.validateSchema(deps...); err != nil {
+func Insert(image *db.Image, deps ...interface{}) (string, error) {
+	if err := image.ValidateSchema(deps...); err != nil {
 		log.Get(deps...).Error(err)
 		return "", err
 	}
 
-	client := redisx.Get(deps...)
+	client := db.Get(deps...)
 	_, err := client.Set(image.ID, image.Image, 0)
 	if err != nil {
 		log.Get(deps...).Error(err)
@@ -24,15 +24,15 @@ func Insert(image *Image, deps ...interface{}) (string, error) {
 }
 
 // Find finds and returns an image from the database
-func find(imageID string, deps ...interface{}) (*Image, error) {
-	client := redisx.Get(deps...)
+func find(imageID string, deps ...interface{}) (*db.Image, error) {
+	client := db.Get(deps...)
 	data, err := client.Get(imageID)
 	if err != nil {
 		log.Get(deps...).Error(err)
 		return nil, errs.NotFound
 	}
 
-	result := Image{
+	result := db.Image{
 		ID:    imageID,
 		Image: data,
 	}
