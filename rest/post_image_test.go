@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/go-redis/redis/v7"
 	"github.com/golang/mock/gomock"
 	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/rest/server"
@@ -26,11 +25,11 @@ func TestPostImageHappyPath(t *testing.T) {
 	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
-	redisMock := redisx.NewMockRedisClient(ctrl)
+	redisMock := redisx.NewMockImageDao(ctrl)
 	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(
-		func(arg1 string, arg2 string, arg3 interface{}) *redis.StatusCmd {
+		func(arg1 string, arg2 string, arg3 interface{}) (string, error) {
 			assert.NotEmpty(t, arg2)
-			return redis.NewStatusResult(testImage.Image, nil)
+			return testImage.Image, nil
 		},
 	).Times(1)
 
@@ -57,8 +56,8 @@ func TestPostImageError(t *testing.T) {
 	security.ExpectHttpToken(httpMock, user)
 
 	// Redis
-	redisMock := redisx.NewMockRedisClient(ctrl)
-	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).Return(redis.NewStatusResult("", errs.NotFound)).Times(1)
+	redisMock := redisx.NewMockImageDao(ctrl)
+	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).Return("", errs.NotFound).Times(1)
 
 	// REQUEST
 	r := server.TestRouter(httpMock, redisMock, log.NewTestLogger(ctrl, 6, 1, 1, 1))

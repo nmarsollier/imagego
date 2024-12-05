@@ -131,7 +131,7 @@
 				
 				<option value="file37">github.com/nmarsollier/imagego/tools/httpx/client_mocks.go (100.0%)</option>
 				
-				<option value="file38">github.com/nmarsollier/imagego/tools/log/logger.go (50.0%)</option>
+				<option value="file38">github.com/nmarsollier/imagego/tools/log/logger.go (90.0%)</option>
 				
 				<option value="file39">github.com/nmarsollier/imagego/tools/log/logrus_logger.go (100.0%)</option>
 				
@@ -139,7 +139,7 @@
 				
 				<option value="file41">github.com/nmarsollier/imagego/tools/log/test_tools.go (100.0%)</option>
 				
-				<option value="file42">github.com/nmarsollier/imagego/tools/redisx/client.go (50.0%)</option>
+				<option value="file42">github.com/nmarsollier/imagego/tools/redisx/client.go (37.5%)</option>
 				
 				<option value="file43">github.com/nmarsollier/imagego/tools/redisx/client_mocks.go (100.0%)</option>
 				
@@ -5337,7 +5337,7 @@ func Insert(image *Image, deps ...interface{}) (string, error) <span class="cov8
         }</span>
 
         <span class="cov8" title="1">client := redisx.Get(deps...)
-        err := client.Set(image.ID, image.Image, 0).Err()
+        _, err := client.Set(image.ID, image.Image, 0)
         if err != nil </span><span class="cov8" title="1">{
                 log.Get(deps...).Error(err)
                 return "", err
@@ -5349,7 +5349,7 @@ func Insert(image *Image, deps ...interface{}) (string, error) <span class="cov8
 // Find finds and returns an image from the database
 func find(imageID string, deps ...interface{}) (*Image, error) <span class="cov8" title="1">{
         client := redisx.Get(deps...)
-        data, err := client.Get(imageID).Result()
+        data, err := client.Get(imageID)
         if err != nil </span><span class="cov8" title="1">{
                 log.Get(deps...).Error(err)
                 return nil, errs.NotFound
@@ -6619,15 +6619,15 @@ type logrusConnectionHook struct {
         fmt  logrus.Formatter
 }
 
-func (hook *logrusConnectionHook) Fire(entry *logrus.Entry) error <span class="cov0" title="0">{
+func (hook *logrusConnectionHook) Fire(entry *logrus.Entry) error <span class="cov8" title="1">{
         msg, err := hook.fmt.Format(entry)
-        if err == nil </span><span class="cov0" title="0">{
+        if err == nil </span><span class="cov8" title="1">{
                 fmt.Println(string(msg))
         }</span>
-        <span class="cov0" title="0">return nil</span>
+        <span class="cov8" title="1">return nil</span>
 }
 
-func (hook *logrusConnectionHook) Levels() []logrus.Level <span class="cov0" title="0">{
+func (hook *logrusConnectionHook) Levels() []logrus.Level <span class="cov8" title="1">{
         return logrus.AllLevels
 }</span>
 func (hook *logrusConnectionHook) Close() error <span class="cov0" title="0">{
@@ -6637,7 +6637,7 @@ func (hook *logrusConnectionHook) Close() error <span class="cov0" title="0">{
 
 func configureFluent(logger *logrus.Logger) <span class="cov8" title="1">{
         conn, err := net.Dial("tcp", env.Get().FluentUrl)
-        if err == nil </span><span class="cov0" title="0">{
+        if err == nil </span><span class="cov8" title="1">{
                 logger.SetFormatter(&amp;logrus.JSONFormatter{})
                 logger.SetOutput(conn)
                 logger.AddHook(&amp;logrusConnectionHook{
@@ -6811,39 +6811,47 @@ import (
         "time"
 
         "github.com/go-redis/redis/v7"
+        "github.com/nmarsollier/imagego/image/image_dao"
         "github.com/nmarsollier/imagego/tools/env"
 )
 
 var (
         once     sync.Once
-        instance *redis.Client
+        instance *RedisDao
 )
 
-func Get(deps ...interface{}) RedisClient <span class="cov8" title="1">{
+func Get(deps ...interface{}) image_dao.ImageDao <span class="cov8" title="1">{
         for _, o := range deps </span><span class="cov8" title="1">{
-                if client, ok := o.(RedisClient); ok </span><span class="cov8" title="1">{
+                if client, ok := o.(image_dao.ImageDao); ok </span><span class="cov8" title="1">{
                         return client
                 }</span>
         }
 
         <span class="cov0" title="0">once.Do(func() </span><span class="cov0" title="0">{
-                instance = redis.NewClient(&amp;redis.Options{
+                instance = &amp;RedisDao{redis.NewClient(&amp;redis.Options{
                         Addr:     env.Get().RedisURL,
                         Password: "",
                         DB:       0,
-                })
+                })}
         }</span>)
         <span class="cov0" title="0">return instance</span>
 }
 
-type RedisClient interface {
-        Get(key string) *redis.StringCmd
-        Set(key string, value interface{}, expiration time.Duration) *redis.StatusCmd
+type RedisDao struct {
+        client *redis.Client
 }
+
+func (r *RedisDao) Get(key string) (string, error) <span class="cov0" title="0">{
+        return r.client.Get(key).Result()
+}</span>
+
+func (r *RedisDao) Set(key string, value interface{}, expiration time.Duration) (string, error) <span class="cov0" title="0">{
+        return r.client.Set(key, value, expiration).Result()
+}</span>
 </pre>
 		
 		<pre class="file" id="file43" style="display: none">// Code generated by MockGen. DO NOT EDIT.
-// Source: ./tools/redisx/client.go
+// Source: ./image/image_dao/dao.go
 
 // Package redisx is a generated GoMock package.
 package redisx
@@ -6852,59 +6860,60 @@ import (
         reflect "reflect"
         time "time"
 
-        redis "github.com/go-redis/redis/v7"
         gomock "github.com/golang/mock/gomock"
 )
 
-// MockRedisClient is a mock of RedisClient interface.
-type MockRedisClient struct {
+// MockImageDao is a mock of ImageDao interface.
+type MockImageDao struct {
         ctrl     *gomock.Controller
-        recorder *MockRedisClientMockRecorder
+        recorder *MockImageDaoMockRecorder
 }
 
-// MockRedisClientMockRecorder is the mock recorder for MockRedisClient.
-type MockRedisClientMockRecorder struct {
-        mock *MockRedisClient
+// MockImageDaoMockRecorder is the mock recorder for MockImageDao.
+type MockImageDaoMockRecorder struct {
+        mock *MockImageDao
 }
 
-// NewMockRedisClient creates a new mock instance.
-func NewMockRedisClient(ctrl *gomock.Controller) *MockRedisClient <span class="cov8" title="1">{
-        mock := &amp;MockRedisClient{ctrl: ctrl}
-        mock.recorder = &amp;MockRedisClientMockRecorder{mock}
+// NewMockImageDao creates a new mock instance.
+func NewMockImageDao(ctrl *gomock.Controller) *MockImageDao <span class="cov8" title="1">{
+        mock := &amp;MockImageDao{ctrl: ctrl}
+        mock.recorder = &amp;MockImageDaoMockRecorder{mock}
         return mock
 }</span>
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockRedisClient) EXPECT() *MockRedisClientMockRecorder <span class="cov8" title="1">{
+func (m *MockImageDao) EXPECT() *MockImageDaoMockRecorder <span class="cov8" title="1">{
         return m.recorder
 }</span>
 
 // Get mocks base method.
-func (m *MockRedisClient) Get(key string) *redis.StringCmd <span class="cov8" title="1">{
+func (m *MockImageDao) Get(key string) (string, error) <span class="cov8" title="1">{
         m.ctrl.T.Helper()
         ret := m.ctrl.Call(m, "Get", key)
-        ret0, _ := ret[0].(*redis.StringCmd)
-        return ret0
+        ret0, _ := ret[0].(string)
+        ret1, _ := ret[1].(error)
+        return ret0, ret1
 }</span>
 
 // Get indicates an expected call of Get.
-func (mr *MockRedisClientMockRecorder) Get(key interface{}) *gomock.Call <span class="cov8" title="1">{
+func (mr *MockImageDaoMockRecorder) Get(key interface{}) *gomock.Call <span class="cov8" title="1">{
         mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockRedisClient)(nil).Get), key)
+        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockImageDao)(nil).Get), key)
 }</span>
 
 // Set mocks base method.
-func (m *MockRedisClient) Set(key string, value interface{}, expiration time.Duration) *redis.StatusCmd <span class="cov8" title="1">{
+func (m *MockImageDao) Set(key string, value interface{}, expiration time.Duration) (string, error) <span class="cov8" title="1">{
         m.ctrl.T.Helper()
         ret := m.ctrl.Call(m, "Set", key, value, expiration)
-        ret0, _ := ret[0].(*redis.StatusCmd)
-        return ret0
+        ret0, _ := ret[0].(string)
+        ret1, _ := ret[1].(error)
+        return ret0, ret1
 }</span>
 
 // Set indicates an expected call of Set.
-func (mr *MockRedisClientMockRecorder) Set(key, value, expiration interface{}) *gomock.Call <span class="cov8" title="1">{
+func (mr *MockImageDaoMockRecorder) Set(key, value, expiration interface{}) *gomock.Call <span class="cov8" title="1">{
         mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockRedisClient)(nil).Set), key, value, expiration)
+        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockImageDao)(nil).Set), key, value, expiration)
 }</span>
 </pre>
 		

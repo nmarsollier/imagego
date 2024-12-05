@@ -14,7 +14,7 @@ func Insert(image *Image, deps ...interface{}) (string, error) {
 	}
 
 	client := redisx.Get(deps...)
-	err := client.Set(image.ID, image.Image, 0).Err()
+	_, err := client.Set(image.ID, image.Image, 0)
 	if err != nil {
 		log.Get(deps...).Error(err)
 		return "", err
@@ -26,7 +26,7 @@ func Insert(image *Image, deps ...interface{}) (string, error) {
 // Find finds and returns an image from the database
 func find(imageID string, deps ...interface{}) (*Image, error) {
 	client := redisx.Get(deps...)
-	data, err := client.Get(imageID).Result()
+	data, err := client.Get(imageID)
 	if err != nil {
 		log.Get(deps...).Error(err)
 		return nil, errs.NotFound
