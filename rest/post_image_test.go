@@ -26,8 +26,8 @@ func TestPostImageHappyPath(t *testing.T) {
 
 	// Redis
 	redisMock := db.NewMockImageDao(ctrl)
-	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(
-		func(arg1 string, arg2 string, arg3 interface{}) (string, error) {
+	redisMock.EXPECT().Set(gomock.Any(), gomock.Any()).DoAndReturn(
+		func(arg1 string, arg2 string) (string, error) {
 			assert.NotEmpty(t, arg2)
 			return testImage.Image, nil
 		},
@@ -57,7 +57,7 @@ func TestPostImageError(t *testing.T) {
 
 	// Redis
 	redisMock := db.NewMockImageDao(ctrl)
-	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).Return("", errs.NotFound).Times(1)
+	redisMock.EXPECT().Set(gomock.Any(), gomock.Any()).Return("", errs.NotFound).Times(1)
 
 	// REQUEST
 	r := server.TestRouter(httpMock, redisMock, log.NewTestLogger(ctrl, 6, 1, 1, 1))

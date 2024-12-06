@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"sync"
-	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -21,7 +20,7 @@ var (
 	dynamo_instance *DynamoDao
 )
 
-var tableName = "imagego"
+var tableName = "images"
 
 func getDynamoDb() ImageDao {
 	dynamo_once.Do(func() {
@@ -61,7 +60,7 @@ func (r *DynamoDao) Get(key string) (string, error) {
 	}
 
 	response, err := r.client.GetItem(context.TODO(), &dynamodb.GetItemInput{
-		Key: map[string]types.AttributeValue{"img": imageId}, TableName: &tableName,
+		Key: map[string]types.AttributeValue{"id": imageId}, TableName: &tableName,
 	})
 
 	if err != nil {
@@ -80,7 +79,7 @@ func (r *DynamoDao) Get(key string) (string, error) {
 	return image.Image, nil
 }
 
-func (r *DynamoDao) Set(key string, value string, expiration time.Duration) (string, error) {
+func (r *DynamoDao) Set(key string, value string) (string, error) {
 	image, err := attributevalue.MarshalMap(Image{ID: key, Image: value})
 	if err != nil {
 		return "", err

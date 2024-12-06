@@ -12,7 +12,6 @@ func TestDefault(t *testing.T) {
 	config := load()
 	assert.Equal(t, 3001, config.Port)
 	assert.Equal(t, "amqp://localhost", config.RabbitURL)
-	assert.Equal(t, "localhost:6379", config.RedisURL)
 	assert.Equal(t, "http://localhost:3000", config.SecurityServerURL)
 	assert.Equal(t, "localhost:24224", config.FluentUrl)
 }
@@ -26,14 +25,11 @@ func TestLoad(t *testing.T) {
 	os.Setenv("AUTH_SERVICE_URL", "custom_auth_service_url")
 
 	config = load()
-	assert.Equal(t, "custom_redis_url", config.RedisURL)
-	assert.Equal(t, "custom_rabbit_url", config.RabbitURL)
 	assert.Equal(t, 8080, config.Port)
 	assert.Equal(t, "custom_fluent_url", config.FluentUrl)
 	assert.Equal(t, "custom_auth_service_url", config.SecurityServerURL)
 
 	// Clean up environment variables
-	os.Unsetenv("REDIS_URL")
 	os.Unsetenv("RABBIT_URL")
 	os.Unsetenv("PORT")
 	os.Unsetenv("FLUENT_URL")

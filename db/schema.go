@@ -11,7 +11,7 @@ import (
 
 // Image estructura de la imagen
 type Image struct {
-	ID    string `json:"id"  validate:"required" dynamodbav:"img"`
+	ID    string `json:"id"  validate:"required" dynamodbav:"id"`
 	Image string `json:"image"  validate:"required" dynamodbav:"image"`
 }
 

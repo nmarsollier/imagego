@@ -14,7 +14,7 @@ func Insert(image *db.Image, deps ...interface{}) (string, error) {
 	}
 
 	client := db.Get(deps...)
-	_, err := client.Set(image.ID, image.Image, 0)
+	_, err := client.Set(image.ID, image.Image)
 	if err != nil {
 		log.Get(deps...).Error(err)
 		return "", err

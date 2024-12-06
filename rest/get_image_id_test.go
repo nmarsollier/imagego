@@ -168,8 +168,8 @@ func TestGetImageIdResizeNotNeed(t *testing.T) {
 		},
 	).Times(1)
 
-	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(
-		func(arg1 string, arg2 string, arg3 interface{}) (string, error) {
+	redisMock.EXPECT().Set(gomock.Any(), gomock.Any()).DoAndReturn(
+		func(arg1 string, arg2 string) (string, error) {
 			assert.Equal(t, testImage.ID+"_320", arg1)
 			assert.Equal(t, testImage.Image, arg2)
 			return testImage.Image, nil
@@ -210,8 +210,8 @@ func TestGetImageIdResized(t *testing.T) {
 		},
 	).Times(1)
 
-	redisMock.EXPECT().Set(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(
-		func(arg1 string, arg2 string, arg3 interface{}) (string, error) {
+	redisMock.EXPECT().Set(gomock.Any(), gomock.Any()).DoAndReturn(
+		func(arg1 string, arg2 string) (string, error) {
 			assert.Equal(t, testImage.ID+"_160", arg1)
 			assert.NotEmpty(t, arg2)
 			return testImage.Image, nil

@@ -6,7 +6,6 @@ package db
 
 import (
 	reflect "reflect"
-	time "time"
 
 	gomock "github.com/golang/mock/gomock"
 )
@@ -50,16 +49,16 @@ func (mr *MockImageDaoMockRecorder) Get(key interface{}) *gomock.Call {
 }
 
 // Set mocks base method.
-func (m *MockImageDao) Set(key, value string, expiration time.Duration) (string, error) {
+func (m *MockImageDao) Set(key, value string) (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Set", key, value, expiration)
+	ret := m.ctrl.Call(m, "Set", key, value)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Set indicates an expected call of Set.
-func (mr *MockImageDaoMockRecorder) Set(key, value, expiration interface{}) *gomock.Call {
+func (mr *MockImageDaoMockRecorder) Set(key, value interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockImageDao)(nil).Set), key, value, expiration)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockImageDao)(nil).Set), key, value)
 }
