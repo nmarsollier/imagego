@@ -13,7 +13,7 @@ type Configuration struct {
 	RedisURL          string `json:"redisUrl"`
 	SecurityServerURL string `json:"securityServerUrl"`
 	FluentUrl         string `json:"fluentUrl"`
-	Source            string `json:"fluentUrl"`
+	Source            string `json:"Source"`
 	AwsAccessKeyId    string `json:"AwsAccessKeyId"`
 	AwsSecret         string `json:"AwsSecret"`
 	AwsRegion         string `json:"AwsRegion"`
