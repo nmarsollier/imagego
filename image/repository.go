@@ -1,40 +1,75 @@
 package image
 
 import (
-	"github.com/nmarsollier/imagego/db"
+	"context"
+
+	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+	"github.com/nmarsollier/imagego/tools/db"
 	"github.com/nmarsollier/imagego/tools/errs"
 	"github.com/nmarsollier/imagego/tools/log"
 )
 
+var tableName = "images"
+
 // Insert adds an image to the db
-func Insert(image *db.Image, deps ...interface{}) (string, error) {
-	if err := image.ValidateSchema(deps...); err != nil {
+func Insert(image *Image, deps ...interface{}) (imageId string, err error) {
+	if err = image.ValidateSchema(deps...); err != nil {
 		log.Get(deps...).Error(err)
-		return "", err
+		return
 	}
 
 	client := db.Get(deps...)
-	_, err := client.Set(image.ID, image.Image)
+
+	imageData, err := attributevalue.MarshalMap(image)
+	if err != nil {
+		return
+	}
+
+	_, err = client.PutItem(
+		context.TODO(),
+		&dynamodb.PutItemInput{
+			TableName: &tableName,
+			Item:      imageData,
+		},
+	)
+
 	if err != nil {
 		log.Get(deps...).Error(err)
-		return "", err
+		return
 	}
 
 	return image.ID, nil
 }
 
 // Find finds and returns an image from the database
-func find(imageID string, deps ...interface{}) (*db.Image, error) {
+func find(imageID string, deps ...interface{}) (image *Image, err error) {
 	client := db.Get(deps...)
-	data, err := client.Get(imageID)
-	if err != nil {
+
+	response, err := client.GetItem(
+		context.TODO(),
+		&dynamodb.GetItemInput{
+			Key: map[string]types.AttributeValue{
+				"id": &types.AttributeValueMemberS{
+					Value: imageID,
+				}},
+			TableName: &tableName,
+		},
+	)
+
+	if err != nil || response == nil || response.Item == nil {
 		log.Get(deps...).Error(err)
+
 		return nil, errs.NotFound
 	}
 
-	result := db.Image{
-		ID:    imageID,
-		Image: data,
+	err = attributevalue.UnmarshalMap(response.Item, &image)
+	if err != nil {
+		log.Get(deps...).Error(err)
+
+		return nil, errs.NotFound
 	}
-	return &result, nil
+
+	return
 }

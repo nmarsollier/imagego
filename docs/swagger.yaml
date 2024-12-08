@@ -1,15 +1,5 @@
 basePath: /v1
 definitions:
-  db.Image:
-    properties:
-      id:
-        type: string
-      image:
-        type: string
-    required:
-    - id
-    - image
-    type: object
   errs.ValidationErr:
     properties:
       messages:
@@ -23,6 +13,16 @@ definitions:
         type: string
       path:
         type: string
+    type: object
+  image.Image:
+    properties:
+      id:
+        type: string
+      image:
+        type: string
+    required:
+    - id
+    - image
     type: object
   rabbit.message:
     properties:
@@ -154,7 +154,7 @@ paths:
         "200":
           description: Image Information
           schema:
-            $ref: '#/definitions/db.Image'
+            $ref: '#/definitions/image.Image'
         "400":
           description: Bad Request
           schema:

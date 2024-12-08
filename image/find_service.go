@@ -1,7 +1,6 @@
 package image
 
 import (
-	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/tools/errs"
 )
 
@@ -9,7 +8,7 @@ import (
 var ErrSize = errs.NewValidation().Add("size", "invalid")
 
 // Find searches for an image of a particular size
-func Find(imageID string, size int, deps ...interface{}) (*db.Image, error) {
+func Find(imageID string, size int, deps ...interface{}) (image *Image, err error) {
 	if size <= 0 {
 		return find(imageID, deps...)
 	}
@@ -17,34 +16,31 @@ func Find(imageID string, size int, deps ...interface{}) (*db.Image, error) {
 	sizedID := buildSizeID(imageID, size)
 
 	// Search for the exact image size
-	image, err := find(sizedID, deps...)
+	image, err = find(sizedID, deps...)
 	if err != nil && err != errs.NotFound {
-		return nil, err
-	}
-	if err == nil {
-		return image, nil
+		return
 	}
 
-	return findAndResize(imageID, size, deps...)
+	if err != nil {
+		image, err = findAndResize(imageID, size, deps...)
+	}
+
+	return
 }
 
-func findAndResize(imageID string, size int, deps ...interface{}) (*db.Image, error) {
+func findAndResize(imageID string, size int, deps ...interface{}) (image *Image, err error) {
 	// The desired size is not found, search for the original,
 	// resize it, save...
-	image, err := find(imageID, deps...)
+	image, err = find(imageID, deps...)
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	image, err = resize(image, size, deps...)
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	_, err = Insert(image, deps...)
-	if err != nil {
-		return nil, err
-	}
-
-	return image, nil
+	return
 }

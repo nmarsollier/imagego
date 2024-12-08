@@ -3,7 +3,6 @@ package resolvers
 import (
 	"context"
 
-	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/graph/tools"
 	"github.com/nmarsollier/imagego/image"
 )
@@ -15,7 +14,7 @@ func CreateImage(ctx context.Context, imageBase64 string) (string, error) {
 	}
 
 	env := tools.GqlCtx(ctx)
-	id, err := image.Insert(db.NewImage(imageBase64), env...)
+	id, err := image.Insert(image.NewImage(imageBase64), env...)
 	if err != nil {
 		return "", err
 	}

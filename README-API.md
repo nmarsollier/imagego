@@ -83,7 +83,7 @@ Gets an image from the server in base64 format
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | Image Information | [db.Image](#dbimage) |
+| 200 | Image Information | [image.Image](#imageimage) |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [server.ErrorData](#servererrordata) |
 | 404 | Not Found | [server.ErrorData](#servererrordata) |
@@ -121,13 +121,6 @@ Gets an image from the server in jpeg format.
 ---
 ### Models
 
-#### db.Image
-
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| id | string |  | Yes |
-| image | string |  | Yes |
-
 #### errs.ValidationErr
 
 | Name | Type | Description | Required |
@@ -140,6 +133,13 @@ Gets an image from the server in jpeg format.
 | ---- | ---- | ----------- | -------- |
 | message | string |  | No |
 | path | string |  | No |
+
+#### image.Image
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| id | string |  | Yes |
+| image | string |  | Yes |
 
 #### rabbit.message
 

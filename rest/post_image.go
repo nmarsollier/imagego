@@ -2,7 +2,6 @@ package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/rest/server"
 )
@@ -41,7 +40,7 @@ func saveImage(c *gin.Context) {
 	}
 
 	deps := server.GinDeps(c)
-	id, err := image.Insert(db.NewImage(bodyImage), deps...)
+	id, err := image.Insert(image.NewImage(bodyImage), deps...)
 	if err != nil {
 		c.Error(err)
 		return

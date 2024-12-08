@@ -1,4 +1,4 @@
-package db
+package image
 
 import (
 	"strings"

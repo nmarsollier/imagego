@@ -14,11 +14,10 @@ import (
 	_ "image/png"
 
 	"github.com/disintegration/imaging"
-	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/tools/log"
 )
 
-func resize(image *db.Image, size int, deps ...interface{}) (*db.Image, error) {
+func resize(image *Image, size int, deps ...interface{}) (result *Image, err error) {
 	str := image.Image[strings.Index(image.Image, ",")+1:]
 
 	reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
@@ -29,7 +28,7 @@ func resize(image *db.Image, size int, deps ...interface{}) (*db.Image, error) {
 	}
 	bounds := img.Bounds()
 	if bounds.Size().X <= size {
-		return &db.Image{
+		return &Image{
 			ID:    buildSizeID(image.ID, size),
 			Image: image.Image,
 		}, nil
@@ -43,11 +42,11 @@ func resize(image *db.Image, size int, deps ...interface{}) (*db.Image, error) {
 	imaging.Encode(writer, dstImage, imaging.JPEG, imaging.JPEGQuality(70))
 	writer.Close()
 
-	result := db.Image{
+	result = &Image{
 		ID:    buildSizeID(image.ID, size),
 		Image: "data:image/jpeg;base64," + buffer.String(),
 	}
-	return &result, nil
+	return
 }
 
 func buildSizeID(imageID string, size int) string {

@@ -2,13 +2,12 @@ package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/db"
 	"github.com/nmarsollier/imagego/image"
 	"github.com/nmarsollier/imagego/rest/server"
 )
 
 // GetImage returns a saved image in base64 format
-func getImage(c *gin.Context) (*db.Image, error) {
+func getImage(c *gin.Context) (*image.Image, error) {
 	imageID := c.Param("imageID")
 	size := getSizeParam(c)
 
