@@ -83,7 +83,7 @@
 				
 				<option value="file13">github.com/nmarsollier/imagego/image/image_dao/mock_dao.go (100.0%)</option>
 				
-				<option value="file14">github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go (18.8%)</option>
+				<option value="file14">github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go (15.8%)</option>
 				
 				<option value="file15">github.com/nmarsollier/imagego/image/repository.go (87.5%)</option>
 				
@@ -5413,10 +5413,15 @@ func Get(deps ...interface{}) ImageDao <span class="cov8" title="1">{
         <span class="cov0" title="0">if instance == nil </span><span class="cov0" title="0">{
                 client, err := db.GetPostgresClient()
                 if err == nil </span><span class="cov0" title="0">{
-                        instance = &amp;PostgressDao{
+                        _, err := client.Exec(context.Background(), "SET search_path TO imagego")
+                        if err != nil </span><span class="cov0" title="0">{
+                                log.Get(deps...).Error(err)
+                        }</span>
+
+                        <span class="cov0" title="0">instance = &amp;PostgressDao{
                                 client: client,
-                        }
-                }</span>
+                        }</span>
+                }
         }
 
         <span class="cov0" title="0">return instance</span>
