@@ -23,6 +23,11 @@ func Get(deps ...interface{}) ImageDao {
 	if instance == nil {
 		client, err := db.GetPostgresClient()
 		if err == nil {
+			_, err := client.Exec(context.Background(), "SET search_path TO imagego")
+			if err != nil {
+				log.Get(deps...).Error(err)
+			}
+
 			instance = &PostgressDao{
 				client: client,
 			}
