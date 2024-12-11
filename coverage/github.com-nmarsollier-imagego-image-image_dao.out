@@ -1,1 +1,20 @@
 mode: set
+github.com/nmarsollier/imagego/image/image_dao/mock_dao.go:25.61,29.2 3 0
+github.com/nmarsollier/imagego/image/image_dao/mock_dao.go:32.59,34.2 1 0
+github.com/nmarsollier/imagego/image/image_dao/mock_dao.go:37.56,43.2 5 0
+github.com/nmarsollier/imagego/image/image_dao/mock_dao.go:46.71,49.2 2 0
+github.com/nmarsollier/imagego/image/image_dao/mock_dao.go:52.53,57.2 4 0
+github.com/nmarsollier/imagego/image/image_dao/mock_dao.go:60.78,63.2 2 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:16.40,17.25 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:17.25,18.37 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:18.37,20.4 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:23.2,23.21 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:23.21,25.17 2 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:25.17,29.4 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:32.2,32.17 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:39.66,41.16 2 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:41.16,43.3 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:44.2,44.8 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:47.66,49.16 2 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:49.16,51.3 1 0
+github.com/nmarsollier/imagego/image/image_dao/postgres_dao.go:53.2,53.8 1 0

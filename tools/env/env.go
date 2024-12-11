@@ -10,7 +10,7 @@ type Configuration struct {
 	Port              int    `json:"port"`
 	GqlPort           int    `json:"gqlPort"`
 	RabbitURL         string `json:"rabbitUrl"`
-	RedisURL          string `json:"redisUrl"`
+	PostgresURL       string `json:"postgresUrl"`
 	SecurityServerURL string `json:"securityServerUrl"`
 	FluentUrl         string `json:"fluentUrl"`
 }
@@ -22,7 +22,7 @@ func new() *Configuration {
 		Port:              3001,
 		GqlPort:           4001,
 		RabbitURL:         "amqp://localhost",
-		RedisURL:          "localhost:6379",
+		PostgresURL:       "postgres://postgres@localhost:5432/postgres",
 		SecurityServerURL: "http://localhost:3000",
 		FluentUrl:         "localhost:24224",
 	}
@@ -41,8 +41,8 @@ func Get() *Configuration {
 func load() *Configuration {
 	result := new()
 
-	if value := os.Getenv("REDIS_URL"); len(value) > 0 {
-		result.RedisURL = value
+	if value := os.Getenv("POSTGRES_URL"); len(value) > 0 {
+		result.PostgresURL = value
 	}
 
 	if value := os.Getenv("RABBIT_URL"); len(value) > 0 {

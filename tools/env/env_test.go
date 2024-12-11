@@ -12,21 +12,21 @@ func TestDefault(t *testing.T) {
 	config := load()
 	assert.Equal(t, 3001, config.Port)
 	assert.Equal(t, "amqp://localhost", config.RabbitURL)
-	assert.Equal(t, "localhost:6379", config.RedisURL)
+	assert.Equal(t, "postgres://postgres@localhost:5432/postgres", config.PostgresURL)
 	assert.Equal(t, "http://localhost:3000", config.SecurityServerURL)
 	assert.Equal(t, "localhost:24224", config.FluentUrl)
 }
 
 func TestLoad(t *testing.T) {
 	// Test case 2: Custom values from environment variables
-	os.Setenv("REDIS_URL", "custom_redis_url")
+	os.Setenv("POSTGRES_URL", "custom_postgres_url")
 	os.Setenv("RABBIT_URL", "custom_rabbit_url")
 	os.Setenv("PORT", "8080")
 	os.Setenv("FLUENT_URL", "custom_fluent_url")
 	os.Setenv("AUTH_SERVICE_URL", "custom_auth_service_url")
 
 	config = load()
-	assert.Equal(t, "custom_redis_url", config.RedisURL)
+	assert.Equal(t, "custom_postgres_url", config.PostgresURL)
 	assert.Equal(t, "custom_rabbit_url", config.RabbitURL)
 	assert.Equal(t, 8080, config.Port)
 	assert.Equal(t, "custom_fluent_url", config.FluentUrl)

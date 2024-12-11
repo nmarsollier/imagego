@@ -31,7 +31,7 @@ func Get(deps ...interface{}) LogRusEntry {
 	configureFluent(logger)
 
 	logger.SetLevel(logrus.DebugLevel)
-	result := logger.WithField(LOG_FIELD_SERVER, "cartgo").WithField(LOG_FIELD_THREAD, uuid.NewV4().String())
+	result := logger.WithField(LOG_FIELD_SERVER, "iamgego").WithField(LOG_FIELD_THREAD, uuid.NewV4().String())
 	return logRusEntry{entry: result}
 }
 
