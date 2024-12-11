@@ -26,6 +26,11 @@ func GetPostgresClient(deps ...interface{}) (*pgxpool.Pool, error) {
 			return nil, err
 		}
 
+		_, err = instance.Exec(context.Background(), "SET search_path TO imagego")
+		if err != nil {
+			log.Get(deps...).Error(err)
+		}
+
 		log.Get(deps...).Info("Postgres Connected")
 	}
 
