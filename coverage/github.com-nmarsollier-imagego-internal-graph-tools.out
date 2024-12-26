@@ -1,0 +1,25 @@
+mode: set
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:12.68,16.16 3 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:16.16,18.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:20.2,21.16 2 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:21.16,23.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:24.2,24.18 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:27.65,29.16 2 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:29.16,31.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:33.2,34.46 2 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:34.46,35.28 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:35.28,37.9 2 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:41.2,41.25 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:41.25,43.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:45.2,45.18 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:49.55,53.65 3 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:53.65,55.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:55.8,57.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/auth.go:59.2,59.25 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/context.go:10.43,13.11 3 0
+github.com/nmarsollier/imagego/internal/graph/tools/context.go:13.11,15.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/context.go:17.2,19.13 3 0
+github.com/nmarsollier/imagego/internal/graph/tools/logger.go:12.53,20.2 2 0
+github.com/nmarsollier/imagego/internal/graph/tools/logger.go:22.51,26.21 3 0
+github.com/nmarsollier/imagego/internal/graph/tools/logger.go:26.21,28.3 1 0
+github.com/nmarsollier/imagego/internal/graph/tools/logger.go:30.2,30.14 1 0

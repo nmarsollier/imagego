@@ -1,0 +1,27 @@
+mode: set
+github.com/nmarsollier/imagego/internal/security/repository.go:25.22,31.2 1 0
+github.com/nmarsollier/imagego/internal/security/repository.go:39.74,42.16 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:42.16,45.3 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:47.2,48.75 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:48.75,50.3 1 0
+github.com/nmarsollier/imagego/internal/security/repository.go:52.2,53.42 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:53.42,56.3 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:57.2,61.16 4 0
+github.com/nmarsollier/imagego/internal/security/repository.go:61.16,64.3 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:66.2,67.46 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:67.46,70.3 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:73.2,75.18 2 0
+github.com/nmarsollier/imagego/internal/security/repository.go:78.55,80.2 1 0
+github.com/nmarsollier/imagego/internal/security/repository.go:82.67,83.41 1 0
+github.com/nmarsollier/imagego/internal/security/repository.go:83.41,84.36 1 0
+github.com/nmarsollier/imagego/internal/security/repository.go:84.36,86.4 1 0
+github.com/nmarsollier/imagego/internal/security/repository.go:88.2,88.19 1 0
+github.com/nmarsollier/imagego/internal/security/service.go:16.19,21.2 1 0
+github.com/nmarsollier/imagego/internal/security/service.go:29.52,30.21 1 0
+github.com/nmarsollier/imagego/internal/security/service.go:30.21,33.3 2 0
+github.com/nmarsollier/imagego/internal/security/service.go:35.2,36.41 2 0
+github.com/nmarsollier/imagego/internal/security/service.go:40.65,42.44 1 0
+github.com/nmarsollier/imagego/internal/security/service.go:42.44,44.3 1 0
+github.com/nmarsollier/imagego/internal/security/service.go:46.2,47.16 2 0
+github.com/nmarsollier/imagego/internal/security/service.go:47.16,49.3 1 0
+github.com/nmarsollier/imagego/internal/security/service.go:51.2,51.18 1 0
