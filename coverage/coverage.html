@@ -921,9 +921,8 @@ func (l logRusEntry) Error(args ...interface{}) <span class="cov0" title="0">{
 }</span>
 
 func (l logRusEntry) WithField(key string, value interface{}) LogRusEntry <span class="cov0" title="0">{
-        return logRusEntry{
-                entry: l.entry.WithField(key, value),
-        }
+        l.entry.WithField(key, value)
+        return l
 }</span>
 
 func (l logRusEntry) Info(args ...interface{}) <span class="cov0" title="0">{
