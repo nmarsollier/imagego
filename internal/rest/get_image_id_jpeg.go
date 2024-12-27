@@ -23,11 +23,11 @@ import (
 //	@Failure		401				{object}	server.ErrorData	"Unauthorized"
 //	@Failure		404				{object}	server.ErrorData	"Not Found"
 //	@Failure		500				{object}	server.ErrorData	"Internal Server Error"
-//	@Router			/v1/image/:imageID/jpeg [get]
+//	@Router			/images/:imageID/jpeg [get]
 //
 // Gets an image from the server in jpeg format.
 func initGetImageIdJpeg() {
-	server.Router().GET("/v1/image/:imageID/jpeg", sendJpegImage)
+	server.Router().GET("/images/:imageID/jpeg", sendJpegImage)
 }
 
 func sendJpegImage(c *gin.Context) {

@@ -21,12 +21,12 @@ import (
 //	@Failure		401				{object}	server.ErrorData	"Unauthorized"
 //	@Failure		404				{object}	server.ErrorData	"Not Found"
 //	@Failure		500				{object}	server.ErrorData	"Internal Server Error"
-//	@Router			/v1/image [post]
+//	@Router			/images/create [post]
 //
 // Init initializes the route
 func initPostImage() {
 	server.Router().POST(
-		"/v1/image",
+		"/images/create",
 		server.ValidateAuthentication,
 		saveImage,
 	)

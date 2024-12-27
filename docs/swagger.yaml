@@ -61,25 +61,101 @@ info:
   title: ImageGo
   version: "1.0"
 paths:
-  /rabbit/logout:
+  /images/:imageID:
     get:
       consumes:
       - application/json
-      description: Listens for logout messages from auth.
+      description: Gets an image from the server in base64 format
       parameters:
-      - description: General message structure
-        in: body
-        name: body
+      - description: Logging Correlation Id
+        in: header
+        name: correlation_id
         required: true
-        schema:
-          $ref: '#/definitions/rabbit.message'
+        type: string
+      - description: '[160|320|640|800|1024|1200]'
+        in: path
+        name: Size
+        required: true
+        type: string
+      - description: Image ID
+        in: path
+        name: imageID
+        required: true
+        type: string
       produces:
       - application/json
-      responses: {}
-      summary: Rabbit Message
+      responses:
+        "200":
+          description: Image Information
+          schema:
+            $ref: '#/definitions/image.Image'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errs.ValidationErr'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/server.ErrorData'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.ErrorData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.ErrorData'
+      summary: Get image
       tags:
-      - Rabbit
-  /v1/image:
+      - Image
+  /images/:imageID/jpeg:
+    get:
+      consumes:
+      - application/json
+      description: Gets an image from the server in jpeg format.
+      parameters:
+      - description: Logging Correlation Id
+        in: header
+        name: correlation_id
+        required: true
+        type: string
+      - description: '[160|320|640|800|1024|1200]'
+        in: path
+        name: Size
+        required: true
+        type: string
+      - description: Image ID
+        in: path
+        name: imageID
+        required: true
+        type: string
+      produces:
+      - image/jpeg
+      responses:
+        "200":
+          description: Image
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errs.ValidationErr'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/server.ErrorData'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.ErrorData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.ErrorData'
+      summary: Get jpeg
+      tags:
+      - Image
+  /images/create:
     post:
       consumes:
       - application/json
@@ -127,98 +203,22 @@ paths:
       summary: Save image
       tags:
       - Image
-  /v1/image/:imageID:
+  /rabbit/logout:
     get:
       consumes:
       - application/json
-      description: Gets an image from the server in base64 format
+      description: Listens for logout messages from auth.
       parameters:
-      - description: Logging Correlation Id
-        in: header
-        name: correlation_id
+      - description: General message structure
+        in: body
+        name: body
         required: true
-        type: string
-      - description: '[160|320|640|800|1024|1200]'
-        in: path
-        name: Size
-        required: true
-        type: string
-      - description: Image ID
-        in: path
-        name: imageID
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/rabbit.message'
       produces:
       - application/json
-      responses:
-        "200":
-          description: Image Information
-          schema:
-            $ref: '#/definitions/image.Image'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/errs.ValidationErr'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/server.ErrorData'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/server.ErrorData'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/server.ErrorData'
-      summary: Get image
+      responses: {}
+      summary: Rabbit Message
       tags:
-      - Image
-  /v1/image/:imageID/jpeg:
-    get:
-      consumes:
-      - application/json
-      description: Gets an image from the server in jpeg format.
-      parameters:
-      - description: Logging Correlation Id
-        in: header
-        name: correlation_id
-        required: true
-        type: string
-      - description: '[160|320|640|800|1024|1200]'
-        in: path
-        name: Size
-        required: true
-        type: string
-      - description: Image ID
-        in: path
-        name: imageID
-        required: true
-        type: string
-      produces:
-      - image/jpeg
-      responses:
-        "200":
-          description: Image
-          schema:
-            type: file
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/errs.ValidationErr'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/server.ErrorData'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/server.ErrorData'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/server.ErrorData'
-      summary: Get jpeg
-      tags:
-      - Image
+      - Rabbit
 swagger: "2.0"

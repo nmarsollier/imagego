@@ -8,59 +8,7 @@ Nestor Marsollier
 nmarsollier@gmail.com  
 
 ---
-### /rabbit/logout
-
-#### GET
-##### Summary
-
-Rabbit Message
-
-##### Description
-
-Listens for logout messages from auth.
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| body | body | General message structure | Yes | [rabbit.message](#rabbitmessage) |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-
----
-### /v1/image
-
-#### POST
-##### Summary
-
-Save image
-
-##### Description
-
-Adds a new image to the server.
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| image | body | Image in base64 | Yes | [rest.NewRequest](#restnewrequest) |
-| Authorization | header | Bearer {token} | Yes | string |
-| correlation_id | header | Logging Correlation Id | Yes | string |
-
-##### Responses
-
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | Image | [rest.NewImageResponse](#restnewimageresponse) |
-| 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
-| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
-| 404 | Not Found | [server.ErrorData](#servererrordata) |
-| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
-
-### /v1/image/:imageID
+### /images/:imageID
 
 #### GET
 ##### Summary
@@ -89,7 +37,7 @@ Gets an image from the server in base64 format
 | 404 | Not Found | [server.ErrorData](#servererrordata) |
 | 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
 
-### /v1/image/:imageID/jpeg
+### /images/:imageID/jpeg
 
 #### GET
 ##### Summary
@@ -117,6 +65,58 @@ Gets an image from the server in jpeg format.
 | 401 | Unauthorized | [server.ErrorData](#servererrordata) |
 | 404 | Not Found | [server.ErrorData](#servererrordata) |
 | 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
+
+### /images/create
+
+#### POST
+##### Summary
+
+Save image
+
+##### Description
+
+Adds a new image to the server.
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| image | body | Image in base64 | Yes | [rest.NewRequest](#restnewrequest) |
+| Authorization | header | Bearer {token} | Yes | string |
+| correlation_id | header | Logging Correlation Id | Yes | string |
+
+##### Responses
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | Image | [rest.NewImageResponse](#restnewimageresponse) |
+| 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
+| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
+| 404 | Not Found | [server.ErrorData](#servererrordata) |
+| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
+
+---
+### /rabbit/logout
+
+#### GET
+##### Summary
+
+Rabbit Message
+
+##### Description
+
+Listens for logout messages from auth.
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ------ |
+| body | body | General message structure | Yes | [rabbit.message](#rabbitmessage) |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
 
 ---
 ### Models

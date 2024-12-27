@@ -18,11 +18,11 @@ import (
 //	@Failure		401				{object}	server.ErrorData	"Unauthorized"
 //	@Failure		404				{object}	server.ErrorData	"Not Found"
 //	@Failure		500				{object}	server.ErrorData	"Internal Server Error"
-//	@Router			/v1/image/:imageID [get]
+//	@Router			/images/:imageID [get]
 //
 // Gets an image from the server in base64 format
 func initGetImageId() {
-	server.Router().GET("/v1/image/:imageID", sendImage)
+	server.Router().GET("/images/:imageID", sendImage)
 }
 
 func sendImage(c *gin.Context) {
