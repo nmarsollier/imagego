@@ -18,9 +18,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/rabbit/logout": {
+        "/images/:imageID": {
             "get": {
-                "description": "Listens for logout messages from auth.",
+                "description": "Gets an image from the server in base64 format",
                 "consumes": [
                     "application/json"
                 ],
@@ -28,24 +28,137 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Rabbit"
+                    "Image"
                 ],
-                "summary": "Rabbit Message",
+                "summary": "Get image",
                 "parameters": [
                     {
-                        "description": "General message structure",
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/rabbit.message"
-                        }
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "[160|320|640|800|1024|1200]",
+                        "name": "Size",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Image ID",
+                        "name": "imageID",
+                        "in": "path",
+                        "required": true
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "Image Information",
+                        "schema": {
+                            "$ref": "#/definitions/image.Image"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ValidationErr"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/server.ErrorData"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.ErrorData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.ErrorData"
+                        }
+                    }
+                }
             }
         },
-        "/v1/image": {
+        "/images/:imageID/jpeg": {
+            "get": {
+                "description": "Gets an image from the server in jpeg format.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "image/jpeg"
+                ],
+                "tags": [
+                    "Image"
+                ],
+                "summary": "Get jpeg",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Logging Correlation Id",
+                        "name": "correlation_id",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "[160|320|640|800|1024|1200]",
+                        "name": "Size",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Image ID",
+                        "name": "imageID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Image",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ValidationErr"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/server.ErrorData"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.ErrorData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.ErrorData"
+                        }
+                    }
+                }
+            }
+        },
+        "/images/create": {
             "post": {
                 "description": "Adds a new image to the server.",
                 "consumes": [
@@ -117,9 +230,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/image/:imageID": {
+        "/rabbit/logout": {
             "get": {
-                "description": "Gets an image from the server in base64 format",
+                "description": "Listens for logout messages from auth.",
                 "consumes": [
                     "application/json"
                 ],
@@ -127,134 +240,21 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Image"
+                    "Rabbit"
                 ],
-                "summary": "Get image",
+                "summary": "Rabbit Message",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Logging Correlation Id",
-                        "name": "correlation_id",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "[160|320|640|800|1024|1200]",
-                        "name": "Size",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Image ID",
-                        "name": "imageID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Image Information",
+                        "description": "General message structure",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/image.Image"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/errs.ValidationErr"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rabbit.message"
                         }
                     }
-                }
-            }
-        },
-        "/v1/image/:imageID/jpeg": {
-            "get": {
-                "description": "Gets an image from the server in jpeg format.",
-                "consumes": [
-                    "application/json"
                 ],
-                "produces": [
-                    "image/jpeg"
-                ],
-                "tags": [
-                    "Image"
-                ],
-                "summary": "Get jpeg",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Logging Correlation Id",
-                        "name": "correlation_id",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "[160|320|640|800|1024|1200]",
-                        "name": "Size",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Image ID",
-                        "name": "imageID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Image",
-                        "schema": {
-                            "type": "file"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/errs.ValidationErr"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
-                        }
-                    }
-                }
+                "responses": {}
             }
         }
     },

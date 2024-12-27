@@ -1,0 +1,4 @@
+mode: set
+github.com/nmarsollier/imagego/internal/engine/redisx/client.go:20.15,26.2 1 0
+github.com/nmarsollier/imagego/internal/engine/redisx/client.go:28.55,30.2 1 0
+github.com/nmarsollier/imagego/internal/engine/redisx/client.go:32.100,34.2 1 0

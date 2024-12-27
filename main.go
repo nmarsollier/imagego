@@ -1,9 +1,11 @@
 package main
 
 import (
-	"github.com/nmarsollier/imagego/graph/server"
-	"github.com/nmarsollier/imagego/rabbit"
-	"github.com/nmarsollier/imagego/rest"
+	"github.com/nmarsollier/imagego/internal/engine/di"
+	"github.com/nmarsollier/imagego/internal/engine/env"
+	"github.com/nmarsollier/imagego/internal/engine/log"
+	server "github.com/nmarsollier/imagego/internal/graph"
+	"github.com/nmarsollier/imagego/internal/rest"
 )
 
 //	@title			ImageGo
@@ -17,6 +19,8 @@ import (
 // @BasePath	/v1
 func main() {
 	go server.Start()
-	rabbit.Init()
+
+	di.NewInjector(log.Get(env.Get().FluentUrl)).ConsumeLogoutService().Init()
+
 	rest.StartEngine()
 }

@@ -1,0 +1,7 @@
+mode: set
+github.com/nmarsollier/imagego/internal/graph/schema/entity.resolvers.go:15.94,16.69 1 0
+github.com/nmarsollier/imagego/internal/graph/schema/entity.resolvers.go:20.50,20.79 1 0
+github.com/nmarsollier/imagego/internal/graph/schema/schema.resolvers.go:15.97,17.2 1 0
+github.com/nmarsollier/imagego/internal/graph/schema/schema.resolvers.go:20.110,22.2 1 0
+github.com/nmarsollier/imagego/internal/graph/schema/schema.resolvers.go:25.54,25.85 1 0
+github.com/nmarsollier/imagego/internal/graph/schema/schema.resolvers.go:28.48,28.76 1 0
