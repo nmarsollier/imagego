@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	_ "github.com/nmarsollier/imagego/docs"
-	"github.com/nmarsollier/imagego/internal/engine/env"
+	"github.com/nmarsollier/imagego/internal/env"
 	"github.com/nmarsollier/imagego/internal/rest/server"
 )
 

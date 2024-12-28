@@ -1,10 +1,10 @@
 package di
 
 import (
-	"github.com/nmarsollier/imagego/internal/engine/env"
-	"github.com/nmarsollier/imagego/internal/engine/httpx"
-	"github.com/nmarsollier/imagego/internal/engine/log"
-	"github.com/nmarsollier/imagego/internal/engine/redisx"
+	"github.com/nmarsollier/commongo/httpx"
+	"github.com/nmarsollier/commongo/log"
+	"github.com/nmarsollier/commongo/redisx"
+	"github.com/nmarsollier/imagego/internal/env"
 	"github.com/nmarsollier/imagego/internal/image"
 	"github.com/nmarsollier/imagego/internal/rabbit"
 	"github.com/nmarsollier/imagego/internal/security"

@@ -31,7 +31,7 @@ Gets an image from the server in base64 format
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | Image Information | [image.Image](#imageimage) |
+| 200 | Image Information |  |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
 | 401 | Unauthorized | [server.ErrorData](#servererrordata) |
 | 404 | Not Found | [server.ErrorData](#servererrordata) |
@@ -133,13 +133,6 @@ Listens for logout messages from auth.
 | ---- | ---- | ----------- | -------- |
 | message | string |  | No |
 | path | string |  | No |
-
-#### image.Image
-
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| id | string |  | Yes |
-| image | string |  | Yes |
 
 #### rabbit.message
 

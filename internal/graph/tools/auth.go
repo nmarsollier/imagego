@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/99designs/gqlgen/graphql"
-	"github.com/nmarsollier/imagego/internal/engine/errs"
+	"github.com/nmarsollier/commongo/errs"
 	"github.com/nmarsollier/imagego/internal/security"
 )
 

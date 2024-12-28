@@ -1,7 +1,5 @@
-mockgen -source=./internal/engine/di/injector.go -destination=./test/mockgen/injector_mocks.go -package=mockgen
-mockgen -source=./internal/engine/httpx/client.go -destination=./test/mockgen/httpx_client_mocks.go -package=mockgen
-mockgen -source=./internal/engine/log/logger.go -destination=./test/mockgen/log_mocks.go -package=mockgen
-mockgen -source=./internal/engine/redisx/client.go -destination=./test/mockgen/redisx_client_mocks.go -package=mockgen
+rm -rf ./test/mockgen
+
 mockgen -source=./internal/image/repository.go -destination=./test/mockgen/image_repository_mocks.go -package=mockgen
 mockgen -source=./internal/image/service.go -destination=./test/mockgen/image_service_mocks.go -package=mockgen
 mockgen -source=./internal/security/repository.go -destination=./test/mockgen/security_repository_mocks.go -package=mockgen

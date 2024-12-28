@@ -57,9 +57,7 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "Image Information",
-                        "schema": {
-                            "$ref": "#/definitions/image.Image"
-                        }
+                        "schema": {}
                     },
                     "400": {
                         "description": "Bad Request",
@@ -277,21 +275,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "path": {
-                    "type": "string"
-                }
-            }
-        },
-        "image.Image": {
-            "type": "object",
-            "required": [
-                "id",
-                "image"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "image": {
                     "type": "string"
                 }
             }

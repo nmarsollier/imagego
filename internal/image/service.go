@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/disintegration/imaging"
-	"github.com/nmarsollier/imagego/internal/engine/errs"
-	"github.com/nmarsollier/imagego/internal/engine/log"
+	"github.com/nmarsollier/commongo/errs"
+	"github.com/nmarsollier/commongo/log"
 )
 
 // ErrSize the size is incorrect

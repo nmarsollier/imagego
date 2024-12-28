@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/nmarsollier/imagego/internal/engine/errs"
+	"github.com/nmarsollier/commongo/errs"
 )
 
 // ErrorHandler a middleware to handle errors

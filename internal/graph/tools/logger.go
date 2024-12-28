@@ -4,15 +4,15 @@ import (
 	"context"
 
 	"github.com/99designs/gqlgen/graphql"
-	"github.com/nmarsollier/imagego/internal/engine/env"
-	"github.com/nmarsollier/imagego/internal/engine/log"
+	"github.com/nmarsollier/commongo/log"
+	"github.com/nmarsollier/imagego/internal/env"
 	uuid "github.com/satori/go.uuid"
 )
 
 func newLogger(ctx context.Context) log.LogRusEntry {
 	operationContext := graphql.GetOperationContext(ctx)
 
-	return log.Get(env.Get().FluentUrl).
+	return log.Get(env.Get().FluentUrl, "imagego").
 		WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(ctx)).
 		WithField(log.LOG_FIELD_CONTROLLER, "GraphQL").
 		WithField(log.LOG_FIELD_HTTP_METHOD, operationContext.OperationName).

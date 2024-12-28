@@ -4,9 +4,9 @@ import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/nmarsollier/imagego/internal/engine/errs"
-	"github.com/nmarsollier/imagego/internal/engine/log"
-	"github.com/nmarsollier/imagego/internal/engine/redisx"
+	"github.com/nmarsollier/commongo/errs"
+	"github.com/nmarsollier/commongo/log"
+	"github.com/nmarsollier/commongo/redisx"
 )
 
 type ImageRepository interface {

@@ -1,8 +1,8 @@
 package security
 
 import (
-	"github.com/nmarsollier/imagego/internal/engine/errs"
-	"github.com/nmarsollier/imagego/internal/engine/log"
+	"github.com/nmarsollier/commongo/errs"
+	"github.com/nmarsollier/commongo/log"
 )
 
 type SecurityService interface {

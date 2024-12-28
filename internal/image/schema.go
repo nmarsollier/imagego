@@ -1,7 +1,7 @@
 package image
 
 import (
-	"github.com/nmarsollier/imagego/internal/engine/errs"
+	"github.com/nmarsollier/commongo/errs"
 	uuid "github.com/satori/go.uuid"
 )
 

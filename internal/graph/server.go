@@ -6,14 +6,14 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/nmarsollier/imagego/internal/engine/env"
-	"github.com/nmarsollier/imagego/internal/engine/log"
+	"github.com/nmarsollier/commongo/log"
+	"github.com/nmarsollier/imagego/internal/env"
 	"github.com/nmarsollier/imagego/internal/graph/model"
 	"github.com/nmarsollier/imagego/internal/graph/schema"
 )
 
 func Start() {
-	logger := log.Get(env.Get().FluentUrl)
+	logger := log.Get(env.Get().FluentUrl, "imagego")
 	port := env.Get().GqlPort
 	srv := handler.NewDefaultServer(model.NewExecutableSchema(model.Config{Resolvers: &schema.Resolver{}}))
 

@@ -3,14 +3,13 @@ package security
 import (
 	"encoding/json"
 	"net/http"
-	"time"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/nmarsollier/imagego/internal/engine/env"
-	"github.com/nmarsollier/imagego/internal/engine/errs"
-	"github.com/nmarsollier/imagego/internal/engine/httpx"
-	"github.com/nmarsollier/imagego/internal/engine/log"
-	gocache "github.com/patrickmn/go-cache"
+	"github.com/nmarsollier/commongo/cache"
+	"github.com/nmarsollier/commongo/errs"
+	"github.com/nmarsollier/commongo/httpx"
+	"github.com/nmarsollier/commongo/log"
+	"github.com/nmarsollier/imagego/internal/env"
 )
 
 type SecurityRepository interface {
@@ -26,13 +25,13 @@ func NewSecurityRepository(
 	return &securityRepository{
 		log:    log,
 		client: client,
-		cache:  gocache.New(60*time.Minute, 10*time.Minute),
+		cache:  cache.NewCache[User](),
 	}
 }
 
 type securityRepository struct {
 	log    log.LogRusEntry
-	cache  *gocache.Cache
+	cache  cache.Cache[User]
 	client httpx.HTTPClient
 }
 
@@ -70,20 +69,19 @@ func (r *securityRepository) GetRemoteToken(token string) (*User, error) {
 	}
 
 	// Add to cache and return
-	r.cache.Set(token, user, gocache.DefaultExpiration)
+	r.cache.Add(token, user)
 
 	return user, nil
 }
 
 func (r *securityRepository) CleanToken(token string) {
-	r.cache.Delete(token)
+	r.cache.Remove(token)
 }
 
 func (r *securityRepository) GetToken(token string) (*User, bool) {
-	if found, ok := r.cache.Get(token); ok {
-		if user, ok := found.(*User); ok {
-			return user, true
-		}
+	user, err := r.cache.Get(token)
+	if err != nil {
+		return nil, false
 	}
-	return nil, false
+	return user, true
 }

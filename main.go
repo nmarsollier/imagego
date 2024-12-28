@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/nmarsollier/imagego/internal/engine/di"
-	"github.com/nmarsollier/imagego/internal/engine/env"
-	"github.com/nmarsollier/imagego/internal/engine/log"
+	"github.com/nmarsollier/commongo/log"
+	"github.com/nmarsollier/imagego/internal/di"
+	"github.com/nmarsollier/imagego/internal/env"
 	server "github.com/nmarsollier/imagego/internal/graph"
 	"github.com/nmarsollier/imagego/internal/rest"
 )
@@ -20,7 +20,7 @@ import (
 func main() {
 	go server.Start()
 
-	di.NewInjector(log.Get(env.Get().FluentUrl)).ConsumeLogoutService().Init()
+	di.NewInjector(log.Get(env.Get().FluentUrl, "imagego")).ConsumeLogoutService().Init()
 
 	rest.StartEngine()
 }

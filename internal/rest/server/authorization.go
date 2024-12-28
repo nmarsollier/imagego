@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/internal/engine/errs"
-	"github.com/nmarsollier/imagego/internal/engine/log"
+	"github.com/nmarsollier/commongo/errs"
+	"github.com/nmarsollier/commongo/log"
 	"github.com/nmarsollier/imagego/internal/security"
 )
 

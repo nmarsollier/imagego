@@ -14,16 +14,6 @@ definitions:
       path:
         type: string
     type: object
-  image.Image:
-    properties:
-      id:
-        type: string
-      image:
-        type: string
-    required:
-    - id
-    - image
-    type: object
   rabbit.message:
     properties:
       correlation_id:
@@ -87,8 +77,7 @@ paths:
       responses:
         "200":
           description: Image Information
-          schema:
-            $ref: '#/definitions/image.Image'
+          schema: {}
         "400":
           description: Bad Request
           schema:
