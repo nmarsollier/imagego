@@ -107,23 +107,13 @@
 				
 				<option value="file25">github.com/nmarsollier/imagego/internal/rest/server/engine.go (0.0%)</option>
 				
-				<option value="file26">github.com/nmarsollier/imagego/internal/rest/server/error_handler.go (0.0%)</option>
+				<option value="file26">github.com/nmarsollier/imagego/main.go (0.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/internal/security/repository.go (0.0%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go (0.0%)</option>
 				
-				<option value="file28">github.com/nmarsollier/imagego/internal/security/service.go (0.0%)</option>
+				<option value="file28">github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go (0.0%)</option>
 				
-				<option value="file29">github.com/nmarsollier/imagego/main.go (0.0%)</option>
-				
-				<option value="file30">github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go (0.0%)</option>
-				
-				<option value="file31">github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go (0.0%)</option>
-				
-				<option value="file32">github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go (0.0%)</option>
-				
-				<option value="file33">github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go (0.0%)</option>
-				
-				<option value="file34">github.com/nmarsollier/imagego/test/mockgen/security_service_mocks.go (0.0%)</option>
+				<option value="file29">github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go (0.0%)</option>
 				
 				</select>
 			</div>
@@ -489,10 +479,10 @@ import (
         "github.com/nmarsollier/commongo/httpx"
         "github.com/nmarsollier/commongo/log"
         "github.com/nmarsollier/commongo/redisx"
+        "github.com/nmarsollier/commongo/security"
         "github.com/nmarsollier/imagego/internal/env"
         "github.com/nmarsollier/imagego/internal/image"
         "github.com/nmarsollier/imagego/internal/rabbit"
-        "github.com/nmarsollier/imagego/internal/security"
 )
 
 // Singletons
@@ -578,7 +568,7 @@ func (i *Deps) SecurityRepository() security.SecurityRepository <span class="cov
         if i.CurrSecRepo != nil </span><span class="cov0" title="0">{
                 return i.CurrSecRepo
         }</span>
-        <span class="cov0" title="0">i.CurrSecRepo = security.NewSecurityRepository(i.Logger(), i.HttpClient())
+        <span class="cov0" title="0">i.CurrSecRepo = security.NewSecurityRepository(i.Logger(), i.HttpClient(), env.Get().SecurityServerURL)
         return i.CurrSecRepo</span>
 }
 
@@ -5316,7 +5306,7 @@ import (
 
         "github.com/99designs/gqlgen/graphql"
         "github.com/nmarsollier/commongo/errs"
-        "github.com/nmarsollier/imagego/internal/security"
+        "github.com/nmarsollier/commongo/security"
 )
 
 func ValidateLoggedIn(ctx context.Context) (*security.User, error) <span class="cov0" title="0">{
@@ -5340,15 +5330,7 @@ func ValidateAdmin(ctx context.Context) (*security.User, error) <span class="cov
                 return nil, err
         }</span>
 
-        <span class="cov0" title="0">hasAdminPermission := false
-        for _, permission := range user.Permissions </span><span class="cov0" title="0">{
-                if permission == "admin" </span><span class="cov0" title="0">{
-                        hasAdminPermission = true
-                        break</span>
-                }
-        }
-
-        <span class="cov0" title="0">if !hasAdminPermission </span><span class="cov0" title="0">{
+        <span class="cov0" title="0">if !user.HasPermission("admin") </span><span class="cov0" title="0">{
                 return nil, errs.Unauthorized
         }</span>
 
@@ -5654,8 +5636,8 @@ import (
         "time"
 
         "github.com/nmarsollier/commongo/log"
+        "github.com/nmarsollier/commongo/security"
         "github.com/nmarsollier/imagego/internal/env"
-        "github.com/nmarsollier/imagego/internal/security"
         uuid "github.com/satori/go.uuid"
         "github.com/streadway/amqp"
 )
@@ -6050,12 +6032,11 @@ func InitRoutes() <span class="cov0" title="0">{
 		<pre class="file" id="file23" style="display: none">package server
 
 import (
-        "strings"
-
         "github.com/gin-gonic/gin"
         "github.com/nmarsollier/commongo/errs"
         "github.com/nmarsollier/commongo/log"
-        "github.com/nmarsollier/imagego/internal/security"
+        "github.com/nmarsollier/commongo/rst"
+        "github.com/nmarsollier/commongo/security"
 )
 
 // ValidateAuthentication validate gets and check variable body to create new variable
@@ -6073,7 +6054,7 @@ func ValidateAuthentication(c *gin.Context) <span class="cov0" title="0">{
 }
 
 func validateToken(c *gin.Context) (*security.User, error) <span class="cov0" title="0">{
-        tokenString, err := getHeaderToken(c)
+        tokenString, err := rst.GetHeaderToken(c)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, errs.Unauthorized
         }</span>
@@ -6086,15 +6067,6 @@ func validateToken(c *gin.Context) (*security.User, error) <span class="cov0" ti
 
         <span class="cov0" title="0">return user, nil</span>
 }
-
-// get token from Authorization header
-func getHeaderToken(c *gin.Context) (string, error) <span class="cov0" title="0">{
-        tokenString := c.GetHeader("Authorization")
-        if strings.Index(strings.ToUpper(tokenString), "BEARER ") != 0 </span><span class="cov0" title="0">{
-                return "", errs.Unauthorized
-        }</span>
-        <span class="cov0" title="0">return tokenString[7:], nil</span>
-}
 </pre>
 		
 		<pre class="file" id="file24" style="display: none">package server
@@ -6102,9 +6074,9 @@ func getHeaderToken(c *gin.Context) (string, error) <span class="cov0" title="0"
 import (
         "github.com/gin-gonic/gin"
         "github.com/nmarsollier/commongo/log"
+        "github.com/nmarsollier/commongo/rst"
         "github.com/nmarsollier/imagego/internal/di"
         "github.com/nmarsollier/imagego/internal/env"
-        uuid "github.com/satori/go.uuid"
 )
 
 func DiInjectorMiddleware() gin.HandlerFunc <span class="cov0" title="0">{
@@ -6113,7 +6085,7 @@ func DiInjectorMiddleware() gin.HandlerFunc <span class="cov0" title="0">{
                 dep_param, exists := c.Get("di")
 
                 if !exists </span><span class="cov0" title="0">{
-                        logger := ginLogger(c)
+                        logger := rst.GinLogger(c, env.Get().FluentUrl, "imagego")
                         deps = di.NewInjector(logger)
                         c.Set("di", deps)
                 }</span> else<span class="cov0" title="0"> {
@@ -6131,24 +6103,6 @@ func DiInjectorMiddleware() gin.HandlerFunc <span class="cov0" title="0">{
 func GinDi(c *gin.Context) di.Injector <span class="cov0" title="0">{
         return c.MustGet("di").(di.Injector)
 }</span>
-
-func ginLogger(c *gin.Context) log.LogRusEntry <span class="cov0" title="0">{
-        return log.Get(env.Get().FluentUrl, "imagego").
-                WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(c)).
-                WithField(log.LOG_FIELD_CONTROLLER, "Rest").
-                WithField(log.LOG_FIELD_HTTP_METHOD, c.Request.Method).
-                WithField(log.LOG_FIELD_HTTP_PATH, c.Request.URL.Path)
-}</span>
-
-func getCorrelationId(c *gin.Context) string <span class="cov0" title="0">{
-        value := c.GetHeader(log.LOG_FIELD_CORRELATION_ID)
-
-        if len(value) == 0 </span><span class="cov0" title="0">{
-                value = uuid.NewV4().String()
-        }</span>
-
-        <span class="cov0" title="0">return value</span>
-}
 </pre>
 		
 		<pre class="file" id="file25" style="display: none">package server
@@ -6159,6 +6113,7 @@ import (
         "github.com/gin-contrib/gzip"
         "github.com/gin-gonic/gin"
         cors "github.com/itsjamie/gin-cors"
+        "github.com/nmarsollier/commongo/rst"
         _ "github.com/nmarsollier/imagego/docs"
         swaggerFiles "github.com/swaggo/files"
         ginSwagger "github.com/swaggo/gin-swagger"
@@ -6174,7 +6129,7 @@ func Router() *gin.Engine <span class="cov0" title="0">{
         <span class="cov0" title="0">engine = gin.Default()
         engine.Use(gzip.Gzip(gzip.DefaultCompression))
         engine.Use(DiInjectorMiddleware())
-        engine.Use(ErrorHandler)
+        engine.Use(rst.ErrorHandler)
 
         engine.Use(cors.Middleware(cors.Config{
                 Origins:         "*",
@@ -6192,224 +6147,7 @@ func Router() *gin.Engine <span class="cov0" title="0">{
 }
 </pre>
 		
-		<pre class="file" id="file26" style="display: none">package server
-
-import (
-        "strings"
-
-        "github.com/gin-gonic/gin"
-        "github.com/go-playground/validator/v10"
-        "github.com/nmarsollier/commongo/errs"
-)
-
-// ErrorHandler a middleware to handle errors
-func ErrorHandler(c *gin.Context) <span class="cov0" title="0">{
-        c.Next()
-
-        handleErrorIfNeeded(c)
-}</span>
-
-func handleErrorIfNeeded(c *gin.Context) <span class="cov0" title="0">{
-        lastErr := c.Errors.Last()
-        if lastErr == nil </span><span class="cov0" title="0">{
-                return
-        }</span>
-
-        <span class="cov0" title="0">err := lastErr.Err
-        if err == nil </span><span class="cov0" title="0">{
-                return
-        }</span>
-
-        <span class="cov0" title="0">handleError(c, err)</span>
-}
-
-// handleError handles any error to serialize it as JSON to the client
-func handleError(c *gin.Context, err interface{}) <span class="cov0" title="0">{
-        // Check for known error types
-        switch value := err.(type) </span>{
-        case errs.RestError:<span class="cov0" title="0">
-                // These are validations made with NewCustom
-                handleCustom(c, value)</span>
-        case errs.Validation:<span class="cov0" title="0">
-                // These are validations made with NewValidation
-                c.JSON(400, err)</span>
-        case validator.ValidationErrors:<span class="cov0" title="0">
-                // These are validator validations used in structure validations
-                handleValidationError(c, value)</span>
-        case error:<span class="cov0" title="0">
-                // Other errors
-                c.JSON(500, ErrorData{
-                        Error: value.Error(),
-                })</span>
-        default:<span class="cov0" title="0">
-                // Unknown error type, return internal error
-                handleCustom(c, errs.Internal)</span>
-        }
-}
-
-func handleValidationError(c *gin.Context, validationErrors validator.ValidationErrors) <span class="cov0" title="0">{
-        err := errs.NewValidation()
-
-        for _, e := range validationErrors </span><span class="cov0" title="0">{
-                err.Add(strings.ToLower(e.Field()), e.Tag())
-        }</span>
-
-        <span class="cov0" title="0">c.JSON(400, err)</span>
-}
-
-func handleCustom(c *gin.Context, err errs.RestError) <span class="cov0" title="0">{
-        c.JSON(err.Status(), err)
-}</span>
-
-type ErrorData struct {
-        Error string `json:"error"`
-}
-</pre>
-		
-		<pre class="file" id="file27" style="display: none">package security
-
-import (
-        "encoding/json"
-        "net/http"
-
-        "github.com/go-playground/validator/v10"
-        "github.com/nmarsollier/commongo/cache"
-        "github.com/nmarsollier/commongo/errs"
-        "github.com/nmarsollier/commongo/httpx"
-        "github.com/nmarsollier/commongo/log"
-        "github.com/nmarsollier/imagego/internal/env"
-)
-
-type SecurityRepository interface {
-        GetRemoteToken(token string) (*User, error)
-        CleanToken(token string)
-        GetToken(token string) (*User, bool)
-}
-
-func NewSecurityRepository(
-        log log.LogRusEntry,
-        client httpx.HTTPClient,
-) SecurityRepository <span class="cov0" title="0">{
-        return &amp;securityRepository{
-                log:    log,
-                client: client,
-                cache:  cache.NewCache[User](),
-        }
-}</span>
-
-type securityRepository struct {
-        log    log.LogRusEntry
-        cache  cache.Cache[User]
-        client httpx.HTTPClient
-}
-
-func (r *securityRepository) GetRemoteToken(token string) (*User, error) <span class="cov0" title="0">{
-        // Fetch the remote user
-        req, err := http.NewRequest("GET", env.Get().SecurityServerURL+"/users/current", nil)
-        if err != nil </span><span class="cov0" title="0">{
-                r.log.Error(err)
-                return nil, errs.Unauthorized
-        }</span>
-
-        <span class="cov0" title="0">req.Header.Add("Authorization", "Bearer "+token)
-        if corrId, ok := r.log.Data()[log.LOG_FIELD_CORRELATION_ID].(string); ok </span><span class="cov0" title="0">{
-                req.Header.Add(log.LOG_FIELD_CORRELATION_ID, corrId)
-        }</span>
-
-        <span class="cov0" title="0">resp, err := r.client.Do(req)
-        if err != nil || resp.StatusCode != 200 </span><span class="cov0" title="0">{
-                r.log.Error(err)
-                return nil, errs.Unauthorized
-        }</span>
-        <span class="cov0" title="0">defer resp.Body.Close()
-
-        user := &amp;User{}
-        err = json.NewDecoder(resp.Body).Decode(user)
-        if err != nil </span><span class="cov0" title="0">{
-                r.log.Error(err)
-                return nil, err
-        }</span>
-
-        <span class="cov0" title="0">validate := validator.New()
-        if err := validate.Struct(user); err != nil </span><span class="cov0" title="0">{
-                r.log.Error(err)
-                return nil, err
-        }</span>
-
-        // Add to cache and return
-        <span class="cov0" title="0">r.cache.Add(token, user)
-
-        return user, nil</span>
-}
-
-func (r *securityRepository) CleanToken(token string) <span class="cov0" title="0">{
-        r.cache.Remove(token)
-}</span>
-
-func (r *securityRepository) GetToken(token string) (*User, bool) <span class="cov0" title="0">{
-        user, err := r.cache.Get(token)
-        if err != nil </span><span class="cov0" title="0">{
-                return nil, false
-        }</span>
-        <span class="cov0" title="0">return user, true</span>
-}
-</pre>
-		
-		<pre class="file" id="file28" style="display: none">package security
-
-import (
-        "github.com/nmarsollier/commongo/errs"
-        "github.com/nmarsollier/commongo/log"
-)
-
-type SecurityService interface {
-        Validate(token string) (*User, error)
-        Invalidate(token string)
-}
-
-func NewSecurityService(
-        log log.LogRusEntry,
-        repo SecurityRepository,
-) SecurityService <span class="cov0" title="0">{
-        return &amp;securityService{
-                log:  log,
-                repo: repo,
-        }
-}</span>
-
-type securityService struct {
-        log  log.LogRusEntry
-        repo SecurityRepository
-}
-
-// Invalidate invalidates a token from the cache
-func (s *securityService) Invalidate(token string) <span class="cov0" title="0">{
-        if len(token) &lt;= 7 </span><span class="cov0" title="0">{
-                s.log.Info("Token no valido: ", token)
-                return
-        }</span>
-
-        <span class="cov0" title="0">s.repo.CleanToken(token)
-        s.log.Info("Token invalidado: ", token)</span>
-}
-
-// Validate checks if the token is valid
-func (s *securityService) Validate(token string) (*User, error) <span class="cov0" title="0">{
-        // If it is in cache, return the cache
-        if user, ok := s.repo.GetToken(token); ok </span><span class="cov0" title="0">{
-                return user, nil
-        }</span>
-
-        <span class="cov0" title="0">user, err := s.repo.GetRemoteToken(token)
-        if err != nil </span><span class="cov0" title="0">{
-                return nil, errs.Unauthorized
-        }</span>
-
-        <span class="cov0" title="0">return user, nil</span>
-}
-</pre>
-		
-		<pre class="file" id="file29" style="display: none">package main
+		<pre class="file" id="file26" style="display: none">package main
 
 import (
         "github.com/nmarsollier/commongo/log"
@@ -6437,7 +6175,7 @@ func main() <span class="cov0" title="0">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file30" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file27" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/rabbit/consume_logout.go
 
 // Package mockgen is a generated GoMock package.
@@ -6485,7 +6223,7 @@ func (mr *MockConsumeLogoutServiceMockRecorder) Init() *gomock.Call <span class=
 }</span>
 </pre>
 		
-		<pre class="file" id="file31" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file28" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/image/repository.go
 
 // Package mockgen is a generated GoMock package.
@@ -6566,7 +6304,7 @@ func (mr *MockImageRepositoryMockRecorder) ValidateSchema(image interface{}) *go
 }</span>
 </pre>
 		
-		<pre class="file" id="file32" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file29" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/image/service.go
 
 // Package mockgen is a generated GoMock package.
@@ -6630,149 +6368,6 @@ func (m *MockImageService) Insert(image *image.Image) (string, error) <span clas
 func (mr *MockImageServiceMockRecorder) Insert(image interface{}) *gomock.Call <span class="cov0" title="0">{
         mr.mock.ctrl.T.Helper()
         return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockImageService)(nil).Insert), image)
-}</span>
-</pre>
-		
-		<pre class="file" id="file33" style="display: none">// Code generated by MockGen. DO NOT EDIT.
-// Source: ./internal/security/repository.go
-
-// Package mockgen is a generated GoMock package.
-package mockgen
-
-import (
-        reflect "reflect"
-
-        gomock "github.com/golang/mock/gomock"
-        security "github.com/nmarsollier/imagego/internal/security"
-)
-
-// MockSecurityRepository is a mock of SecurityRepository interface.
-type MockSecurityRepository struct {
-        ctrl     *gomock.Controller
-        recorder *MockSecurityRepositoryMockRecorder
-}
-
-// MockSecurityRepositoryMockRecorder is the mock recorder for MockSecurityRepository.
-type MockSecurityRepositoryMockRecorder struct {
-        mock *MockSecurityRepository
-}
-
-// NewMockSecurityRepository creates a new mock instance.
-func NewMockSecurityRepository(ctrl *gomock.Controller) *MockSecurityRepository <span class="cov0" title="0">{
-        mock := &amp;MockSecurityRepository{ctrl: ctrl}
-        mock.recorder = &amp;MockSecurityRepositoryMockRecorder{mock}
-        return mock
-}</span>
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockSecurityRepository) EXPECT() *MockSecurityRepositoryMockRecorder <span class="cov0" title="0">{
-        return m.recorder
-}</span>
-
-// CleanToken mocks base method.
-func (m *MockSecurityRepository) CleanToken(token string) <span class="cov0" title="0">{
-        m.ctrl.T.Helper()
-        m.ctrl.Call(m, "CleanToken", token)
-}</span>
-
-// CleanToken indicates an expected call of CleanToken.
-func (mr *MockSecurityRepositoryMockRecorder) CleanToken(token interface{}) *gomock.Call <span class="cov0" title="0">{
-        mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CleanToken", reflect.TypeOf((*MockSecurityRepository)(nil).CleanToken), token)
-}</span>
-
-// GetRemoteToken mocks base method.
-func (m *MockSecurityRepository) GetRemoteToken(token string) (*security.User, error) <span class="cov0" title="0">{
-        m.ctrl.T.Helper()
-        ret := m.ctrl.Call(m, "GetRemoteToken", token)
-        ret0, _ := ret[0].(*security.User)
-        ret1, _ := ret[1].(error)
-        return ret0, ret1
-}</span>
-
-// GetRemoteToken indicates an expected call of GetRemoteToken.
-func (mr *MockSecurityRepositoryMockRecorder) GetRemoteToken(token interface{}) *gomock.Call <span class="cov0" title="0">{
-        mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRemoteToken", reflect.TypeOf((*MockSecurityRepository)(nil).GetRemoteToken), token)
-}</span>
-
-// GetToken mocks base method.
-func (m *MockSecurityRepository) GetToken(token string) (*security.User, bool) <span class="cov0" title="0">{
-        m.ctrl.T.Helper()
-        ret := m.ctrl.Call(m, "GetToken", token)
-        ret0, _ := ret[0].(*security.User)
-        ret1, _ := ret[1].(bool)
-        return ret0, ret1
-}</span>
-
-// GetToken indicates an expected call of GetToken.
-func (mr *MockSecurityRepositoryMockRecorder) GetToken(token interface{}) *gomock.Call <span class="cov0" title="0">{
-        mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetToken", reflect.TypeOf((*MockSecurityRepository)(nil).GetToken), token)
-}</span>
-</pre>
-		
-		<pre class="file" id="file34" style="display: none">// Code generated by MockGen. DO NOT EDIT.
-// Source: ./internal/security/service.go
-
-// Package mockgen is a generated GoMock package.
-package mockgen
-
-import (
-        reflect "reflect"
-
-        gomock "github.com/golang/mock/gomock"
-        security "github.com/nmarsollier/imagego/internal/security"
-)
-
-// MockSecurityService is a mock of SecurityService interface.
-type MockSecurityService struct {
-        ctrl     *gomock.Controller
-        recorder *MockSecurityServiceMockRecorder
-}
-
-// MockSecurityServiceMockRecorder is the mock recorder for MockSecurityService.
-type MockSecurityServiceMockRecorder struct {
-        mock *MockSecurityService
-}
-
-// NewMockSecurityService creates a new mock instance.
-func NewMockSecurityService(ctrl *gomock.Controller) *MockSecurityService <span class="cov0" title="0">{
-        mock := &amp;MockSecurityService{ctrl: ctrl}
-        mock.recorder = &amp;MockSecurityServiceMockRecorder{mock}
-        return mock
-}</span>
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockSecurityService) EXPECT() *MockSecurityServiceMockRecorder <span class="cov0" title="0">{
-        return m.recorder
-}</span>
-
-// Invalidate mocks base method.
-func (m *MockSecurityService) Invalidate(token string) <span class="cov0" title="0">{
-        m.ctrl.T.Helper()
-        m.ctrl.Call(m, "Invalidate", token)
-}</span>
-
-// Invalidate indicates an expected call of Invalidate.
-func (mr *MockSecurityServiceMockRecorder) Invalidate(token interface{}) *gomock.Call <span class="cov0" title="0">{
-        mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Invalidate", reflect.TypeOf((*MockSecurityService)(nil).Invalidate), token)
-}</span>
-
-// Validate mocks base method.
-func (m *MockSecurityService) Validate(token string) (*security.User, error) <span class="cov0" title="0">{
-        m.ctrl.T.Helper()
-        ret := m.ctrl.Call(m, "Validate", token)
-        ret0, _ := ret[0].(*security.User)
-        ret1, _ := ret[1].(error)
-        return ret0, ret1
-}</span>
-
-// Validate indicates an expected call of Validate.
-func (mr *MockSecurityServiceMockRecorder) Validate(token interface{}) *gomock.Call <span class="cov0" title="0">{
-        mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Validate", reflect.TypeOf((*MockSecurityService)(nil).Validate), token)
 }</span>
 </pre>
 		

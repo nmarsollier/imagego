@@ -17,17 +17,3 @@ github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go:38.81,44.2 5 
 github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go:47.86,50.2 2 0
 github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go:53.71,59.2 5 0
 github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go:62.80,65.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:26.81,30.2 3 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:33.79,35.2 1 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:38.59,41.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:44.90,47.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:50.87,56.2 5 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:59.94,62.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:65.80,71.2 5 0
-github.com/nmarsollier/imagego/test/mockgen/security_repository_mocks.go:74.88,77.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/security_service_mocks.go:26.75,30.2 3 0
-github.com/nmarsollier/imagego/test/mockgen/security_service_mocks.go:33.73,35.2 1 0
-github.com/nmarsollier/imagego/test/mockgen/security_service_mocks.go:38.56,41.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/security_service_mocks.go:44.87,47.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/security_service_mocks.go:50.78,56.2 5 0
-github.com/nmarsollier/imagego/test/mockgen/security_service_mocks.go:59.85,62.2 2 0
