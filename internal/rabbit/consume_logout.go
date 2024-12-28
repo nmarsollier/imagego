@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/nmarsollier/commongo/log"
+	"github.com/nmarsollier/commongo/security"
 	"github.com/nmarsollier/imagego/internal/env"
-	"github.com/nmarsollier/imagego/internal/security"
 	uuid "github.com/satori/go.uuid"
 	"github.com/streadway/amqp"
 )

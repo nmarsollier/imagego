@@ -4,10 +4,10 @@ import (
 	"github.com/nmarsollier/commongo/httpx"
 	"github.com/nmarsollier/commongo/log"
 	"github.com/nmarsollier/commongo/redisx"
+	"github.com/nmarsollier/commongo/security"
 	"github.com/nmarsollier/imagego/internal/env"
 	"github.com/nmarsollier/imagego/internal/image"
 	"github.com/nmarsollier/imagego/internal/rabbit"
-	"github.com/nmarsollier/imagego/internal/security"
 )
 
 // Singletons
@@ -93,7 +93,7 @@ func (i *Deps) SecurityRepository() security.SecurityRepository {
 	if i.CurrSecRepo != nil {
 		return i.CurrSecRepo
 	}
-	i.CurrSecRepo = security.NewSecurityRepository(i.Logger(), i.HttpClient())
+	i.CurrSecRepo = security.NewSecurityRepository(i.Logger(), i.HttpClient(), env.Get().SecurityServerURL)
 	return i.CurrSecRepo
 }
 

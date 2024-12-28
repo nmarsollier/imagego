@@ -6,7 +6,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/nmarsollier/commongo/errs"
-	"github.com/nmarsollier/imagego/internal/security"
+	"github.com/nmarsollier/commongo/security"
 )
 
 func ValidateLoggedIn(ctx context.Context) (*security.User, error) {
@@ -30,15 +30,7 @@ func ValidateAdmin(ctx context.Context) (*security.User, error) {
 		return nil, err
 	}
 
-	hasAdminPermission := false
-	for _, permission := range user.Permissions {
-		if permission == "admin" {
-			hasAdminPermission = true
-			break
-		}
-	}
-
-	if !hasAdminPermission {
+	if !user.HasPermission("admin") {
 		return nil, errs.Unauthorized
 	}
 
