@@ -118,8 +118,8 @@ github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjY
 github.com/montanaflynn/stats v0.7.1 h1:etflOAAHORrCC44V+aR6Ftzort912ZU+YLiSTuV8eaE=
 github.com/montanaflynn/stats v0.7.1/go.mod h1:etXPPgVO6n31NxCd9KQUMvCM+ve0ruNzt6R8Bnaayow=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
-github.com/nmarsollier/commongo v0.0.11 h1:9riuo5n0+4QZ9Vx9KwtQr32h9Npj1wRxCznnv3KzSs0=
-github.com/nmarsollier/commongo v0.0.11/go.mod h1:X9uWcN9i1kyk2ZsxthWlPaEcslEfsygQSdoPjv628Ts=
+github.com/nmarsollier/commongo v0.0.16 h1:auRhhMkAr3/6uIn2hJtsRp2xsFwwFDs7u3rl1omInsk=
+github.com/nmarsollier/commongo v0.0.16/go.mod h1:X9uWcN9i1kyk2ZsxthWlPaEcslEfsygQSdoPjv628Ts=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/ginkgo v1.10.1 h1:q/mM8GF/n0shIN8SaAZ0V+jnLPzen6WIVZdiwrRlMlo=
 github.com/onsi/ginkgo v1.10.1/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
