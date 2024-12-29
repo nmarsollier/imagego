@@ -19,7 +19,7 @@ func ValidateAuthentication(c *gin.Context) {
 	}
 
 	deps := GinDi(c)
-	c.Set("logger", deps.Logger().WithField(log.LOG_FIELD_USER_ID, user.ID))
+	deps.Logger().WithField(log.LOG_FIELD_USER_ID, user.ID)
 }
 
 func validateToken(c *gin.Context) (*security.User, error) {

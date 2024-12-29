@@ -1758,7 +1758,7 @@ github.com/nmarsollier/imagego/internal/rest/router.go:13.20,17.2 3 0
 github.com/nmarsollier/imagego/internal/rest/router.go:19.37,23.2 3 1
 github.com/nmarsollier/imagego/internal/rest/server/authorization.go:13.45,15.16 2 1
 github.com/nmarsollier/imagego/internal/rest/server/authorization.go:15.16,19.3 3 1
-github.com/nmarsollier/imagego/internal/rest/server/authorization.go:21.2,22.74 2 1
+github.com/nmarsollier/imagego/internal/rest/server/authorization.go:21.2,22.57 2 1
 github.com/nmarsollier/imagego/internal/rest/server/authorization.go:25.60,27.16 2 1
 github.com/nmarsollier/imagego/internal/rest/server/authorization.go:27.16,29.3 1 0
 github.com/nmarsollier/imagego/internal/rest/server/authorization.go:31.2,33.16 3 1
