@@ -2,7 +2,6 @@ package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/imagego/internal/rest/server"
 )
 
 //	@Summary		Get image
@@ -15,14 +14,14 @@ import (
 //	@Param			imageID			path		string				true	"Image ID"
 //	@Success		200				{object}	image.Image			"Image Information"
 //	@Failure		400				{object}	errs.ValidationErr	"Bad Request"
-//	@Failure		401				{object}	server.ErrorData	"Unauthorized"
-//	@Failure		404				{object}	server.ErrorData	"Not Found"
-//	@Failure		500				{object}	server.ErrorData	"Internal Server Error"
+//	@Failure		401				{object}	rst.ErrorData		"Unauthorized"
+//	@Failure		404				{object}	rst.ErrorData		"Not Found"
+//	@Failure		500				{object}	rst.ErrorData		"Internal Server Error"
 //	@Router			/images/:imageID [get]
 //
 // Gets an image from the server in base64 format
-func initGetImageId() {
-	server.Router().GET("/images/:imageID", sendImage)
+func initGetImageId(engine *gin.Engine) {
+	engine.GET("/images/:imageID", sendImage)
 }
 
 func sendImage(c *gin.Context) {

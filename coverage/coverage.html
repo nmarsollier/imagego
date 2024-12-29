@@ -55,11 +55,11 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/nmarsollier/imagego/docs/docs.go (0.0%)</option>
+				<option value="file0">github.com/nmarsollier/imagego/docs/docs.go (100.0%)</option>
 				
-				<option value="file1">github.com/nmarsollier/imagego/internal/di/injector.go (0.0%)</option>
+				<option value="file1">github.com/nmarsollier/imagego/internal/di/injector.go (47.2%)</option>
 				
-				<option value="file2">github.com/nmarsollier/imagego/internal/env/env.go (75.0%)</option>
+				<option value="file2">github.com/nmarsollier/imagego/internal/env/env.go (90.0%)</option>
 				
 				<option value="file3">github.com/nmarsollier/imagego/internal/graph/model/federation.go (0.0%)</option>
 				
@@ -83,37 +83,43 @@
 				
 				<option value="file13">github.com/nmarsollier/imagego/internal/graph/tools/logger.go (0.0%)</option>
 				
-				<option value="file14">github.com/nmarsollier/imagego/internal/image/repository.go (0.0%)</option>
+				<option value="file14">github.com/nmarsollier/imagego/internal/image/repository.go (73.9%)</option>
 				
-				<option value="file15">github.com/nmarsollier/imagego/internal/image/schema.go (0.0%)</option>
+				<option value="file15">github.com/nmarsollier/imagego/internal/image/schema.go (100.0%)</option>
 				
-				<option value="file16">github.com/nmarsollier/imagego/internal/image/service.go (0.0%)</option>
+				<option value="file16">github.com/nmarsollier/imagego/internal/image/service.go (86.5%)</option>
 				
 				<option value="file17">github.com/nmarsollier/imagego/internal/rabbit/consume_logout.go (0.0%)</option>
 				
-				<option value="file18">github.com/nmarsollier/imagego/internal/rest/get_image_id.go (0.0%)</option>
+				<option value="file18">github.com/nmarsollier/imagego/internal/rest/get_image_id.go (100.0%)</option>
 				
-				<option value="file19">github.com/nmarsollier/imagego/internal/rest/get_image_id_jpeg.go (0.0%)</option>
+				<option value="file19">github.com/nmarsollier/imagego/internal/rest/get_image_id_jpeg.go (100.0%)</option>
 				
-				<option value="file20">github.com/nmarsollier/imagego/internal/rest/image_tools.go (0.0%)</option>
+				<option value="file20">github.com/nmarsollier/imagego/internal/rest/image_tools.go (89.5%)</option>
 				
-				<option value="file21">github.com/nmarsollier/imagego/internal/rest/post_image.go (0.0%)</option>
+				<option value="file21">github.com/nmarsollier/imagego/internal/rest/post_image.go (80.0%)</option>
 				
-				<option value="file22">github.com/nmarsollier/imagego/internal/rest/router.go (0.0%)</option>
+				<option value="file22">github.com/nmarsollier/imagego/internal/rest/router.go (50.0%)</option>
 				
-				<option value="file23">github.com/nmarsollier/imagego/internal/rest/server/authorization.go (0.0%)</option>
+				<option value="file23">github.com/nmarsollier/imagego/internal/rest/server/authorization.go (93.3%)</option>
 				
-				<option value="file24">github.com/nmarsollier/imagego/internal/rest/server/di_middleware.go (0.0%)</option>
+				<option value="file24">github.com/nmarsollier/imagego/internal/rest/server/di_middleware.go (75.0%)</option>
 				
 				<option value="file25">github.com/nmarsollier/imagego/internal/rest/server/engine.go (0.0%)</option>
 				
 				<option value="file26">github.com/nmarsollier/imagego/main.go (0.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go (0.0%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/test/mock/test_injector.go (40.0%)</option>
 				
-				<option value="file28">github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go (0.0%)</option>
+				<option value="file28">github.com/nmarsollier/imagego/test/mock/test_tools.go (100.0%)</option>
 				
-				<option value="file29">github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go (0.0%)</option>
+				<option value="file29">github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go (0.0%)</option>
+				
+				<option value="file30">github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go (0.0%)</option>
+				
+				<option value="file31">github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go (0.0%)</option>
+				
+				<option value="file32">github.com/nmarsollier/imagego/test/rest/router.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -468,7 +474,7 @@ var SwaggerInfo = &amp;swag.Spec{
         RightDelim:       "}}",
 }
 
-func init() <span class="cov0" title="0">{
+func init() <span class="cov8" title="1">{
         swag.Register(SwaggerInfo.InstanceName(), SwaggerInfo)
 }</span>
 </pre>
@@ -518,12 +524,12 @@ func NewInjector(log log.LogRusEntry) Injector <span class="cov0" title="0">{
         }
 }</span>
 
-func (i *Deps) Logger() log.LogRusEntry <span class="cov0" title="0">{
+func (i *Deps) Logger() log.LogRusEntry <span class="cov8" title="1">{
         return i.CurrLog
 }</span>
 
-func (i *Deps) RedisClient() redisx.RedisClient <span class="cov0" title="0">{
-        if i.CurrRedisClient != nil </span><span class="cov0" title="0">{
+func (i *Deps) RedisClient() redisx.RedisClient <span class="cov8" title="1">{
+        if i.CurrRedisClient != nil </span><span class="cov8" title="1">{
                 return i.CurrRedisClient
         }</span>
 
@@ -535,8 +541,8 @@ func (i *Deps) RedisClient() redisx.RedisClient <span class="cov0" title="0">{
         return redisClient</span>
 }
 
-func (i *Deps) HttpClient() httpx.HTTPClient <span class="cov0" title="0">{
-        if i.CurrHttpClient != nil </span><span class="cov0" title="0">{
+func (i *Deps) HttpClient() httpx.HTTPClient <span class="cov8" title="1">{
+        if i.CurrHttpClient != nil </span><span class="cov8" title="1">{
                 return i.CurrHttpClient
         }</span>
 
@@ -548,35 +554,35 @@ func (i *Deps) HttpClient() httpx.HTTPClient <span class="cov0" title="0">{
         return httpClient</span>
 }
 
-func (i *Deps) ImageRepository() image.ImageRepository <span class="cov0" title="0">{
+func (i *Deps) ImageRepository() image.ImageRepository <span class="cov8" title="1">{
         if i.CurrImageRepo != nil </span><span class="cov0" title="0">{
                 return i.CurrImageRepo
         }</span>
-        <span class="cov0" title="0">i.CurrImageRepo = image.NewImageRepository(i.Logger(), i.RedisClient())
+        <span class="cov8" title="1">i.CurrImageRepo = image.NewImageRepository(i.Logger(), i.RedisClient())
         return i.CurrImageRepo</span>
 }
 
-func (i *Deps) ImageService() image.ImageService <span class="cov0" title="0">{
+func (i *Deps) ImageService() image.ImageService <span class="cov8" title="1">{
         if i.CurrImageSvc != nil </span><span class="cov0" title="0">{
                 return i.CurrImageSvc
         }</span>
-        <span class="cov0" title="0">i.CurrImageSvc = image.NewImageService(i.Logger(), i.ImageRepository())
+        <span class="cov8" title="1">i.CurrImageSvc = image.NewImageService(i.Logger(), i.ImageRepository())
         return i.CurrImageSvc</span>
 }
 
-func (i *Deps) SecurityRepository() security.SecurityRepository <span class="cov0" title="0">{
+func (i *Deps) SecurityRepository() security.SecurityRepository <span class="cov8" title="1">{
         if i.CurrSecRepo != nil </span><span class="cov0" title="0">{
                 return i.CurrSecRepo
         }</span>
-        <span class="cov0" title="0">i.CurrSecRepo = security.NewSecurityRepository(i.Logger(), i.HttpClient(), env.Get().SecurityServerURL)
+        <span class="cov8" title="1">i.CurrSecRepo = security.NewSecurityRepository(i.Logger(), i.HttpClient(), env.Get().SecurityServerURL)
         return i.CurrSecRepo</span>
 }
 
-func (i *Deps) SecurityService() security.SecurityService <span class="cov0" title="0">{
+func (i *Deps) SecurityService() security.SecurityService <span class="cov8" title="1">{
         if i.CurrSecSvc != nil </span><span class="cov0" title="0">{
                 return i.CurrSecSvc
         }</span>
-        <span class="cov0" title="0">i.CurrSecSvc = security.NewSecurityService(i.Logger(), i.SecurityRepository())
+        <span class="cov8" title="1">i.CurrSecSvc = security.NewSecurityService(i.Logger(), i.SecurityRepository())
         return i.CurrSecSvc</span>
 }
 
@@ -625,12 +631,12 @@ func new() *Configuration <span class="cov8" title="1">{
 }</span>
 
 // Get Obtiene las variables de entorno del sistema
-func Get() *Configuration <span class="cov0" title="0">{
-        if config == nil </span><span class="cov0" title="0">{
+func Get() *Configuration <span class="cov8" title="1">{
+        if config == nil </span><span class="cov8" title="1">{
                 config = load()
         }</span>
 
-        <span class="cov0" title="0">return config</span>
+        <span class="cov8" title="1">return config</span>
 }
 
 // Load file properties
@@ -5427,7 +5433,7 @@ type ImageRepository interface {
 func NewImageRepository(
         log log.LogRusEntry,
         redisClient redisx.RedisClient,
-) ImageRepository <span class="cov0" title="0">{
+) ImageRepository <span class="cov8" title="1">{
         return &amp;imageRepository{
                 log:         log,
                 redisClient: redisClient,
@@ -5440,48 +5446,48 @@ type imageRepository struct {
 }
 
 // Insert adds an image to the db
-func (r *imageRepository) Insert(image *Image) (string, error) <span class="cov0" title="0">{
+func (r *imageRepository) Insert(image *Image) (string, error) <span class="cov8" title="1">{
         if err := r.ValidateSchema(image); err != nil </span><span class="cov0" title="0">{
 
                 r.log.Error(err)
                 return "", err
         }</span>
 
-        <span class="cov0" title="0">_, err := r.redisClient.Set(image.ID, image.Image, 0)
-        if err != nil </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">_, err := r.redisClient.Set(image.ID, image.Image, 0)
+        if err != nil </span><span class="cov8" title="1">{
                 r.log.Error(err)
                 return "", err
         }</span>
 
-        <span class="cov0" title="0">return image.ID, nil</span>
+        <span class="cov8" title="1">return image.ID, nil</span>
 }
 
 // Find finds and returns an image from the database
-func (r *imageRepository) Find(imageID string) (*Image, error) <span class="cov0" title="0">{
+func (r *imageRepository) Find(imageID string) (*Image, error) <span class="cov8" title="1">{
         data, err := r.redisClient.Get(imageID)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 r.log.Error(err)
                 return nil, errs.NotFound
         }</span>
 
-        <span class="cov0" title="0">result := Image{
+        <span class="cov8" title="1">result := Image{
                 ID:    imageID,
                 Image: data,
         }
         return &amp;result, nil</span>
 }
 
-func (s *imageRepository) ValidateSchema(image *Image) error <span class="cov0" title="0">{
+func (s *imageRepository) ValidateSchema(image *Image) error <span class="cov8" title="1">{
         validate := validator.New()
         if err := validate.Struct(image); err != nil </span><span class="cov0" title="0">{
                 s.log.Error(err)
                 return err
         }</span>
-        <span class="cov0" title="0">if !strings.Contains(image.Image, "data:image/") </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if !strings.Contains(image.Image, "data:image/") </span><span class="cov0" title="0">{
                 s.log.Error(ErrData)
                 return ErrData
         }</span>
-        <span class="cov0" title="0">return nil</span>
+        <span class="cov8" title="1">return nil</span>
 }
 </pre>
 		
@@ -5499,7 +5505,7 @@ type Image struct {
 }
 
 // New crea una nueva imagen
-func New(img string) *Image <span class="cov0" title="0">{
+func New(img string) *Image <span class="cov8" title="1">{
         return &amp;Image{
                 ID:    uuid.NewV4().String(),
                 Image: img,
@@ -5534,7 +5540,7 @@ type ImageService interface {
 func NewImageService(
         log log.LogRusEntry,
         repo ImageRepository,
-) ImageService <span class="cov0" title="0">{
+) ImageService <span class="cov8" title="1">{
         return &amp;imageService{
                 log:  log,
                 repo: repo,
@@ -5546,31 +5552,31 @@ type imageService struct {
         repo ImageRepository
 }
 
-func (s *imageService) Insert(image *Image) (string, error) <span class="cov0" title="0">{
+func (s *imageService) Insert(image *Image) (string, error) <span class="cov8" title="1">{
         return s.repo.Insert(image)
 }</span>
 
 // Find searches for an image of a particular size
-func (s *imageService) Find(imageID string, size int) (*Image, error) <span class="cov0" title="0">{
-        if size &lt;= 0 </span><span class="cov0" title="0">{
+func (s *imageService) Find(imageID string, size int) (*Image, error) <span class="cov8" title="1">{
+        if size &lt;= 0 </span><span class="cov8" title="1">{
                 return s.repo.Find(imageID)
         }</span>
 
-        <span class="cov0" title="0">sizedID := buildSizeID(imageID, size)
+        <span class="cov8" title="1">sizedID := buildSizeID(imageID, size)
 
         // Search for the exact image size
         image, err := s.repo.Find(sizedID)
         if err != nil &amp;&amp; err != errs.NotFound </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
-        <span class="cov0" title="0">if err == nil </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if err == nil </span><span class="cov8" title="1">{
                 return image, nil
         }</span>
 
-        <span class="cov0" title="0">return s.findAndResize(imageID, size)</span>
+        <span class="cov8" title="1">return s.findAndResize(imageID, size)</span>
 }
 
-func (s *imageService) findAndResize(imageID string, size int) (*Image, error) <span class="cov0" title="0">{
+func (s *imageService) findAndResize(imageID string, size int) (*Image, error) <span class="cov8" title="1">{
         // The desired size is not found, search for the original,
         // resize it, save...
         image, err := s.repo.Find(imageID)
@@ -5578,20 +5584,20 @@ func (s *imageService) findAndResize(imageID string, size int) (*Image, error) <
                 return nil, err
         }</span>
 
-        <span class="cov0" title="0">image, err = s.resize(image, size)
+        <span class="cov8" title="1">image, err = s.resize(image, size)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
 
-        <span class="cov0" title="0">_, err = s.repo.Insert(image)
+        <span class="cov8" title="1">_, err = s.repo.Insert(image)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, err
         }</span>
 
-        <span class="cov0" title="0">return image, nil</span>
+        <span class="cov8" title="1">return image, nil</span>
 }
 
-func (s *imageService) resize(image *Image, size int) (*Image, error) <span class="cov0" title="0">{
+func (s *imageService) resize(image *Image, size int) (*Image, error) <span class="cov8" title="1">{
         str := image.Image[strings.Index(image.Image, ",")+1:]
 
         reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
@@ -5600,8 +5606,8 @@ func (s *imageService) resize(image *Image, size int) (*Image, error) <span clas
         if err != nil </span><span class="cov0" title="0">{
                 s.log.Error(err)
         }</span>
-        <span class="cov0" title="0">bounds := img.Bounds()
-        if bounds.Size().X &lt;= size </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">bounds := img.Bounds()
+        if bounds.Size().X &lt;= size </span><span class="cov8" title="1">{
                 return &amp;Image{
                         ID:    buildSizeID(image.ID, size),
                         Image: image.Image,
@@ -5609,7 +5615,7 @@ func (s *imageService) resize(image *Image, size int) (*Image, error) <span clas
         }</span>
 
         // Resize srcImage to width = 800px preserving the aspect ratio.
-        <span class="cov0" title="0">dstImage := imaging.Resize(img, size, 0, imaging.Lanczos)
+        <span class="cov8" title="1">dstImage := imaging.Resize(img, size, 0, imaging.Lanczos)
 
         var buffer bytes.Buffer
         writer := base64.NewEncoder(base64.StdEncoding, &amp;buffer)
@@ -5623,7 +5629,7 @@ func (s *imageService) resize(image *Image, size int) (*Image, error) <span clas
         return &amp;result, nil</span>
 }
 
-func buildSizeID(imageID string, size int) string <span class="cov0" title="0">{
+func buildSizeID(imageID string, size int) string <span class="cov8" title="1">{
         return fmt.Sprintf("%s_%d", imageID, size)
 }</span>
 </pre>
@@ -5795,7 +5801,6 @@ func getCorrelationId(c *message) string <span class="cov0" title="0">{
 
 import (
         "github.com/gin-gonic/gin"
-        "github.com/nmarsollier/imagego/internal/rest/server"
 )
 
 //        @Summary                Get image
@@ -5814,19 +5819,19 @@ import (
 //        @Router                        /images/:imageID [get]
 //
 // Gets an image from the server in base64 format
-func initGetImageId() <span class="cov0" title="0">{
-        server.Router().GET("/images/:imageID", sendImage)
+func initGetImageId(engine *gin.Engine) <span class="cov8" title="1">{
+        engine.GET("/images/:imageID", sendImage)
 }</span>
 
-func sendImage(c *gin.Context) <span class="cov0" title="0">{
+func sendImage(c *gin.Context) <span class="cov8" title="1">{
         data, err := getImage(c)
 
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 return
         }</span>
 
-        <span class="cov0" title="0">c.JSON(200, data)</span>
+        <span class="cov8" title="1">c.JSON(200, data)</span>
 }
 </pre>
 		
@@ -5839,7 +5844,6 @@ import (
 
         "github.com/gin-gonic/gin"
         "github.com/nmarsollier/imagego/internal/image"
-        "github.com/nmarsollier/imagego/internal/rest/server"
 )
 
 //        @Summary                Get jpeg
@@ -5858,27 +5862,27 @@ import (
 //        @Router                        /images/:imageID/jpeg [get]
 //
 // Gets an image from the server in jpeg format.
-func initGetImageIdJpeg() <span class="cov0" title="0">{
-        server.Router().GET("/images/:imageID/jpeg", sendJpegImage)
+func initGetImageIdJpeg(engine *gin.Engine) <span class="cov8" title="1">{
+        engine.GET("/images/:imageID/jpeg", sendJpegImage)
 }</span>
 
-func sendJpegImage(c *gin.Context) <span class="cov0" title="0">{
+func sendJpegImage(c *gin.Context) <span class="cov8" title="1">{
         image, err := getImage(c)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 return
         }</span>
 
-        <span class="cov0" title="0">decodedData, err := toJpeg(image)
-        if err != nil </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">decodedData, err := toJpeg(image)
+        if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 return
         }</span>
 
-        <span class="cov0" title="0">c.Data(200, "image/jpeg", decodedData)</span>
+        <span class="cov8" title="1">c.Data(200, "image/jpeg", decodedData)</span>
 }
 
-func toJpeg(data *image.Image) ([]byte, error) <span class="cov0" title="0">{
+func toJpeg(data *image.Image) ([]byte, error) <span class="cov8" title="1">{
         str := data.Image[strings.Index(data.Image, ",")+1:]
         reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(str))
         return ioutil.ReadAll(reader)
@@ -5894,45 +5898,45 @@ import (
 )
 
 // GetImage returns a saved image in base64 format
-func getImage(c *gin.Context) (*image.Image, error) <span class="cov0" title="0">{
+func getImage(c *gin.Context) (*image.Image, error) <span class="cov8" title="1">{
         imageID := c.Param("imageID")
         size := getSizeParam(c)
 
         deps := server.GinDi(c)
         data, err := deps.ImageService().Find(imageID, size)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 return nil, err
         }</span>
 
-        <span class="cov0" title="0">return data, nil</span>
+        <span class="cov8" title="1">return data, nil</span>
 }
 
-func getSizeParam(c *gin.Context) int <span class="cov0" title="0">{
+func getSizeParam(c *gin.Context) int <span class="cov8" title="1">{
         headerSize, ok := c.GetQuery("Size")
-        if !ok </span><span class="cov0" title="0">{
+        if !ok </span><span class="cov8" title="1">{
                 headerSize = c.GetHeader("Size")
         }</span>
 
-        <span class="cov0" title="0">return normalizeParamSize(headerSize)</span>
+        <span class="cov8" title="1">return normalizeParamSize(headerSize)</span>
 }
 
 // normalizeParamSize returns the size from the header
-func normalizeParamSize(sizeHeader string) int <span class="cov0" title="0">{
+func normalizeParamSize(sizeHeader string) int <span class="cov8" title="1">{
         switch sizeHeader </span>{
-        case "160":<span class="cov0" title="0">
+        case "160":<span class="cov8" title="1">
                 return 160</span>
-        case "320":<span class="cov0" title="0">
+        case "320":<span class="cov8" title="1">
                 return 320</span>
-        case "640":<span class="cov0" title="0">
+        case "640":<span class="cov8" title="1">
                 return 640</span>
-        case "800":<span class="cov0" title="0">
+        case "800":<span class="cov8" title="1">
                 return 800</span>
         case "1024":<span class="cov0" title="0">
                 return 1024</span>
         case "1200":<span class="cov0" title="0">
                 return 1200</span>
         }
-        <span class="cov0" title="0">return 0</span>
+        <span class="cov8" title="1">return 0</span>
 }
 </pre>
 		
@@ -5962,39 +5966,39 @@ import (
 //        @Router                        /images/create [post]
 //
 // Init initializes the route
-func initPostImage() <span class="cov0" title="0">{
-        server.Router().POST(
+func initPostImage(engine *gin.Engine) <span class="cov8" title="1">{
+        engine.POST(
                 "/images/create",
                 server.ValidateAuthentication,
                 saveImage,
         )
 }</span>
 
-func saveImage(c *gin.Context) <span class="cov0" title="0">{
+func saveImage(c *gin.Context) <span class="cov8" title="1">{
         bodyImage, err := getBodyImage(c)
         if err != nil </span><span class="cov0" title="0">{
                 c.Error(err)
                 return
         }</span>
 
-        <span class="cov0" title="0">deps := server.GinDi(c)
+        <span class="cov8" title="1">deps := server.GinDi(c)
         id, err := deps.ImageService().Insert(image.New(bodyImage))
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 return
         }</span>
 
-        <span class="cov0" title="0">c.JSON(200, NewImageResponse{ID: id})</span>
+        <span class="cov8" title="1">c.JSON(200, NewImageResponse{ID: id})</span>
 }
 
-func getBodyImage(c *gin.Context) (string, error) <span class="cov0" title="0">{
+func getBodyImage(c *gin.Context) (string, error) <span class="cov8" title="1">{
         body := NewRequest{}
 
         if err := c.ShouldBindJSON(&amp;body); err != nil </span><span class="cov0" title="0">{
                 return "", err
         }</span>
 
-        <span class="cov0" title="0">return body.Image, nil</span>
+        <span class="cov8" title="1">return body.Image, nil</span>
 }
 
 type NewRequest struct {
@@ -6011,6 +6015,7 @@ type NewImageResponse struct {
 import (
         "fmt"
 
+        "github.com/gin-gonic/gin"
         _ "github.com/nmarsollier/imagego/docs"
         "github.com/nmarsollier/imagego/internal/env"
         "github.com/nmarsollier/imagego/internal/rest/server"
@@ -6018,14 +6023,15 @@ import (
 
 // StartEngine Runs gin server
 func StartEngine() <span class="cov0" title="0">{
-        InitRoutes()
-        server.Router().Run(fmt.Sprintf(":%d", env.Get().Port))
+        engine := server.Router()
+        InitRoutes(engine)
+        engine.Run(fmt.Sprintf(":%d", env.Get().Port))
 }</span>
 
-func InitRoutes() <span class="cov0" title="0">{
-        initGetImageId()
-        initGetImageIdJpeg()
-        initPostImage()
+func InitRoutes(engine *gin.Engine) <span class="cov8" title="1">{
+        initGetImageId(engine)
+        initGetImageIdJpeg(engine)
+        initPostImage(engine)
 }</span>
 </pre>
 		
@@ -6041,31 +6047,31 @@ import (
 
 // ValidateAuthentication validate gets and check variable body to create new variable
 // puts model.Variable in context as body if everything is correct
-func ValidateAuthentication(c *gin.Context) <span class="cov0" title="0">{
+func ValidateAuthentication(c *gin.Context) <span class="cov8" title="1">{
         user, err := validateToken(c)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 c.Error(err)
                 c.Abort()
                 return
         }</span>
 
-        <span class="cov0" title="0">deps := GinDi(c)
+        <span class="cov8" title="1">deps := GinDi(c)
         c.Set("logger", deps.Logger().WithField(log.LOG_FIELD_USER_ID, user.ID))</span>
 }
 
-func validateToken(c *gin.Context) (*security.User, error) <span class="cov0" title="0">{
+func validateToken(c *gin.Context) (*security.User, error) <span class="cov8" title="1">{
         tokenString, err := rst.GetHeaderToken(c)
         if err != nil </span><span class="cov0" title="0">{
                 return nil, errs.Unauthorized
         }</span>
 
-        <span class="cov0" title="0">deps := GinDi(c)
+        <span class="cov8" title="1">deps := GinDi(c)
         user, err := deps.SecurityService().Validate(tokenString)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 return nil, errs.Unauthorized
         }</span>
 
-        <span class="cov0" title="0">return user, nil</span>
+        <span class="cov8" title="1">return user, nil</span>
 }
 </pre>
 		
@@ -6079,8 +6085,8 @@ import (
         "github.com/nmarsollier/imagego/internal/env"
 )
 
-func DiInjectorMiddleware() gin.HandlerFunc <span class="cov0" title="0">{
-        return func(c *gin.Context) </span><span class="cov0" title="0">{
+func DiInjectorMiddleware() gin.HandlerFunc <span class="cov8" title="1">{
+        return func(c *gin.Context) </span><span class="cov8" title="1">{
                 var deps di.Injector
                 dep_param, exists := c.Get("di")
 
@@ -6088,19 +6094,19 @@ func DiInjectorMiddleware() gin.HandlerFunc <span class="cov0" title="0">{
                         logger := rst.GinLogger(c, env.Get().FluentUrl, "imagego")
                         deps = di.NewInjector(logger)
                         c.Set("di", deps)
-                }</span> else<span class="cov0" title="0"> {
+                }</span> else<span class="cov8" title="1"> {
                         deps = dep_param.(di.Injector)
                 }</span>
 
-                <span class="cov0" title="0">c.Next()
+                <span class="cov8" title="1">c.Next()
 
-                if c.Request.Method != "OPTIONS" </span><span class="cov0" title="0">{
+                if c.Request.Method != "OPTIONS" </span><span class="cov8" title="1">{
                         deps.Logger().WithField(log.LOG_FIELD_HTTP_STATUS, c.Writer.Status()).Info("Completed")
                 }</span>
         }
 }
 
-func GinDi(c *gin.Context) di.Injector <span class="cov0" title="0">{
+func GinDi(c *gin.Context) di.Injector <span class="cov8" title="1">{
         return c.MustGet("di").(di.Injector)
 }</span>
 </pre>
@@ -6175,7 +6181,88 @@ func main() <span class="cov0" title="0">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file27" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file27" style="display: none">package mock
+
+import (
+        "github.com/golang/mock/gomock"
+        "github.com/nmarsollier/commongo/httpx"
+        "github.com/nmarsollier/commongo/log"
+        "github.com/nmarsollier/commongo/redisx"
+        "github.com/nmarsollier/commongo/security"
+        "github.com/nmarsollier/commongo/test/mktools"
+        "github.com/nmarsollier/imagego/internal/di"
+        "github.com/nmarsollier/imagego/internal/image"
+        "github.com/nmarsollier/imagego/internal/rabbit"
+)
+
+type TestInjector struct {
+        di.Deps
+}
+
+func NewTestInjector(
+        ctrl *gomock.Controller, withFieldCount int, errorCount int, infoCount int, dataCount int, warnCount int, fatalCount int,
+) *TestInjector <span class="cov8" title="1">{
+
+        result := &amp;TestInjector{
+                Deps: di.Deps{
+                        CurrLog: mktools.NewTestLogger(ctrl, withFieldCount, errorCount, infoCount, dataCount, warnCount, fatalCount),
+                },
+        }
+
+        return result
+}</span>
+
+func (t *TestInjector) SetLogger(log log.LogRusEntry) <span class="cov0" title="0">{
+        t.CurrLog = log
+}</span>
+
+func (t *TestInjector) SetRedisClient(redisClient redisx.RedisClient) <span class="cov8" title="1">{
+        t.CurrRedisClient = redisClient
+}</span>
+
+func (t *TestInjector) SetHttpClient(httpClient httpx.HTTPClient) <span class="cov8" title="1">{
+        t.CurrHttpClient = httpClient
+}</span>
+
+func (t *TestInjector) SetImageRepository(imageRepository image.ImageRepository) <span class="cov0" title="0">{
+        t.CurrImageRepo = imageRepository
+}</span>
+
+func (t *TestInjector) SetImageService(imageService image.ImageService) <span class="cov0" title="0">{
+        t.CurrImageSvc = imageService
+}</span>
+
+func (t *TestInjector) SetSecurityRepository(securityRepository security.SecurityRepository) <span class="cov0" title="0">{
+        t.CurrSecRepo = securityRepository
+}</span>
+
+func (t *TestInjector) SetSecurityService(securityService security.SecurityService) <span class="cov0" title="0">{
+        t.CurrSecSvc = securityService
+}</span>
+
+func (t *TestInjector) SetConsumeLogoutService(consumeLogoutService rabbit.ConsumeLogoutService) <span class="cov0" title="0">{
+        t.CurrConsume = consumeLogoutService
+}</span>
+</pre>
+		
+		<pre class="file" id="file28" style="display: none">package mock
+
+import "github.com/nmarsollier/imagego/internal/image"
+
+func TestImage() *image.Image <span class="cov8" title="1">{
+        return image.New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
+}</span>
+
+func TestInvalidImage() *image.Image <span class="cov8" title="1">{
+        return image.New("___")
+}</span>
+
+func TestResizeImage() *image.Image <span class="cov8" title="1">{
+        return image.New("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AYht+mSou0dLCDiEOE6mQXFXGsVShChVArtOpgcukfNGlJUlwcBdeCgz+LVQcXZ10dXAVB8AfE2cFJ0UVK/C4ptIjx4O4e3vvel7vvAKFVZZrZlwA03TIyqaSYy6+KgVcEEUGY1lGZmfU5SUrDc3zdw8f3uzjP8q77c4TVgskAn0icYHXDIt4gntm06pz3iaOsLKvE58QTBl2Q+JHristvnEsOCzwzamQz88RRYrHUw0oPs7KhEU8Tx1RNp3wh57LKeYuzVm2wzj35C0MFfWWZ6zRHkMIiliBBhIIGKqjCQpx2nRQTGTpPeviHHb9ELoVcFTByLKAGDbLjB/+D3701i1OTblIoCfS/2PbHGBDYBdpN2/4+tu32CeB/Bq70rr/WAmY/SW92tdgRENkGLq67mrIHXO4AQ0912ZAdyU9TKBaB9zP6pjwweAsMrLl965zj9AHIUq/SN8DBITBeoux1j3cHe/v2b02nfz9eInKemubWvQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+gIDw0IOcHU+YsAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAZklEQVR42u3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4DD+/AAGTr/KYAAAAAElFTkSuQmCC")
+}</span>
+</pre>
+		
+		<pre class="file" id="file29" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/rabbit/consume_logout.go
 
 // Package mockgen is a generated GoMock package.
@@ -6223,7 +6310,7 @@ func (mr *MockConsumeLogoutServiceMockRecorder) Init() *gomock.Call <span class=
 }</span>
 </pre>
 		
-		<pre class="file" id="file28" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file30" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/image/repository.go
 
 // Package mockgen is a generated GoMock package.
@@ -6304,7 +6391,7 @@ func (mr *MockImageRepositoryMockRecorder) ValidateSchema(image interface{}) *go
 }</span>
 </pre>
 		
-		<pre class="file" id="file29" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file31" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/image/service.go
 
 // Package mockgen is a generated GoMock package.
@@ -6369,6 +6456,32 @@ func (mr *MockImageServiceMockRecorder) Insert(image interface{}) *gomock.Call <
         mr.mock.ctrl.T.Helper()
         return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockImageService)(nil).Insert), image)
 }</span>
+</pre>
+		
+		<pre class="file" id="file32" style="display: none">package rest
+
+import (
+        "github.com/gin-contrib/gzip"
+        "github.com/gin-gonic/gin"
+        "github.com/golang/mock/gomock"
+        "github.com/nmarsollier/commongo/rst"
+        "github.com/nmarsollier/imagego/internal/di"
+        "github.com/nmarsollier/imagego/internal/rest/server"
+)
+
+func TestRouter(ctrl *gomock.Controller, deps di.Injector) *gin.Engine <span class="cov8" title="1">{
+        engine := gin.Default()
+        engine.Use(func(c *gin.Context) </span><span class="cov8" title="1">{
+                c.Set("di", deps)
+                c.Next()
+        }</span>)
+
+        <span class="cov8" title="1">engine.Use(gzip.Gzip(gzip.DefaultCompression))
+        engine.Use(server.DiInjectorMiddleware())
+        engine.Use(rst.ErrorHandler)
+
+        return engine</span>
+}
 </pre>
 		
 		</div>

@@ -37,7 +37,7 @@ definitions:
     required:
     - image
     type: object
-  server.ErrorData:
+  rst.ErrorData:
     properties:
       error:
         type: string
@@ -85,15 +85,15 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
       summary: Get image
       tags:
       - Image
@@ -132,15 +132,15 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
       summary: Get jpeg
       tags:
       - Image
@@ -180,15 +180,15 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/server.ErrorData'
+            $ref: '#/definitions/rst.ErrorData'
       summary: Save image
       tags:
       - Image

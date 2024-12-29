@@ -33,9 +33,9 @@ Gets an image from the server in base64 format
 | ---- | ----------- | ------ |
 | 200 | Image Information |  |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
-| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
-| 404 | Not Found | [server.ErrorData](#servererrordata) |
-| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
+| 401 | Unauthorized | [rst.ErrorData](#rsterrordata) |
+| 404 | Not Found | [rst.ErrorData](#rsterrordata) |
+| 500 | Internal Server Error | [rst.ErrorData](#rsterrordata) |
 
 ### /images/:imageID/jpeg
 
@@ -62,9 +62,9 @@ Gets an image from the server in jpeg format.
 | ---- | ----------- | ------ |
 | 200 | Image | file |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
-| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
-| 404 | Not Found | [server.ErrorData](#servererrordata) |
-| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
+| 401 | Unauthorized | [rst.ErrorData](#rsterrordata) |
+| 404 | Not Found | [rst.ErrorData](#rsterrordata) |
+| 500 | Internal Server Error | [rst.ErrorData](#rsterrordata) |
 
 ### /images/create
 
@@ -91,9 +91,9 @@ Adds a new image to the server.
 | ---- | ----------- | ------ |
 | 200 | Image | [rest.NewImageResponse](#restnewimageresponse) |
 | 400 | Bad Request | [errs.ValidationErr](#errsvalidationerr) |
-| 401 | Unauthorized | [server.ErrorData](#servererrordata) |
-| 404 | Not Found | [server.ErrorData](#servererrordata) |
-| 500 | Internal Server Error | [server.ErrorData](#servererrordata) |
+| 401 | Unauthorized | [rst.ErrorData](#rsterrordata) |
+| 404 | Not Found | [rst.ErrorData](#rsterrordata) |
+| 500 | Internal Server Error | [rst.ErrorData](#rsterrordata) |
 
 ---
 ### /rabbit/logout
@@ -153,7 +153,7 @@ Listens for logout messages from auth.
 | ---- | ---- | ----------- | -------- |
 | image | string |  | Yes |
 
-#### server.ErrorData
+#### rst.ErrorData
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |

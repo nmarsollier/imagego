@@ -3,6 +3,7 @@ package rest
 import (
 	"fmt"
 
+	"github.com/gin-gonic/gin"
 	_ "github.com/nmarsollier/imagego/docs"
 	"github.com/nmarsollier/imagego/internal/env"
 	"github.com/nmarsollier/imagego/internal/rest/server"
@@ -10,12 +11,13 @@ import (
 
 // StartEngine Runs gin server
 func StartEngine() {
-	InitRoutes()
-	server.Router().Run(fmt.Sprintf(":%d", env.Get().Port))
+	engine := server.Router()
+	InitRoutes(engine)
+	engine.Run(fmt.Sprintf(":%d", env.Get().Port))
 }
 
-func InitRoutes() {
-	initGetImageId()
-	initGetImageIdJpeg()
-	initPostImage()
+func InitRoutes(engine *gin.Engine) {
+	initGetImageId(engine)
+	initGetImageIdJpeg(engine)
+	initPostImage(engine)
 }
