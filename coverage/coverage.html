@@ -203,19 +203,19 @@ const docTemplate = `{
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     }
                 }
@@ -273,19 +273,19 @@ const docTemplate = `{
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     }
                 }
@@ -345,19 +345,19 @@ const docTemplate = `{
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/server.ErrorData"
+                            "$ref": "#/definitions/rst.ErrorData"
                         }
                     }
                 }
@@ -449,7 +449,7 @@ const docTemplate = `{
                 }
             }
         },
-        "server.ErrorData": {
+        "rst.ErrorData": {
             "type": "object",
             "properties": {
                 "error": {
@@ -5813,9 +5813,9 @@ import (
 //        @Param                        imageID                        path                string                                true        "Image ID"
 //        @Success                200                                {object}        image.Image                        "Image Information"
 //        @Failure                400                                {object}        errs.ValidationErr        "Bad Request"
-//        @Failure                401                                {object}        server.ErrorData        "Unauthorized"
-//        @Failure                404                                {object}        server.ErrorData        "Not Found"
-//        @Failure                500                                {object}        server.ErrorData        "Internal Server Error"
+//        @Failure                401                                {object}        rst.ErrorData                "Unauthorized"
+//        @Failure                404                                {object}        rst.ErrorData                "Not Found"
+//        @Failure                500                                {object}        rst.ErrorData                "Internal Server Error"
 //        @Router                        /images/:imageID [get]
 //
 // Gets an image from the server in base64 format
@@ -5856,9 +5856,9 @@ import (
 //        @Param                        imageID                        path                string                                true        "Image ID"
 //        @Success                200                                {file}                jpeg                                "Image"
 //        @Failure                400                                {object}        errs.ValidationErr        "Bad Request"
-//        @Failure                401                                {object}        server.ErrorData        "Unauthorized"
-//        @Failure                404                                {object}        server.ErrorData        "Not Found"
-//        @Failure                500                                {object}        server.ErrorData        "Internal Server Error"
+//        @Failure                401                                {object}        rst.ErrorData                "Unauthorized"
+//        @Failure                404                                {object}        rst.ErrorData                "Not Found"
+//        @Failure                500                                {object}        rst.ErrorData                "Internal Server Error"
 //        @Router                        /images/:imageID/jpeg [get]
 //
 // Gets an image from the server in jpeg format.
@@ -5960,9 +5960,9 @@ import (
 //        @Param                        correlation_id        header                string                                true        "Logging Correlation Id"
 //        @Success                200                                {object}        NewImageResponse        "Image"
 //        @Failure                400                                {object}        errs.ValidationErr        "Bad Request"
-//        @Failure                401                                {object}        server.ErrorData        "Unauthorized"
-//        @Failure                404                                {object}        server.ErrorData        "Not Found"
-//        @Failure                500                                {object}        server.ErrorData        "Internal Server Error"
+//        @Failure                401                                {object}        rst.ErrorData                "Unauthorized"
+//        @Failure                404                                {object}        rst.ErrorData                "Not Found"
+//        @Failure                500                                {object}        rst.ErrorData                "Internal Server Error"
 //        @Router                        /images/create [post]
 //
 // Init initializes the route
