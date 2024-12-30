@@ -1,5 +1,5 @@
 mode: set
-github.com/nmarsollier/imagego/docs/docs.go:341.13,343.2 1 1
+github.com/nmarsollier/imagego/docs/docs.go:349.13,351.2 1 1
 github.com/nmarsollier/imagego/internal/di/injector.go:36.48,40.2 1 0
 github.com/nmarsollier/imagego/internal/di/injector.go:42.41,44.2 1 1
 github.com/nmarsollier/imagego/internal/di/injector.go:46.49,47.30 1 1

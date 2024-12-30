@@ -19,7 +19,13 @@ definitions:
       correlation_id:
         example: "123123"
         type: string
+      exchange:
+        example: Remote Exchange to Reply
+        type: string
       message:
+        type: string
+      routing_key:
+        example: Remote RoutingKey to Reply
         type: string
     type: object
   rest.NewImageResponse:
