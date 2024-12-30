@@ -7,11 +7,9 @@ import (
 	"github.com/nmarsollier/commongo/security"
 	"github.com/nmarsollier/imagego/internal/env"
 	"github.com/nmarsollier/imagego/internal/image"
-	"github.com/nmarsollier/imagego/internal/rabbit"
 )
 
 // Singletons
-var consumeLogout rabbit.ConsumeLogoutService
 var redisClient redisx.RedisClient
 var httpClient httpx.HTTPClient
 
@@ -23,7 +21,6 @@ type Injector interface {
 	ImageService() image.ImageService
 	SecurityRepository() security.SecurityRepository
 	SecurityService() security.SecurityService
-	ConsumeLogoutService() rabbit.ConsumeLogoutService
 }
 
 type Deps struct {
@@ -34,7 +31,6 @@ type Deps struct {
 	CurrImageSvc    image.ImageService
 	CurrSecRepo     security.SecurityRepository
 	CurrSecSvc      security.SecurityService
-	CurrConsume     rabbit.ConsumeLogoutService
 }
 
 func NewInjector(log log.LogRusEntry) Injector {
@@ -103,17 +99,4 @@ func (i *Deps) SecurityService() security.SecurityService {
 	}
 	i.CurrSecSvc = security.NewSecurityService(i.Logger(), i.SecurityRepository())
 	return i.CurrSecSvc
-}
-
-func (i *Deps) ConsumeLogoutService() rabbit.ConsumeLogoutService {
-	if i.CurrConsume != nil {
-		return i.CurrConsume
-	}
-
-	if consumeLogout != nil {
-		return consumeLogout
-	}
-
-	consumeLogout = rabbit.NewConsumeLogoutService(i.Logger(), i.SecurityService())
-	return consumeLogout
 }

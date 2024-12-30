@@ -7,24 +7,26 @@ import (
 
 // Configuration properties
 type Configuration struct {
+	ServerName        string `json:"serverName"`
 	Port              int    `json:"port"`
 	GqlPort           int    `json:"gqlPort"`
 	RabbitURL         string `json:"rabbitUrl"`
 	RedisURL          string `json:"redisUrl"`
 	SecurityServerURL string `json:"securityServerUrl"`
-	FluentUrl         string `json:"fluentUrl"`
+	FluentURL         string `json:"fluentUrl"`
 }
 
 var config *Configuration
 
 func new() *Configuration {
 	return &Configuration{
+		ServerName:        "imagego",
 		Port:              3001,
 		GqlPort:           4001,
 		RabbitURL:         "amqp://localhost",
 		RedisURL:          "localhost:6379",
 		SecurityServerURL: "http://localhost:3000",
-		FluentUrl:         "localhost:24224",
+		FluentURL:         "localhost:24224",
 	}
 }
 
@@ -40,6 +42,10 @@ func Get() *Configuration {
 // Load file properties
 func load() *Configuration {
 	result := new()
+
+	if value := os.Getenv("SERVER_NAME"); len(value) > 0 {
+		result.ServerName = value
+	}
 
 	if value := os.Getenv("REDIS_URL"); len(value) > 0 {
 		result.RedisURL = value
@@ -62,7 +68,7 @@ func load() *Configuration {
 	}
 
 	if value := os.Getenv("FLUENT_URL"); len(value) > 0 {
-		result.FluentUrl = value
+		result.FluentURL = value
 	}
 
 	if value := os.Getenv("AUTH_SERVICE_URL"); len(value) > 0 {

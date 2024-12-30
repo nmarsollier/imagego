@@ -9,7 +9,6 @@ import (
 	"github.com/nmarsollier/commongo/test/mktools"
 	"github.com/nmarsollier/imagego/internal/di"
 	"github.com/nmarsollier/imagego/internal/image"
-	"github.com/nmarsollier/imagego/internal/rabbit"
 )
 
 type TestInjector struct {
@@ -55,8 +54,4 @@ func (t *TestInjector) SetSecurityRepository(securityRepository security.Securit
 
 func (t *TestInjector) SetSecurityService(securityService security.SecurityService) {
 	t.CurrSecSvc = securityService
-}
-
-func (t *TestInjector) SetConsumeLogoutService(consumeLogoutService rabbit.ConsumeLogoutService) {
-	t.CurrConsume = consumeLogoutService
 }

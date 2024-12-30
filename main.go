@@ -5,6 +5,7 @@ import (
 	"github.com/nmarsollier/imagego/internal/di"
 	"github.com/nmarsollier/imagego/internal/env"
 	"github.com/nmarsollier/imagego/internal/graph"
+	"github.com/nmarsollier/imagego/internal/rabbit"
 	"github.com/nmarsollier/imagego/internal/rest"
 )
 
@@ -20,7 +21,7 @@ import (
 func main() {
 	go graph.Start()
 
-	di.NewInjector(log.Get(env.Get().FluentUrl, "imagego")).ConsumeLogoutService().Init()
+	rabbit.Init(di.NewInjector(log.Get(env.Get().FluentURL, env.Get().ServerName)))
 
 	rest.StartEngine()
 }
