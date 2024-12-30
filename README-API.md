@@ -101,17 +101,17 @@ Adds a new image to the server.
 #### GET
 ##### Summary
 
-Rabbit Message
+Mensage Rabbit logout
 
 ##### Description
 
-Listens for logout messages from auth.
+Escucha de mensajes logout desde auth.
 
 ##### Parameters
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ------ |
-| body | body | General message structure | Yes | [rabbit.message](#rabbitmessage) |
+| body | body | Estructura general del mensage | Yes | [rbt.InputMessage-string](#rbtinputmessage-string) |
 
 ##### Responses
 
@@ -134,12 +134,12 @@ Listens for logout messages from auth.
 | message | string |  | No |
 | path | string |  | No |
 
-#### rabbit.message
+#### rbt.InputMessage-string
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | correlation_id | string | *Example:* `"123123"` | No |
-| message | string | *Example:* `"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"` | No |
+| message | string |  | No |
 
 #### rest.NewImageResponse
 

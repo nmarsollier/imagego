@@ -57,9 +57,9 @@
 				
 				<option value="file0">github.com/nmarsollier/imagego/docs/docs.go (100.0%)</option>
 				
-				<option value="file1">github.com/nmarsollier/imagego/internal/di/injector.go (47.2%)</option>
+				<option value="file1">github.com/nmarsollier/imagego/internal/di/injector.go (56.7%)</option>
 				
-				<option value="file2">github.com/nmarsollier/imagego/internal/env/env.go (90.0%)</option>
+				<option value="file2">github.com/nmarsollier/imagego/internal/env/env.go (86.4%)</option>
 				
 				<option value="file3">github.com/nmarsollier/imagego/internal/graph/model/federation.go (0.0%)</option>
 				
@@ -89,7 +89,7 @@
 				
 				<option value="file16">github.com/nmarsollier/imagego/internal/image/service.go (86.5%)</option>
 				
-				<option value="file17">github.com/nmarsollier/imagego/internal/rabbit/consume_logout.go (0.0%)</option>
+				<option value="file17">github.com/nmarsollier/imagego/internal/rabbit/service.go (0.0%)</option>
 				
 				<option value="file18">github.com/nmarsollier/imagego/internal/rest/get_image_id.go (100.0%)</option>
 				
@@ -109,17 +109,15 @@
 				
 				<option value="file26">github.com/nmarsollier/imagego/main.go (0.0%)</option>
 				
-				<option value="file27">github.com/nmarsollier/imagego/test/mock/test_injector.go (40.0%)</option>
+				<option value="file27">github.com/nmarsollier/imagego/test/mock/test_injector.go (44.4%)</option>
 				
 				<option value="file28">github.com/nmarsollier/imagego/test/mock/test_tools.go (100.0%)</option>
 				
-				<option value="file29">github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go (0.0%)</option>
+				<option value="file29">github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go (0.0%)</option>
 				
-				<option value="file30">github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go (0.0%)</option>
+				<option value="file30">github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go (0.0%)</option>
 				
-				<option value="file31">github.com/nmarsollier/imagego/test/mockgen/image_service_mocks.go (0.0%)</option>
-				
-				<option value="file32">github.com/nmarsollier/imagego/test/rest/router.go (100.0%)</option>
+				<option value="file31">github.com/nmarsollier/imagego/test/rest/router.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -365,7 +363,7 @@ const docTemplate = `{
         },
         "/rabbit/logout": {
             "get": {
-                "description": "Listens for logout messages from auth.",
+                "description": "Escucha de mensajes logout desde auth.",
                 "consumes": [
                     "application/json"
                 ],
@@ -375,15 +373,15 @@ const docTemplate = `{
                 "tags": [
                     "Rabbit"
                 ],
-                "summary": "Rabbit Message",
+                "summary": "Mensage Rabbit logout",
                 "parameters": [
                     {
-                        "description": "General message structure",
+                        "description": "Estructura general del mensage",
                         "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/rabbit.message"
+                            "$ref": "#/definitions/rbt.InputMessage-string"
                         }
                     }
                 ],
@@ -414,7 +412,7 @@ const docTemplate = `{
                 }
             }
         },
-        "rabbit.message": {
+        "rbt.InputMessage-string": {
             "type": "object",
             "properties": {
                 "correlation_id": {
@@ -422,8 +420,7 @@ const docTemplate = `{
                     "example": "123123"
                 },
                 "message": {
-                    "type": "string",
-                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"
+                    "type": "string"
                 }
             }
         },
@@ -488,11 +485,9 @@ import (
         "github.com/nmarsollier/commongo/security"
         "github.com/nmarsollier/imagego/internal/env"
         "github.com/nmarsollier/imagego/internal/image"
-        "github.com/nmarsollier/imagego/internal/rabbit"
 )
 
 // Singletons
-var consumeLogout rabbit.ConsumeLogoutService
 var redisClient redisx.RedisClient
 var httpClient httpx.HTTPClient
 
@@ -504,7 +499,6 @@ type Injector interface {
         ImageService() image.ImageService
         SecurityRepository() security.SecurityRepository
         SecurityService() security.SecurityService
-        ConsumeLogoutService() rabbit.ConsumeLogoutService
 }
 
 type Deps struct {
@@ -515,7 +509,6 @@ type Deps struct {
         CurrImageSvc    image.ImageService
         CurrSecRepo     security.SecurityRepository
         CurrSecSvc      security.SecurityService
-        CurrConsume     rabbit.ConsumeLogoutService
 }
 
 func NewInjector(log log.LogRusEntry) Injector <span class="cov0" title="0">{
@@ -585,19 +578,6 @@ func (i *Deps) SecurityService() security.SecurityService <span class="cov8" tit
         <span class="cov8" title="1">i.CurrSecSvc = security.NewSecurityService(i.Logger(), i.SecurityRepository())
         return i.CurrSecSvc</span>
 }
-
-func (i *Deps) ConsumeLogoutService() rabbit.ConsumeLogoutService <span class="cov0" title="0">{
-        if i.CurrConsume != nil </span><span class="cov0" title="0">{
-                return i.CurrConsume
-        }</span>
-
-        <span class="cov0" title="0">if consumeLogout != nil </span><span class="cov0" title="0">{
-                return consumeLogout
-        }</span>
-
-        <span class="cov0" title="0">consumeLogout = rabbit.NewConsumeLogoutService(i.Logger(), i.SecurityService())
-        return consumeLogout</span>
-}
 </pre>
 		
 		<pre class="file" id="file2" style="display: none">package env
@@ -609,24 +589,26 @@ import (
 
 // Configuration properties
 type Configuration struct {
+        ServerName        string `json:"serverName"`
         Port              int    `json:"port"`
         GqlPort           int    `json:"gqlPort"`
         RabbitURL         string `json:"rabbitUrl"`
         RedisURL          string `json:"redisUrl"`
         SecurityServerURL string `json:"securityServerUrl"`
-        FluentUrl         string `json:"fluentUrl"`
+        FluentURL         string `json:"fluentUrl"`
 }
 
 var config *Configuration
 
 func new() *Configuration <span class="cov8" title="1">{
         return &amp;Configuration{
+                ServerName:        "imagego",
                 Port:              3001,
                 GqlPort:           4001,
                 RabbitURL:         "amqp://localhost",
                 RedisURL:          "localhost:6379",
                 SecurityServerURL: "http://localhost:3000",
-                FluentUrl:         "localhost:24224",
+                FluentURL:         "localhost:24224",
         }
 }</span>
 
@@ -643,7 +625,11 @@ func Get() *Configuration <span class="cov8" title="1">{
 func load() *Configuration <span class="cov8" title="1">{
         result := new()
 
-        if value := os.Getenv("REDIS_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
+        if value := os.Getenv("SERVER_NAME"); len(value) &gt; 0 </span><span class="cov0" title="0">{
+                result.ServerName = value
+        }</span>
+
+        <span class="cov8" title="1">if value := os.Getenv("REDIS_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
                 result.RedisURL = value
         }</span>
 
@@ -664,7 +650,7 @@ func load() *Configuration <span class="cov8" title="1">{
         }
 
         <span class="cov8" title="1">if value := os.Getenv("FLUENT_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
-                result.FluentUrl = value
+                result.FluentURL = value
         }</span>
 
         <span class="cov8" title="1">if value := os.Getenv("AUTH_SERVICE_URL"); len(value) &gt; 0 </span><span class="cov8" title="1">{
@@ -5292,7 +5278,7 @@ import (
 )
 
 func Start() <span class="cov0" title="0">{
-        logger := log.Get(env.Get().FluentUrl, "imagego")
+        logger := log.Get(env.Get().FluentURL, env.Get().ServerName)
         port := env.Get().GqlPort
         srv := handler.NewDefaultServer(model.NewExecutableSchema(model.Config{Resolvers: &amp;schema.Resolver{}}))
 
@@ -5394,7 +5380,7 @@ import (
 func newLogger(ctx context.Context) log.LogRusEntry <span class="cov0" title="0">{
         operationContext := graphql.GetOperationContext(ctx)
 
-        return log.Get(env.Get().FluentUrl, "imagego").
+        return log.Get(env.Get().FluentURL, env.Get().ServerName).
                 WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(ctx)).
                 WithField(log.LOG_FIELD_CONTROLLER, "GraphQL").
                 WithField(log.LOG_FIELD_HTTP_METHOD, operationContext.OperationName).
@@ -5637,164 +5623,54 @@ func buildSizeID(imageID string, size int) string <span class="cov8" title="1">{
 		<pre class="file" id="file17" style="display: none">package rabbit
 
 import (
-        "encoding/json"
-        "errors"
         "time"
 
         "github.com/nmarsollier/commongo/log"
-        "github.com/nmarsollier/commongo/security"
+        "github.com/nmarsollier/commongo/rbt"
+        "github.com/nmarsollier/imagego/internal/di"
         "github.com/nmarsollier/imagego/internal/env"
-        uuid "github.com/satori/go.uuid"
-        "github.com/streadway/amqp"
 )
 
-var ErrChannelNotInitialized = errors.New("channel not initialized")
+func Init(di di.Injector) <span class="cov0" title="0">{
+        logger := di.Logger()
 
-type ConsumeLogoutService interface {
-        Init()
-}
-
-func NewConsumeLogoutService(log log.LogRusEntry, secService security.SecurityService) ConsumeLogoutService <span class="cov0" title="0">{
-        return &amp;consumeLogoutService{
-                log:        log,
-                secService: secService,
-        }
-}</span>
-
-type consumeLogoutService struct {
-        log        log.LogRusEntry
-        secService security.SecurityService
-}
-
-//        @Summary                Rabbit Message
-//        @Description        Listens for logout messages from auth.
-//        @Tags                        Rabbit
-//        @Accept                        json
-//        @Produce                json
-//        @Param                        body        body        message        true        "General message structure"
-//        @Router                        /rabbit/logout [get]
-//
-// Listens for logout messages from auth.
-func (r *consumeLogoutService) Init() <span class="cov0" title="0">{
         go func() </span><span class="cov0" title="0">{
                 for </span><span class="cov0" title="0">{
-                        r.listenLogout()
-                        r.log.Info("RabbitMQ conectando en 5 segundos.")
-                        time.Sleep(5 * time.Second)
-                }</span>
-        }()
-}
+                        err := rbt.ConsumeRabbitEvent[string](
+                                env.Get().FluentURL,
+                                env.Get().RabbitURL,
+                                env.Get().ServerName,
+                                "auth",
+                                "fanout",
+                                "",
+                                "",
+                                processLogout,
+                        )
 
-func (r *consumeLogoutService) listenLogout() error <span class="cov0" title="0">{
-        logger := r.log.
-                WithField(log.LOG_FIELD_CONTROLLER, "Rabbit").
-                WithField(log.LOG_FIELD_RABBIT_QUEUE, "auth").
-                WithField(log.LOG_FIELD_RABBIT_EXCHANGE, "logout").
-                WithField(log.LOG_FIELD_RABBIT_ACTION, "Consume")
-
-        conn, err := amqp.Dial(env.Get().RabbitURL)
-        if err != nil </span><span class="cov0" title="0">{
-                logger.Error(err)
-                return err
-        }</span>
-        <span class="cov0" title="0">defer conn.Close()
-
-        chn, err := conn.Channel()
-        if err != nil </span><span class="cov0" title="0">{
-                logger.Error(err)
-                return err
-        }</span>
-        <span class="cov0" title="0">defer chn.Close()
-
-        err = chn.ExchangeDeclare(
-                "auth",   // name
-                "fanout", // type
-                false,    // durable
-                false,    // auto-deleted
-                false,    // internal
-                false,    // no-wait
-                nil,      // arguments
-        )
-        if err != nil </span><span class="cov0" title="0">{
-                logger.Error(err)
-                return err
-        }</span>
-
-        <span class="cov0" title="0">queue, err := chn.QueueDeclare(
-                "",    // name
-                false, // durable
-                false, // delete when unused
-                false, // exclusive
-                false, // no-wait
-                nil,   // arguments
-        )
-        if err != nil </span><span class="cov0" title="0">{
-                logger.Error(err)
-                return err
-        }</span>
-
-        <span class="cov0" title="0">err = chn.QueueBind(
-                queue.Name, // queue name
-                "",         // routing key
-                "auth",     // exchange
-                false,
-                nil)
-        if err != nil </span><span class="cov0" title="0">{
-                logger.Error(err)
-                return err
-        }</span>
-
-        <span class="cov0" title="0">mgs, err := chn.Consume(
-                queue.Name, // queue
-                "",         // consumer
-                true,       // auto-ack
-                false,      // exclusive
-                false,      // no-local
-                false,      // no-wait
-                nil,        // args
-        )
-        if err != nil </span><span class="cov0" title="0">{
-                logger.Error(err)
-                return err
-        }</span>
-
-        <span class="cov0" title="0">logger.Info("RabbitMQ conectado")
-
-        go func() </span><span class="cov0" title="0">{
-                for d := range mgs </span><span class="cov0" title="0">{
-                        newMessage := &amp;message{}
-                        body := d.Body
-                        logger.Info("Rabbit Consume : ", string(body))
-
-                        err = json.Unmarshal(body, newMessage)
-                        if err == nil </span><span class="cov0" title="0">{
-                                r.log.WithField(log.LOG_FIELD_CORRELATION_ID, getCorrelationId(newMessage))
-                                r.secService.Invalidate(newMessage.Message)
-                        }</span> else<span class="cov0" title="0"> {
+                        if err != nil </span><span class="cov0" title="0">{
                                 logger.Error(err)
                         }</span>
+                        <span class="cov0" title="0">logger.Info("RabbitMQ listenLogout conectando en 5 segundos.")
+                        time.Sleep(5 * time.Second)</span>
                 }
         }()
 
-        <span class="cov0" title="0">logger.Info("Closed connection: ", &lt;-conn.NotifyClose(make(chan *amqp.Error)))
-
-        return nil</span>
 }
 
-type message struct {
-        CorrelationId string `json:"correlation_id" example:"123123" `
-        Message       string `json:"message" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"`
-}
+//        @Summary                Mensage Rabbit logout
+//        @Description        Escucha de mensajes logout desde auth.
+//        @Tags                        Rabbit
+//        @Accept                        json
+//        @Produce                json
+//        @Param                        body        body        rbt.InputMessage[string]        true        "Estructura general del mensage"
+//        @Router                        /rabbit/logout [get]
+//
+// Escucha de mensajes logout desde auth.
+func processLogout(logger log.LogRusEntry, newMessage *rbt.InputMessage[string]) <span class="cov0" title="0">{
+        deps := di.NewInjector(logger)
 
-func getCorrelationId(c *message) string <span class="cov0" title="0">{
-        value := c.CorrelationId
-
-        if len(value) == 0 </span><span class="cov0" title="0">{
-                value = uuid.NewV4().String()
-        }</span>
-
-        <span class="cov0" title="0">return value</span>
-}
+        deps.SecurityService().Invalidate(newMessage.Message)
+}</span>
 </pre>
 		
 		<pre class="file" id="file18" style="display: none">package rest
@@ -6091,7 +5967,7 @@ func DiInjectorMiddleware() gin.HandlerFunc <span class="cov8" title="1">{
                 dep_param, exists := c.Get("di")
 
                 if !exists </span><span class="cov0" title="0">{
-                        logger := rst.GinLogger(c, env.Get().FluentUrl, "imagego")
+                        logger := rst.GinLogger(c, env.Get().FluentURL, env.Get().ServerName)
                         deps = di.NewInjector(logger)
                         c.Set("di", deps)
                 }</span> else<span class="cov8" title="1"> {
@@ -6160,6 +6036,7 @@ import (
         "github.com/nmarsollier/imagego/internal/di"
         "github.com/nmarsollier/imagego/internal/env"
         "github.com/nmarsollier/imagego/internal/graph"
+        "github.com/nmarsollier/imagego/internal/rabbit"
         "github.com/nmarsollier/imagego/internal/rest"
 )
 
@@ -6175,7 +6052,7 @@ import (
 func main() <span class="cov0" title="0">{
         go graph.Start()
 
-        di.NewInjector(log.Get(env.Get().FluentUrl, "imagego")).ConsumeLogoutService().Init()
+        rabbit.Init(di.NewInjector(log.Get(env.Get().FluentURL, env.Get().ServerName)))
 
         rest.StartEngine()
 }</span>
@@ -6192,7 +6069,6 @@ import (
         "github.com/nmarsollier/commongo/test/mktools"
         "github.com/nmarsollier/imagego/internal/di"
         "github.com/nmarsollier/imagego/internal/image"
-        "github.com/nmarsollier/imagego/internal/rabbit"
 )
 
 type TestInjector struct {
@@ -6239,10 +6115,6 @@ func (t *TestInjector) SetSecurityRepository(securityRepository security.Securit
 func (t *TestInjector) SetSecurityService(securityService security.SecurityService) <span class="cov0" title="0">{
         t.CurrSecSvc = securityService
 }</span>
-
-func (t *TestInjector) SetConsumeLogoutService(consumeLogoutService rabbit.ConsumeLogoutService) <span class="cov0" title="0">{
-        t.CurrConsume = consumeLogoutService
-}</span>
 </pre>
 		
 		<pre class="file" id="file28" style="display: none">package mock
@@ -6263,54 +6135,6 @@ func TestResizeImage() *image.Image <span class="cov8" title="1">{
 </pre>
 		
 		<pre class="file" id="file29" style="display: none">// Code generated by MockGen. DO NOT EDIT.
-// Source: ./internal/rabbit/consume_logout.go
-
-// Package mockgen is a generated GoMock package.
-package mockgen
-
-import (
-        reflect "reflect"
-
-        gomock "github.com/golang/mock/gomock"
-)
-
-// MockConsumeLogoutService is a mock of ConsumeLogoutService interface.
-type MockConsumeLogoutService struct {
-        ctrl     *gomock.Controller
-        recorder *MockConsumeLogoutServiceMockRecorder
-}
-
-// MockConsumeLogoutServiceMockRecorder is the mock recorder for MockConsumeLogoutService.
-type MockConsumeLogoutServiceMockRecorder struct {
-        mock *MockConsumeLogoutService
-}
-
-// NewMockConsumeLogoutService creates a new mock instance.
-func NewMockConsumeLogoutService(ctrl *gomock.Controller) *MockConsumeLogoutService <span class="cov0" title="0">{
-        mock := &amp;MockConsumeLogoutService{ctrl: ctrl}
-        mock.recorder = &amp;MockConsumeLogoutServiceMockRecorder{mock}
-        return mock
-}</span>
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockConsumeLogoutService) EXPECT() *MockConsumeLogoutServiceMockRecorder <span class="cov0" title="0">{
-        return m.recorder
-}</span>
-
-// Init mocks base method.
-func (m *MockConsumeLogoutService) Init() <span class="cov0" title="0">{
-        m.ctrl.T.Helper()
-        m.ctrl.Call(m, "Init")
-}</span>
-
-// Init indicates an expected call of Init.
-func (mr *MockConsumeLogoutServiceMockRecorder) Init() *gomock.Call <span class="cov0" title="0">{
-        mr.mock.ctrl.T.Helper()
-        return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Init", reflect.TypeOf((*MockConsumeLogoutService)(nil).Init))
-}</span>
-</pre>
-		
-		<pre class="file" id="file30" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/image/repository.go
 
 // Package mockgen is a generated GoMock package.
@@ -6391,7 +6215,7 @@ func (mr *MockImageRepositoryMockRecorder) ValidateSchema(image interface{}) *go
 }</span>
 </pre>
 		
-		<pre class="file" id="file31" style="display: none">// Code generated by MockGen. DO NOT EDIT.
+		<pre class="file" id="file30" style="display: none">// Code generated by MockGen. DO NOT EDIT.
 // Source: ./internal/image/service.go
 
 // Package mockgen is a generated GoMock package.
@@ -6458,7 +6282,7 @@ func (mr *MockImageServiceMockRecorder) Insert(image interface{}) *gomock.Call <
 }</span>
 </pre>
 		
-		<pre class="file" id="file32" style="display: none">package rest
+		<pre class="file" id="file31" style="display: none">package rest
 
 import (
         "github.com/gin-contrib/gzip"

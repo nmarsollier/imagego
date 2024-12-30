@@ -1,8 +1,4 @@
 mode: set
-github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go:25.85,29.2 3 0
-github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go:32.83,34.2 1 0
-github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go:37.43,40.2 2 0
-github.com/nmarsollier/imagego/test/mockgen/consume_logout_mocks.go:43.69,46.2 2 0
 github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go:26.75,30.2 3 0
 github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go:33.73,35.2 1 0
 github.com/nmarsollier/imagego/test/mockgen/image_repository_mocks.go:38.74,44.2 5 0

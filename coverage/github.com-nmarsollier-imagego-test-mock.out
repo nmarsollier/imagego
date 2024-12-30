@@ -1,13 +1,12 @@
 mode: set
-github.com/nmarsollier/imagego/test/mock/test_injector.go:21.17,30.2 2 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:32.55,34.2 1 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:36.71,38.2 1 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:40.67,42.2 1 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:44.82,46.2 1 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:48.73,50.2 1 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:52.94,54.2 1 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:56.85,58.2 1 0
-github.com/nmarsollier/imagego/test/mock/test_injector.go:60.98,62.2 1 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:20.17,29.2 2 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:31.55,33.2 1 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:35.71,37.2 1 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:39.67,41.2 1 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:43.82,45.2 1 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:47.73,49.2 1 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:51.94,53.2 1 0
+github.com/nmarsollier/imagego/test/mock/test_injector.go:55.85,57.2 1 0
 github.com/nmarsollier/imagego/test/mock/test_tools.go:5.31,7.2 1 0
 github.com/nmarsollier/imagego/test/mock/test_tools.go:9.38,11.2 1 0
 github.com/nmarsollier/imagego/test/mock/test_tools.go:13.37,15.2 1 0

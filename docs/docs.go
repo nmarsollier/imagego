@@ -230,7 +230,7 @@ const docTemplate = `{
         },
         "/rabbit/logout": {
             "get": {
-                "description": "Listens for logout messages from auth.",
+                "description": "Escucha de mensajes logout desde auth.",
                 "consumes": [
                     "application/json"
                 ],
@@ -240,15 +240,15 @@ const docTemplate = `{
                 "tags": [
                     "Rabbit"
                 ],
-                "summary": "Rabbit Message",
+                "summary": "Mensage Rabbit logout",
                 "parameters": [
                     {
-                        "description": "General message structure",
+                        "description": "Estructura general del mensage",
                         "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/rabbit.message"
+                            "$ref": "#/definitions/rbt.InputMessage-string"
                         }
                     }
                 ],
@@ -279,7 +279,7 @@ const docTemplate = `{
                 }
             }
         },
-        "rabbit.message": {
+        "rbt.InputMessage-string": {
             "type": "object",
             "properties": {
                 "correlation_id": {
@@ -287,8 +287,7 @@ const docTemplate = `{
                     "example": "123123"
                 },
                 "message": {
-                    "type": "string",
-                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklEIjoiNjZiNjBlYzhlMGYzYzY4OTUzMzJlOWNmIiwidXNlcklEIjoiNjZhZmQ3ZWU4YTBhYjRjZjQ0YTQ3NDcyIn0.who7upBctOpmlVmTvOgH1qFKOHKXmuQCkEjMV3qeySg"
+                    "type": "string"
                 }
             }
         },
